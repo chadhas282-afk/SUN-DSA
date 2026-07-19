@@ -158,3 +158,23 @@ button {
   font-size: 13px;
   color: var(--text-muted);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.titlebar-title { cursor: pointer; }
+.titlebar-title strong { color: var(--text-primary); font-weight: 600; }
+.titlebar-cursor {
+  display: inline-block;
+  width: 7px; height: 14px;
+  background: var(--accent-green);
+  margin-left: 2px;
+  vertical-align: -2px;
+  animation: blink 1.1s step-end infinite;
+}
+@media (prefers-reduced-motion: reduce) { .titlebar-cursor { animation: none; opacity: 1; } }
+.titlebar-spacer { flex: 1; }
+.sidebar-toggle {
+  display: none;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
