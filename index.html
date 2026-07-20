@@ -818,3 +818,23 @@
 
     .code-line .ln {
       flex-shrink: 0;
+      width: 38px;
+      text-align: right;
+      padding-right: 14px;
+      color: var(--text-dim);
+      user-select: none;
+    }
+
+    .code-line .code-text {
+      flex: 1;
+      padding-right: 16px;
+    }
+
+    .code-line.active-line {
+      background: var(--bg-elevated-2);
+      border-left-color: var(--accent-orange);
+    }
+
+    .code-line.active-line .ln {
+      color: var(--accent-orange);
+    }
