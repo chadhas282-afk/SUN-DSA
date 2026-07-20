@@ -738,3 +738,23 @@
     .console .msg {
       color: var(--text-primary);
     }
+
+    .console .cursor-blink {
+      display: inline-block;
+      width: 7px;
+      height: 13px;
+      background: var(--accent-green);
+      animation: blink 1.1s step-end infinite;
+      flex-shrink: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .console .cursor-blink {
+        animation: none;
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
