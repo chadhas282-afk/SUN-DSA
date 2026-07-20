@@ -238,3 +238,23 @@ button {
   text-align: left;
 }
 .tree-category-label:hover { color: var(--text-primary); background: var(--bg-elevated); }
+.tree-caret {
+  display: inline-block;
+  transition: transform var(--transition-fast);
+  font-size: 10px;
+  color: var(--text-dim);
+}
+.tree-category.collapsed .tree-caret { transform: rotate(-90deg); }
+.tree-category.collapsed .tree-items { display: none; }
+.tree-items { padding-left: 8px; }
+.tree-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  background: none;
+  border: none;
+  border-left: 2px solid transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
