@@ -278,3 +278,23 @@ button {
 }
 .main {
   flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  padding: 22px 28px 48px;
+}
+.breadcrumb {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+.breadcrumb .sep { margin: 0 6px; color: var(--border-bright); }
+.breadcrumb .current { color: var(--text-muted); }
+.breadcrumb-home { background: none; border: none; color: inherit; font: inherit; cursor: pointer; padding: 0; }
+.breadcrumb-home:hover { color: var(--accent-blue); }
+.topic-header h1 {
+  font-family: var(--font-mono);
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
