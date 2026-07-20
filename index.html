@@ -938,3 +938,63 @@
     }
 
     .catalogue-search input {
+      width: 100%;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-bright);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      padding: 12px 14px 12px 32px;
+      border-radius: var(--radius-md);
+      transition: border-color var(--transition-fast);
+    }
+
+    .catalogue-search input:focus {
+      border-color: var(--accent-blue);
+    }
+
+    .catalogue-search input::placeholder {
+      color: var(--text-dim);
+    }
+
+    .catalogue-group {
+      margin-bottom: 28px;
+    }
+
+    .catalogue-group-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--cat-color, var(--accent-blue));
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .catalogue-group-count {
+      font-size: 10.5px;
+      color: var(--text-dim);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-bright);
+      border-radius: 10px;
+      padding: 1px 7px;
+    }
+
+    .catalogue-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 12px;
+    }
+
+    .concept-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 13px 14px;
+      text-align: left;
+      transition: border-color var(--transition-fast), transform var(--transition-fast), background var(--transition-fast);
+      display: flex;
+      flex-direction: column;
