@@ -258,3 +258,23 @@ button {
   color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: 13px;
+  padding: 7px 10px 7px 14px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  text-align: left;
+  margin: 1px 0;
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+.tree-item-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--dot-color, var(--accent-blue));
+}
+.tree-item:hover { background: var(--bg-elevated); color: var(--text-primary); }
+.tree-item.active {
+  background: var(--bg-elevated-2);
+  color: var(--text-primary);
+  border-left-color: var(--accent-blue);
+}
+.main {
+  flex: 1;
