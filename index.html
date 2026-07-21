@@ -1458,3 +1458,23 @@
       border: 1px solid var(--border-bright);
       color: var(--text-primary);
       font-family: var(--font-mono);
+      font-size: 13px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .quiz-option:hover:not(:disabled) {
+      background: var(--bg-elevated-2);
+      border-color: var(--accent-blue);
+    }
+
+    .quiz-option:disabled {
+      cursor: default;
+    }
+
+    .quiz-option.quiz-correct {
+      border-color: var(--accent-green);
+      background: var(--accent-green-dim);
+      color: var(--accent-green);
