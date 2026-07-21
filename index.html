@@ -618,7 +618,7 @@
     .btn-play:hover:not(:disabled) {
       background: var(--accent-blue);
       color: #08131f;
-      }
+    }
 
     .speed-control {
       display: flex;
@@ -758,7 +758,7 @@
       50% {
         opacity: 0;
       }
-      }
+    }
 
     .code-tabs {
       display: flex;
@@ -998,7 +998,8 @@
       transition: border-color var(--transition-fast), transform var(--transition-fast), background var(--transition-fast);
       display: flex;
       flex-direction: column;
-      }
+      gap: 7px;
+    }
 
     .concept-card:hover {
       border-color: var(--card-color, var(--accent-blue));
@@ -1037,7 +1038,7 @@
       line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      }
+    }
 
     .concept-badges {
       display: flex;
@@ -1057,3 +1058,23 @@
 
     .catalogue-empty {
       font-family: var(--font-mono);
+      color: var(--text-dim);
+      font-size: 13px;
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .back-to-catalogue {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      cursor: pointer;
+      padding: 0;
+      margin-bottom: 14px;
+      display: inline-block;
+      transition: color var(--transition-fast);
+    }
+
+    .back-to-catalogue:hover {
