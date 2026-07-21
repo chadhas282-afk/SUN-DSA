@@ -1538,3 +1538,23 @@
         transition: transform var(--transition-med);
         box-shadow: 8px 0 24px rgba(0, 0, 0, 0.4);
       }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .scrim {
+        display: none;
+        position: fixed;
+        inset: 44px 0 0 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 35;
+      }
+
+      .scrim.open {
+        display: block;
+      }
+
+      .main {
+        padding: 18px 16px 40px;
+      }
