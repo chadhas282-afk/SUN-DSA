@@ -1178,3 +1178,23 @@
     .viz-visited {
       fill: var(--accent-purple-dim);
       stroke: var(--accent-purple);
+      }
+
+    .viz-dim {
+      opacity: 0.32;
+    }
+
+    .bar-group,
+    .box-group,
+    .tree-node-group,
+    .graph-node-group {
+      transition: transform var(--transition-med), opacity var(--transition-med);
+    }
+
+    .bar-rect,
+    .box-rect,
+    .tree-node {
+      transition: fill var(--transition-med), stroke var(--transition-med);
+    }
+
+    .bar-value,
