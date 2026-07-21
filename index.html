@@ -1238,3 +1238,23 @@
     }
 
     .arrowhead-fill {
+      fill: var(--text-dim);
+    }
+
+    .graph-edge {
+      stroke: var(--border-bright);
+      stroke-width: 2;
+      transition: stroke var(--transition-fast), stroke-width var(--transition-fast);
+    }
+
+    .graph-edge-active {
+      stroke: var(--accent-orange);
+      stroke-width: 3;
+    }
+
+    .tree-node {
+      stroke-width: 2;
+    }
+
+    .tree-node-label {
+      font-size: 11.5px;
