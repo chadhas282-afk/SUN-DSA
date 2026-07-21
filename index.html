@@ -1398,3 +1398,23 @@
       border: 1px solid var(--border-bright);
       border-radius: 20px;
       padding: 3px 11px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .controls-disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .quiz-panel {
+      background: var(--bg-panel);
+      border: 1px solid var(--accent-blue);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 0 0 3px var(--accent-blue-dim);
+      animation: quiz-in var(--transition-med);
+    }
+
+    @keyframes quiz-in {
