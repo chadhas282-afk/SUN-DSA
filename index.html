@@ -1337,3 +1337,24 @@
       fill: var(--accent-red);
       stroke: var(--accent-red);
     }
+
+    .learn-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-dim);
+      flex-shrink: 0;
+    }
+
+    .learn-toggle.active {
+      color: var(--accent-green);
+    }
+
+    .learn-toggle-label::before {
+      content: "learn_mode: ";
+    }
+
+    .learn-switch {
+      width: 36px;
