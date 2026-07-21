@@ -1418,3 +1418,23 @@
     }
 
     @keyframes quiz-in {
+      from {
+        opacity: 0;
+        transform: translateY(-4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .quiz-question {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
