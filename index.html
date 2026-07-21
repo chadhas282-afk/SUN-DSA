@@ -1358,3 +1358,23 @@
 
     .learn-switch {
       width: 36px;
+      height: 20px;
+      border-radius: 12px;
+      background: var(--bg-elevated-2);
+      border: 1px solid var(--border-bright);
+      position: relative;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .learn-switch::after {
+      content: "";
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--text-dim);
+      transition: transform var(--transition-fast), background var(--transition-fast);
