@@ -1818,3 +1818,23 @@
         id: "linked_list", category: "linear", name: "Linked List",
         desc: "A chain of nodes where each node points to the next, so insertion doesn't require shifting anything.",
         complexity: { time: "O(1) insert at head", space: "O(n)" },
+        vizType: "list",
+      },
+      {
+        id: "doubly_linked_list", category: "linear", name: "Doubly Linked List",
+        desc: "Like a linked list, but every node also points back to the previous one, so it can be walked in either direction.",
+        complexity: { time: "O(1) insert/delete at ends", space: "O(n)" },
+        vizType: "dlist",
+      },
+      {
+        id: "circular_queue", category: "linear", name: "Circular Queue",
+        desc: "A fixed-size queue that wraps its front and rear pointers back to the start, reusing freed slots instead of shifting.",
+        complexity: { time: "O(1) enqueue/dequeue", space: "O(n)" },
+        vizType: "cqueue",
+      },
+      {
+        id: "deque", category: "linear", name: "Deque",
+        desc: "A double-ended queue: values can be added or removed from both the front and the back.",
+        complexity: { time: "O(1) at both ends", space: "O(n)" },
+        vizType: "deque",
+      },
