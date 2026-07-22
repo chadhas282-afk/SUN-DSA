@@ -2058,3 +2058,23 @@ void mergeSort(vector<int>& arr, int lo, int hi) {
     merge(arr, lo, mid, hi);
 }`,
       },
+      quick_sort: {
+        python: `def quick_sort(arr, lo, hi):
+    if lo < hi:
+        p = partition(arr, lo, hi)
+        quick_sort(arr, lo, p - 1)
+        quick_sort(arr, p + 1, hi)
+def partition(arr, lo, hi):
+    pivot = arr[hi]                                # @phase:pivot
+    i = lo - 1
+    for j in range(lo, hi):
+        if arr[j] < pivot:                          # @phase:compare
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]         # @phase:swap
+    arr[i + 1], arr[hi] = arr[hi], arr[i + 1]       # @phase:placepivot
+    return i + 1`,
+        java: `static void quickSort(int[] arr, int lo, int hi) {
+    if (lo < hi) {
+        int p = partition(arr, lo, hi);
+        quickSort(arr, lo, p - 1);
+        quickSort(arr, p + 1, hi);
