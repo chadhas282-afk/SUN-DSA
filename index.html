@@ -1838,3 +1838,23 @@
         complexity: { time: "O(1) at both ends", space: "O(n)" },
         vizType: "deque",
       },
+      {
+        id: "bst", category: "trees", name: "Binary Search Tree",
+        desc: "Every node keeps smaller values to its left and larger values to its right, so search skips half the tree each step.",
+        complexity: { time: "O(log n) avg", space: "O(n)" },
+        vizType: "tree",
+      },
+      {
+        id: "heap", category: "trees", name: "Heap (Priority Queue)",
+        desc: "A complete binary tree where every parent is bigger than its children, keeping the largest value at the root at all times.",
+        complexity: { time: "O(log n) insert/extract", space: "O(n)" },
+        vizType: "heap",
+      },
+      {
+        id: "graph_bfs", category: "graphs", name: "Graph — BFS",
+        desc: "Explores a graph level by level using a queue, visiting every neighbor before going deeper.",
+        complexity: { time: "O(V + E)", space: "O(V)" },
+        vizType: "graph", graphAlgo: "bfs",
+      },
+      {
+        id: "graph_dfs", category: "graphs", name: "Graph — DFS",
