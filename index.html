@@ -1778,3 +1778,23 @@
         complexity: { time: "O(n)", space: "O(1)" },
         vizType: "array", algo: "linearSearchSteps", needsTarget: true,
       },
+      {
+        id: "binary_search", category: "searching", name: "Binary Search",
+        desc: "Repeatedly halves a sorted array, jumping straight to whichever side the target must be in.",
+        complexity: { time: "O(log n)", space: "O(1)" },
+        vizType: "array", algo: "binarySearchSteps", needsTarget: true, requiresSorted: true,
+      },
+      {
+        id: "two_pointers", category: "arrays", name: "Two Pointers",
+        desc: "Walks two markers toward each other across a sorted array to find a pair that adds up to a target.",
+        complexity: { time: "O(n)", space: "O(1)" },
+        vizType: "array", algo: "twoPointerSteps", needsTarget: true, requiresSorted: true,
+      },
+      {
+        id: "sliding_window", category: "arrays", name: "Sliding Window",
+        desc: "Slides a fixed-size window across the array, updating a running sum instead of recomputing it from scratch.",
+        complexity: { time: "O(n)", space: "O(1)" },
+        vizType: "array", algo: "slidingWindowSteps", needsWindow: true,
+      },
+      {
+        id: "kadane", category: "arrays", name: "Kadane's Algorithm",
