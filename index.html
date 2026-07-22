@@ -1998,3 +1998,23 @@ cpp: `void insertionSort(vector<int>& arr) {
     merge_sort(arr, lo, mid)                      # @phase:split
     merge_sort(arr, mid + 1, hi)                  # @phase:split
     merge(arr, lo, mid, hi)
+    def merge(arr, lo, mid, hi):
+    left = arr[lo:mid + 1]
+    right = arr[mid + 1:hi + 1]
+    i = j = 0
+    k = lo
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:                    # @phase:compare
+            arr[k] = left[i]                        # @phase:overwrite
+            i += 1
+        else:
+            arr[k] = right[j]                       # @phase:overwrite
+            j += 1
+        k += 1
+    while i < len(left):
+        arr[k] = left[i]; i += 1; k += 1            # @phase:overwrite
+    while j < len(right):
+        arr[k] = right[j]; j += 1; k += 1           # @phase:overwrite`,
+        java: `static void mergeSort(int[] arr, int lo, int hi) {
+    if (lo >= hi) return;
+    int mid = (lo + hi) / 2;
