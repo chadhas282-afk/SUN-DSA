@@ -1858,3 +1858,23 @@
       },
       {
         id: "graph_dfs", category: "graphs", name: "Graph — DFS",
+        desc: "Explores a graph by diving as deep as possible down one path using a stack, then backtracking.",
+        complexity: { time: "O(V + E)", space: "O(V)" },
+        vizType: "graph", graphAlgo: "dfs",
+      },
+      {
+        id: "dijkstra", category: "graphs", name: "Dijkstra's Algorithm",
+        desc: "Finds the shortest path from a start node to every other node by always expanding the closest unvisited node next.",
+        complexity: { time: "O(V\u00B2) simple", space: "O(V)" },
+        vizType: "graph", graphAlgo: "dijkstra",
+      },
+      {
+        id: "tower_of_hanoi", category: "recursion", name: "Tower of Hanoi",
+        desc: "Move a stack of disks from one peg to another, one at a time, never placing a bigger disk on a smaller one.",
+        complexity: { time: "O(2\u207F)", space: "O(n)" },
+        vizType: "hanoi",
+      },
+      {
+        id: "recursion", category: "recursion", name: "Recursion (Fibonacci)",
+        desc: "Watches the call tree of recursive fibonacci(n) unfold live \u2014 every call shown as a node, resolving bottom-up.",
+        complexity: { time: "O(2\u207F) naive", space: "O(n) call stack" },
