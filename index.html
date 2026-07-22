@@ -1878,3 +1878,23 @@
         id: "recursion", category: "recursion", name: "Recursion (Fibonacci)",
         desc: "Watches the call tree of recursive fibonacci(n) unfold live \u2014 every call shown as a node, resolving bottom-up.",
         complexity: { time: "O(2\u207F) naive", space: "O(n) call stack" },
+        vizType: "recursion",
+      },
+    ];
+    const TOPIC_BY_ID = {};
+    TOPICS.forEach(t => { TOPIC_BY_ID[t.id] = t; });
+    const LANGS = [
+      { id: "python", label: "python", ext: ".py", hljs: "python", color: "#6ab0f3" },
+      { id: "java", label: "java", ext: ".java", hljs: "java", color: "#ffa759" },
+      { id: "cpp", label: "cpp", ext: ".cpp", hljs: "cpp", color: "#d2a8ff" },
+    ];
+    const CODE = {
+      bubble_sort: {
+        python: `def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:                     # @phase:compare
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]  # @phase:swap
+    return arr`,
+        java: `static void bubbleSort(int[] arr) {
