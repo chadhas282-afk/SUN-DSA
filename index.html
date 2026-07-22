@@ -2138,3 +2138,23 @@ void quickSort(vector<int>& arr, int lo, int hi) {
       binary_search: {
         python: `def binary_search(arr, target):
     lo, hi = 0, len(arr) - 1   
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if arr[mid] == target:                        # @phase:compare
+            return mid                                  # @phase:found
+        elif arr[mid] < target:
+            lo = mid + 1                                # @phase:range
+        else:
+            hi = mid - 1                                # @phase:range
+    return -1                                           # @phase:notfound`,
+        java: `static int binarySearch(int[] arr, int target) {
+    int lo = 0, hi = arr.length - 1;
+    while (lo <= hi) {
+        int mid = (lo + hi) / 2;
+        if (arr[mid] == target) {                       // @phase:compare
+            return mid;                                   // @phase:found
+        } else if (arr[mid] < target) {
+            lo = mid + 1;                                 // @phase:range
+        } else {
+            hi = mid - 1;                                 // @phase:range
+        }
