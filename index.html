@@ -2117,4 +2117,24 @@ void quickSort(vector<int>& arr, int lo, int hi) {
     for i in range(len(arr)):
         if arr[i] == target:                        # @phase:compare
             return i                                 # @phase:found
-    return -1                     
+    return -1                                        # @phase:notfound`,
+        java: `static int linearSearch(int[] arr, int target) {
+    for (int i = 0; i < arr.length; i++) {
+        if (arr[i] == target) {                       // @phase:compare
+            return i;                                  // @phase:found
+        }
+    }
+    return -1;                                         // @phase:notfound
+}`,
+        cpp: `int linearSearch(vector<int>& arr, int target) {
+    for (int i = 0; i < (int)arr.size(); i++) {
+        if (arr[i] == target) {                        // @phase:compare
+            return i;                                   // @phase:found
+        }
+    }
+    return -1;                                          // @phase:notfound
+}`,
+      },
+      binary_search: {
+        python: `def binary_search(arr, target):
+    lo, hi = 0, len(arr) - 1   
