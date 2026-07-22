@@ -2018,3 +2018,23 @@ cpp: `void insertionSort(vector<int>& arr) {
         java: `static void mergeSort(int[] arr, int lo, int hi) {
     if (lo >= hi) return;
     int mid = (lo + hi) / 2;
+    mergeSort(arr, lo, mid);                        // @phase:split
+    mergeSort(arr, mid + 1, hi);                    // @phase:split
+    merge(arr, lo, mid, hi);
+}
+static void merge(int[] arr, int lo, int mid, int hi) {
+    int[] left = Arrays.copyOfRange(arr, lo, mid + 1);
+    int[] right = Arrays.copyOfRange(arr, mid + 1, hi + 1);
+    int i = 0, j = 0, k = lo;
+    while (i < left.length && j < right.length) {
+        if (left[i] <= right[j]) {                  // @phase:compare
+            arr[k++] = left[i++];                    // @phase:overwrite
+        } else {
+            arr[k++] = right[j++];                   // @phase:overwrite
+        }
+    }
+    while (i < left.length) arr[k++] = left[i++];    // @phase:overwrite
+    while (j < right.length) arr[k++] = right[j++];  // @phase:overwrite
+}`,
+        cpp: `void merge(vector<int>& arr, int lo, int mid, int hi) {
+    vector<int> left(arr.begin() + lo, arr.begin() + mid + 1);
