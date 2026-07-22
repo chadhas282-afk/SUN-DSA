@@ -2178,3 +2178,23 @@ void quickSort(vector<int>& arr, int lo, int hi) {
       },
       stack: {
         python: `class Stack:
+        def __init__(self):
+        self.items = []
+    def push(self, value):
+        self.items.append(value)                     # @phase:push
+    def pop(self):
+        if self.is_empty():
+            raise IndexError("pop from empty stack")  # @phase:empty
+        return self.items.pop()                       # @phase:pop
+    def peek(self):
+        return self.items[-1]                          # @phase:peek
+    def is_empty(self):
+        return len(self.items) == 0`,
+        java: `class Stack {
+    private List<Integer> items = new ArrayList<>();
+    void push(int value) {
+        items.add(value);                               // @phase:push
+    }
+    int pop() {
+        if (isEmpty()) throw new RuntimeException("Stack is empty"); // @phase:empty
+        return items.remove(items.size() - 1);           // @phase:pop
