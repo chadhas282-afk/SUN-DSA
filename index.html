@@ -1618,3 +1618,23 @@
 </head>
 
 <body>
+  <div id="app">
+    <div id="loadingScreen">
+      <div class="welcome-window"
+        style="text-align: center; width: 90%; max-width: 600px; padding: clamp(20px, 5vw, 40px); background: var(--bg-panel); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: 0 20px 60px rgba(0,0,0,0.5); box-sizing: border-box;">
+        <img src="logo.png" alt="SUN Visualizer Logo"
+          style="width: 150px; height: 150px; border-radius: 20%; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+        <h1 style="font-family: var(--font-mono); font-size: 32px; color: var(--accent-blue); margin-bottom: 20px;">SUN
+          Visualizer</h1>
+        <p style="font-size: 16px; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px;">
+          A comprehensive tool to learn data structures and algorithms with live animations. Watch algorithms think, one
+          step at a time, with matching code that highlights the exact line running.
+        </p>
+        <button id="btnStartApp"
+          style="background: var(--accent-green-dim); border: 1px solid var(--accent-green); color: var(--accent-green); font-family: var(--font-mono); font-size: 16px; font-weight: bold; padding: 12px 24px; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s;">
+          Explore Concepts
+        </button>
+      </div>
+    </div>
+    <div id="transitionScreen"
+      style="display: none; position: fixed; inset: 0; z-index: 150; background: var(--bg-void); align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 20px; box-sizing: border-box;">
