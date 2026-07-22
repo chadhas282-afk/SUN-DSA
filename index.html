@@ -1978,3 +1978,23 @@
         arr[j + 1] = key;                          // @phase:place
     }
 }`,
+cpp: `void insertionSort(vector<int>& arr) {
+    for (int i = 1; i < (int)arr.size(); i++) {
+        int key = arr[i];                          // @phase:current
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {           // @phase:compare
+            arr[j + 1] = arr[j];                    // @phase:shift
+            j--;
+        }
+        arr[j + 1] = key;                           // @phase:place
+    }
+}`,
+      },
+      merge_sort: {
+        python: `def merge_sort(arr, lo, hi):
+    if lo >= hi:
+        return
+    mid = (lo + hi) // 2
+    merge_sort(arr, lo, mid)                      # @phase:split
+    merge_sort(arr, mid + 1, hi)                  # @phase:split
+    merge(arr, lo, mid, hi)
