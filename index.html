@@ -1598,3 +1598,23 @@
       }
 
       .field-inline input[type=text],
+      .field-inline input[type=number] {
+        width: 100% !important;
+        flex: 1;
+      }
+
+      .catalogue-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition-duration: 0.001ms !important;
+        animation-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
