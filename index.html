@@ -1798,3 +1798,23 @@
       },
       {
         id: "kadane", category: "arrays", name: "Kadane's Algorithm",
+        desc: "Finds the maximum-sum contiguous subarray by deciding, at each step, whether to extend the current run or restart.",
+        complexity: { time: "O(n)", space: "O(1)" },
+        vizType: "array", algo: "kadaneSteps", allowNegative: true,
+      },
+      {
+        id: "stack", category: "linear", name: "Stack",
+        desc: "A last-in, first-out structure: values go on and come off from the same end, the top.",
+        complexity: { time: "O(1) push/pop", space: "O(n)" },
+        vizType: "stack",
+      },
+      {
+        id: "queue", category: "linear", name: "Queue",
+        desc: "A first-in, first-out structure: values join at the rear and leave from the front.",
+        complexity: { time: "O(1) enqueue/dequeue", space: "O(n)" },
+        vizType: "queue",
+      },
+      {
+        id: "linked_list", category: "linear", name: "Linked List",
+        desc: "A chain of nodes where each node points to the next, so insertion doesn't require shifting anything.",
+        complexity: { time: "O(1) insert at head", space: "O(n)" },
