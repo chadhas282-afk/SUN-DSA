@@ -1638,3 +1638,23 @@
     </div>
     <div id="transitionScreen"
       style="display: none; position: fixed; inset: 0; z-index: 150; background: var(--bg-void); align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 20px; box-sizing: border-box;">
+      <div style="position: relative; width: 120px; height: 120px; margin-bottom: 24px;">
+        <img src="logo.png"
+          style="position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 20%; filter: grayscale(1) opacity(0.3);">
+        <img id="logoFill" src="logo.png"
+          style="position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 20%; box-shadow: 0 10px 30px rgba(0,0,0,0.3); clip-path: inset(100% 0 0 0);">
+      </div>
+      <h2 style="font-family: var(--font-mono); font-size: 22px; color: var(--text-primary); margin-bottom: 20px;">SUN
+        is designing algorithm...</h2>
+    </div>
+    <div id="mainShell">
+      <div class="titlebar">
+        <div class="titlebar-dots"><span></span><span></span><span></span></div>
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle menu"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg></button>
+        <div class="titlebar-title" id="titlebarHome"><strong>sun_visualizer</strong>.run()<span
+            class="titlebar-cursor"></span></div>
