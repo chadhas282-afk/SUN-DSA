@@ -1758,3 +1758,23 @@
         id: "insertion_sort", category: "sorting", name: "Insertion Sort",
         desc: "Builds a sorted region on the left by picking up the next value and sliding it into its correct place.",
         complexity: { time: "O(n\u00B2)", space: "O(1)", stable: true },
+         vizType: "array", algo: "insertionSortSteps",
+      },
+      {
+        id: "merge_sort", category: "sorting", name: "Merge Sort",
+        desc: "Splits the array in half recursively, then merges the sorted halves back together in order.",
+        complexity: { time: "O(n log n)", space: "O(n)", stable: true },
+        vizType: "array", algo: "mergeSortSteps",
+      },
+      {
+        id: "quick_sort", category: "sorting", name: "Quick Sort",
+        desc: "Picks a pivot, partitions everything smaller to its left and bigger to its right, then repeats on each side.",
+        complexity: { time: "O(n log n)", space: "O(log n)", stable: false },
+        vizType: "array", algo: "quickSortSteps",
+      },
+      {
+        id: "linear_search", category: "searching", name: "Linear Search",
+        desc: "Checks every element in order until the target is found or the array runs out.",
+        complexity: { time: "O(n)", space: "O(1)" },
+        vizType: "array", algo: "linearSearchSteps", needsTarget: true,
+      },
