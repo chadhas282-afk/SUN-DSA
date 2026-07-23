@@ -2498,3 +2498,23 @@ class BST {
         return node;
     }
 public:
+void insert(int value) { root = insertNode(root, value); }
+    bool search(int value) {
+        Node* cur = root;
+        while (cur) {
+            if (value == cur->value) return true;                      // @phase:found
+            cur = value < cur->value ? cur->left : cur->right;           // @phase:compare
+        }
+        return false;
+    }
+    void inorder(Node* node, vector<int>& out) {
+        if (!node) return;
+        inorder(node->left, out);
+        out.push_back(node->value);                                     // @phase:visit
+        inorder(node->right, out);
+    }
+};`,
+      },
+      graph_bfs: {
+        python: `from collections import deque
+class Graph:
