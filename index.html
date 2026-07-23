@@ -2418,3 +2418,23 @@ public:
       bst: {
         python: `class Node:
     def __init__(self, value):
+    self.value = value
+        self.left = None
+        self.right = None
+class BST:
+    def __init__(self):
+        self.root = None
+    def insert(self, value):
+        self.root = self._insert(self.root, value)
+    def _insert(self, node, value):
+        if node is None:
+            return Node(value)                              # @phase:insert
+        if value < node.value:                                # @phase:compare
+            node.left = self._insert(node.left, value)
+        elif value > node.value:                              # @phase:compare
+            node.right = self._insert(node.right, value)
+        return node
+    def search(self, value):
+        cur = self.root
+        while cur:
+            if value == cur.value:                            # @phase:found
