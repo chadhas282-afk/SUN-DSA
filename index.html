@@ -2198,3 +2198,23 @@ void quickSort(vector<int>& arr, int lo, int hi) {
     int pop() {
         if (isEmpty()) throw new RuntimeException("Stack is empty"); // @phase:empty
         return items.remove(items.size() - 1);           // @phase:pop
+        }
+    int peek() {
+        return items.get(items.size() - 1);               // @phase:peek
+    }
+    boolean isEmpty() {
+        return items.isEmpty();
+    }
+}`,
+        cpp: `class Stack {
+    vector<int> items;
+public:
+    void push(int value) {
+        items.push_back(value);                          // @phase:push
+    }
+    int pop() {
+        if (isEmpty()) throw runtime_error("Stack is empty"); // @phase:empty
+        int top = items.back();
+        items.pop_back();                                  // @phase:pop
+        return top;
+    }
