@@ -2298,3 +2298,23 @@ class LinkedList:
             cur = cur.next
         cur.next = node                                   # @phase:insert_tail
     def delete(self, value):
+    if not self.head:
+            return
+        if self.head.value == value:                      # @phase:search
+            self.head = self.head.next                     # @phase:delete
+            return
+        cur = self.head
+        while cur.next and cur.next.value != value:        # @phase:search
+            cur = cur.next
+        if cur.next:
+            cur.next = cur.next.next                        # @phase:delete
+    def search(self, value):
+        cur = self.head
+        while cur:
+            if cur.value == value:                          # @phase:search
+                return True
+            cur = cur.next                                   # @phase:traverse
+        return False`,
+        java: `class Node {
+    int value;
+    Node next;
