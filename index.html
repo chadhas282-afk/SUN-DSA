@@ -2618,3 +2618,23 @@ public:
             }
         }
     }
+        }`,
+        cpp: `class Graph {
+    unordered_map<int, vector<int>> adj;
+public:
+    void addEdge(int u, int v) {
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    void dfs(int node, unordered_set<int>& visited, vector<int>& order) {
+        visited.insert(node);                                              // @phase:visit
+        order.push_back(node);
+        for (int neighbor : adj[node]) {                                     // @phase:neighbor
+            if (!visited.count(neighbor)) {
+                dfs(neighbor, visited, order);                                  // @phase:recurse
+            }
+        }
+    }
+};`,
+      },
+      two_pointers: {
