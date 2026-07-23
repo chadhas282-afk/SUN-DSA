@@ -2558,3 +2558,23 @@ def __init__(self):
             }
         }
         return order;
+        }
+}`,
+        cpp: `class Graph {
+    unordered_map<int, vector<int>> adj;
+public:
+    void addEdge(int u, int v) {
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    vector<int> bfs(int start) {
+        unordered_set<int> visited;
+        queue<int> q;
+        visited.insert(start);                                       // @phase:visit
+        q.push(start);                                                 // @phase:enqueue
+        vector<int> order;
+        while (!q.empty()) {
+            int node = q.front(); q.pop();                              // @phase:dequeue
+            order.push_back(node);
+            for (int neighbor : adj[node]) {                             // @phase:neighbor
+                if (!visited.count(neighbor)) {
