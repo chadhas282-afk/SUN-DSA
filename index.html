@@ -2678,3 +2678,23 @@ public:
     return {-1, -1};                                          // @phase:notfound
 }`,
       },
+      sliding_window: {
+        python: `def max_sum_subarray(arr, k):
+    window_sum = sum(arr[:k])                          # @phase:window
+    best = window_sum
+    for end in range(k, len(arr)):
+        window_sum += arr[end] - arr[end - k]           # @phase:slide
+        if window_sum > best:
+            best = window_sum                            # @phase:newmax
+    return best`,
+        java: `static int maxSumSubarray(int[] arr, int k) {
+    int windowSum = 0;
+    for (int i = 0; i < k; i++) windowSum += arr[i];     // @phase:window
+    int best = windowSum;
+    for (int end = k; end < arr.length; end++) {
+        windowSum += arr[end] - arr[end - k];             // @phase:slide
+        if (windowSum > best) {
+            best = windowSum;                               // @phase:newmax
+        }
+    }
+    return best;
