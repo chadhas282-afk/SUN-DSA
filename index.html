@@ -2538,3 +2538,23 @@ def __init__(self):
         java: `class Graph {
     Map<Integer, List<Integer>> adj = new HashMap<>();
     void addEdge(int u, int v) {
+    adj.computeIfAbsent(u, k -> new ArrayList<>()).add(v);
+        adj.computeIfAbsent(v, k -> new ArrayList<>()).add(u);
+    }
+    List<Integer> bfs(int start) {
+        Set<Integer> visited = new HashSet<>();
+        Queue<Integer> queue = new LinkedList<>();
+        visited.add(start);                                        // @phase:visit
+        queue.add(start);                                            // @phase:enqueue
+        List<Integer> order = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            int node = queue.poll();                                  // @phase:dequeue
+            order.add(node);
+            for (int neighbor : adj.getOrDefault(node, new ArrayList<>())) { // @phase:neighbor
+                if (!visited.contains(neighbor)) {
+                    visited.add(neighbor);                               // @phase:visit
+                    queue.add(neighbor);                                  // @phase:enqueue
+                }
+            }
+        }
+        return order;
