@@ -2378,3 +2378,23 @@ public:
     void insertAtTail(int value) {
         Node* node = new Node(value);
         if (!head) {
+        head = node;                                          // @phase:insert_tail
+            return;
+        }
+        Node* cur = head;
+        while (cur->next) {                                       // @phase:traverse
+            cur = cur->next;
+        }
+        cur->next = node;                                         // @phase:insert_tail
+    }
+    void deleteValue(int value) {
+        if (!head) return;
+        if (head->value == value) {                                // @phase:search
+            Node* temp = head;
+            head = head->next;                                      // @phase:delete
+            delete temp;
+            return;
+        }
+        Node* cur = head;
+        while (cur->next && cur->next->value != value) {            // @phase:search
+            cur = cur->next;
