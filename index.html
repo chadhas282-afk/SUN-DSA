@@ -2458,3 +2458,23 @@ class BST {
     }
     private Node insert(Node node, int value) {
         if (node == null) return new Node(value);              // @phase:insert
+        if (value < node.value) {                                // @phase:compare
+            node.left = insert(node.left, value);
+        } else if (value > node.value) {                         // @phase:compare
+            node.right = insert(node.right, value);
+        }
+        return node;
+    }
+    boolean search(int value) {
+        Node cur = root;
+        while (cur != null) {
+            if (value == cur.value) return true;                  // @phase:found
+            cur = value < cur.value ? cur.left : cur.right;         // @phase:compare
+        }
+        return false;
+    }
+    void inorder(Node node, List<Integer> out) {
+        if (node == null) return;
+        inorder(node.left, out);
+        out.add(node.value);                                        // @phase:visit
+        inorder(node.right, out);
