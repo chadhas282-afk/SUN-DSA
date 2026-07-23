@@ -2238,3 +2238,23 @@ public:
         return self.items.pop(0)                         # @phase:dequeue
     def peek(self):
         return self.items[0]                              # @phase:peek
+         def is_empty(self):
+        return len(self.items) == 0`,
+        java: `class Queue {
+    private LinkedList<Integer> items = new LinkedList<>();
+    void enqueue(int value) {
+        items.addLast(value);                            // @phase:enqueue
+    }
+    int dequeue() {
+        if (isEmpty()) throw new RuntimeException("Queue is empty"); // @phase:empty
+        return items.removeFirst();                       // @phase:dequeue
+    }
+    int peek() {
+        return items.getFirst();                           // @phase:peek
+    }
+    boolean isEmpty() {
+        return items.isEmpty();
+    }
+}`,
+        cpp: `class Queue {
+    deque<int> items;
