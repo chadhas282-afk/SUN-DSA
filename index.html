@@ -2398,3 +2398,23 @@ public:
         Node* cur = head;
         while (cur->next && cur->next->value != value) {            // @phase:search
             cur = cur->next;
+            }
+        if (cur->next) {
+            Node* temp = cur->next;
+            cur->next = cur->next->next;                             // @phase:delete
+            delete temp;
+        }
+    }
+    bool search(int value) {
+        Node* cur = head;
+        while (cur) {
+            if (cur->value == value) return true;                    // @phase:search
+            cur = cur->next;                                          // @phase:traverse
+        }
+        return false;
+    }
+};`,
+      },
+      bst: {
+        python: `class Node:
+    def __init__(self, value):
