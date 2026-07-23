@@ -2778,3 +2778,23 @@ class DoublyLinkedList:
         self.tail = node                                  # @phase:insert_tail
     def delete(self, value):
         cur = self.head
+         while cur and cur.value != value:                 # @phase:search
+            cur = cur.next
+        if not cur:
+            return
+        if cur.prev:
+            cur.prev.next = cur.next                        # @phase:delete
+        else:
+            self.head = cur.next
+        if cur.next:
+            cur.next.prev = cur.prev                         # @phase:delete
+        else:
+            self.tail = cur.prev`,
+        java: `class Node {
+    int value;
+    Node prev, next;
+    Node(int value) { this.value = value; }
+}
+class DoublyLinkedList {
+    Node head, tail;
+    void insertAtHead(int value) {
