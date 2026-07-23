@@ -2358,3 +2358,23 @@ class LinkedList {
         while (cur != null) {
             if (cur.value == value) return true;                 // @phase:search
             cur = cur.next;                                       // @phase:traverse
+            }
+        return false;
+    }
+}`,
+        cpp: `struct Node {
+    int value;
+    Node* next;
+    Node(int v) : value(v), next(nullptr) {}
+};
+class LinkedList {
+    Node* head = nullptr;
+public:
+    void insertAtHead(int value) {
+        Node* node = new Node(value);
+        node->next = head;                                       // @phase:insert_head
+        head = node;                                              // @phase:insert_head
+    }
+    void insertAtTail(int value) {
+        Node* node = new Node(value);
+        if (!head) {
