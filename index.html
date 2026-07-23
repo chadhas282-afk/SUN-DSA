@@ -2218,3 +2218,23 @@ public:
         items.pop_back();                                  // @phase:pop
         return top;
     }
+        int peek() {
+        return items.back();                                // @phase:peek
+    }
+    bool isEmpty() {
+        return items.empty();
+    }
+};`,
+      },
+      queue: {
+        python: `class Queue:
+    def __init__(self):
+        self.items = []
+    def enqueue(self, value):
+        self.items.append(value)                       # @phase:enqueue
+    def dequeue(self):
+        if self.is_empty():
+            raise IndexError("dequeue from empty queue") # @phase:empty
+        return self.items.pop(0)                         # @phase:dequeue
+    def peek(self):
+        return self.items[0]                              # @phase:peek
