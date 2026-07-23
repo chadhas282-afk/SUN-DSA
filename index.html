@@ -2698,3 +2698,23 @@ public:
         }
     }
     return best;
+    }`,
+        cpp: `int maxSumSubarray(vector<int>& arr, int k) {
+    int windowSum = 0;
+    for (int i = 0; i < k; i++) windowSum += arr[i];      // @phase:window
+    int best = windowSum;
+    for (int end = k; end < (int)arr.size(); end++) {
+        windowSum += arr[end] - arr[end - k];              // @phase:slide
+        if (windowSum > best) {
+            best = windowSum;                                // @phase:newmax
+        }
+    }
+    return best;
+}`,
+      },
+      kadane: {
+        python: `def kadane(arr):
+    max_ending_here = arr[0]
+    max_so_far = arr[0]
+    for i in range(1, len(arr)):
+        if arr[i] > max_ending_here + arr[i]:
