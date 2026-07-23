@@ -2578,3 +2578,23 @@ public:
             order.push_back(node);
             for (int neighbor : adj[node]) {                             // @phase:neighbor
                 if (!visited.count(neighbor)) {
+                visited.insert(neighbor);                               // @phase:visit
+                    q.push(neighbor);                                        // @phase:enqueue
+                }
+            }
+        }
+        return order;
+    }
+};`,
+      },
+      graph_dfs: {
+        python: `class Graph:
+    def __init__(self):
+        self.adj = {}
+    def add_edge(self, u, v):
+        self.adj.setdefault(u, []).append(v)
+        self.adj.setdefault(v, []).append(u)
+    def dfs(self, node, visited=None, order=None):
+        if visited is None:
+                  visited, order = set(), []
+        visited.add(node)                                             # @phase:visit
