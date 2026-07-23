@@ -2438,3 +2438,23 @@ class BST:
         cur = self.root
         while cur:
             if value == cur.value:                            # @phase:found
+            return True
+            cur = cur.left if value < cur.value else cur.right # @phase:compare
+        return False
+    def inorder(self, node, out):
+        if node:
+            self.inorder(node.left, out)
+            out.append(node.value)                              # @phase:visit
+            self.inorder(node.right, out)`,
+        java: `class Node {
+    int value;
+    Node left, right;
+    Node(int value) { this.value = value; }
+}
+class BST {
+    Node root;
+    void insert(int value) {
+        root = insert(root, value);
+    }
+    private Node insert(Node node, int value) {
+        if (node == null) return new Node(value);              // @phase:insert
