@@ -2598,3 +2598,23 @@ public:
         if visited is None:
                   visited, order = set(), []
         visited.add(node)                                             # @phase:visit
+        order.append(node)
+        for neighbor in self.adj.get(node, []):                         # @phase:neighbor
+            if neighbor not in visited:
+                self.dfs(neighbor, visited, order)                        # @phase:recurse
+        return order`,
+        java: `class Graph {
+    Map<Integer, List<Integer>> adj = new HashMap<>();
+    void addEdge(int u, int v) {
+        adj.computeIfAbsent(u, k -> new ArrayList<>()).add(v);
+        adj.computeIfAbsent(v, k -> new ArrayList<>()).add(u);
+    }
+    void dfs(int node, Set<Integer> visited, List<Integer> order) {
+        visited.add(node);                                               // @phase:visit
+        order.add(node);
+        for (int neighbor : adj.getOrDefault(node, new ArrayList<>())) {    // @phase:neighbor
+            if (!visited.contains(neighbor)) {
+                dfs(neighbor, visited, order);                                // @phase:recurse
+            }
+        }
+    }
