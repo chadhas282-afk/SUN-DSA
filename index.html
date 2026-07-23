@@ -2258,3 +2258,23 @@ public:
 }`,
         cpp: `class Queue {
     deque<int> items;
+      public:
+    void enqueue(int value) {
+        items.push_back(value);                           // @phase:enqueue
+    }
+    int dequeue() {
+        if (isEmpty()) throw runtime_error("Queue is empty"); // @phase:empty
+        int front = items.front();
+        items.pop_front();                                  // @phase:dequeue
+        return front;
+    }
+    int peek() {
+        return items.front();                                // @phase:peek
+    }
+    bool isEmpty() {
+        return items.empty();
+    }
+};`,
+      },
+      linked_list: {
+        python: `class Node:
