@@ -2518,3 +2518,23 @@ void insert(int value) { root = insertNode(root, value); }
       graph_bfs: {
         python: `from collections import deque
 class Graph:
+def __init__(self):
+        self.adj = {}
+    def add_edge(self, u, v):
+        self.adj.setdefault(u, []).append(v)
+        self.adj.setdefault(v, []).append(u)
+    def bfs(self, start):
+        visited = {start}                                    # @phase:visit
+        queue = deque([start])                                 # @phase:enqueue
+        order = []
+        while queue:
+            node = queue.popleft()                              # @phase:dequeue
+            order.append(node)
+            for neighbor in self.adj.get(node, []):              # @phase:neighbor
+                if neighbor not in visited:
+                    visited.add(neighbor)                          # @phase:visit
+                    queue.append(neighbor)                          # @phase:enqueue
+        return order`,
+        java: `class Graph {
+    Map<Integer, List<Integer>> adj = new HashMap<>();
+    void addEdge(int u, int v) {
