@@ -2738,3 +2738,23 @@ public:
 }`,
         cpp: `int kadane(vector<int>& arr) {
     int maxEndingHere = arr[0];
+    int maxSoFar = arr[0];
+    for (int i = 1; i < (int)arr.size(); i++) {
+        if (arr[i] > maxEndingHere + arr[i]) {
+            maxEndingHere = arr[i];                          // @phase:reset
+        } else {
+            maxEndingHere += arr[i];                          // @phase:extend
+        }
+        maxSoFar = max(maxSoFar, maxEndingHere);
+    }
+    return maxSoFar;
+}`,
+      },
+      doubly_linked_list: {
+        python: `class Node:
+    def __init__(self, value):
+        self.value = value
+        self.prev = None
+        self.next = None
+class DoublyLinkedList:
+    def __init__(self):
