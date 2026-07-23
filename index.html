@@ -2658,3 +2658,23 @@ public:
         } else if (total < target) {
             lo++;                                          // @phase:moveright
         } else {
+         hi--;                                          // @phase:moveleft
+        }
+    }
+    return null;                                           // @phase:notfound
+}`,
+        cpp: `pair<int,int> twoSumSorted(vector<int>& arr, int target) {
+    int lo = 0, hi = (int)arr.size() - 1;
+    while (lo < hi) {
+        int total = arr[lo] + arr[hi];
+        if (total == target) {                             // @phase:compare
+            return {lo, hi};                                 // @phase:found
+        } else if (total < target) {
+            lo++;                                             // @phase:moveright
+        } else {
+            hi--;                                             // @phase:moveleft
+        }
+    }
+    return {-1, -1};                                          // @phase:notfound
+}`,
+      },
