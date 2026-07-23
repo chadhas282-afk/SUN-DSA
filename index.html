@@ -2318,3 +2318,23 @@ class LinkedList:
         java: `class Node {
     int value;
     Node next;
+     Node(int value) { this.value = value; }
+}
+class LinkedList {
+    Node head;
+    void insertAtHead(int value) {
+        Node node = new Node(value);
+        node.next = head;                                    // @phase:insert_head
+        head = node;                                          // @phase:insert_head
+    }
+    void insertAtTail(int value) {
+        Node node = new Node(value);
+        if (head == null) {
+            head = node;                                      // @phase:insert_tail
+            return;
+        }
+        Node cur = head;
+        while (cur.next != null) {                            // @phase:traverse
+            cur = cur.next;
+        }
+        cur.next = node;                                      // @phase:insert_tail
