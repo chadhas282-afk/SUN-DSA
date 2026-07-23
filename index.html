@@ -2338,3 +2338,23 @@ class LinkedList {
             cur = cur.next;
         }
         cur.next = node;                                      // @phase:insert_tail
+        }
+    void delete(int value) {
+        if (head == null) return;
+        if (head.value == value) {                             // @phase:search
+            head = head.next;                                   // @phase:delete
+            return;
+        }
+        Node cur = head;
+        while (cur.next != null && cur.next.value != value) {  // @phase:search
+            cur = cur.next;
+        }
+        if (cur.next != null) {
+            cur.next = cur.next.next;                            // @phase:delete
+        }
+    }
+    boolean search(int value) {
+        Node cur = head;
+        while (cur != null) {
+            if (cur.value == value) return true;                 // @phase:search
+            cur = cur.next;                                       // @phase:traverse
