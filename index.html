@@ -3358,3 +3358,23 @@ def dijkstra(adj, start):
             i++;
             if (i !== j) {
               steps.push(mkStep(order, { swap: [order[i], order[j]], pivot: [pivotId], range: [lo, hi], sorted: sortedIds.slice(), phase: "swap", message: `${values[order[j]]} < pivot, swap it into the left side` }));
+              [order[i], order[j]] = [order[j], order[i]];
+            }
+          }
+        }
+        steps.push(mkStep(order, { swap: [order[i + 1], order[hi]], range: [lo, hi], sorted: sortedIds.slice(), phase: "placepivot", message: `Place pivot ${values[pivotId]} in its sorted position` }));
+        [order[i + 1], order[hi]] = [order[hi], order[i + 1]];
+        sortedIds.push(order[i + 1]);
+        steps.push(mkStep(order, { sorted: sortedIds.slice(), range: [lo, hi], message: `${values[order[i + 1]]} is now in its final sorted position` }));
+        doSort(lo, i);
+        doSort(i + 2, hi);
+      }
+      doSort(0, n - 1);
+      steps.push(mkStep(order, { sorted: order.slice(), message: "Array is fully sorted!" }));
+      return steps;
+    }
+    function linearSearchSteps(values, target) {
+      const order = values.map((_, i) => i);
+      const steps = [];
+      steps.push(mkStep(order, { message: `Searching for ${target} in [${values.join(", ")}]` }));
+      for (let i = 0; i < values.length; i++) {
