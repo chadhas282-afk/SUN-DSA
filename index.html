@@ -3218,3 +3218,23 @@ def dijkstra(adj, start):
       for (let i = 0; i < n; i++) {
         let minIdx = i;
         steps.push(mkStep(order, {
+          current: [order[i]], sorted: sortedIds.slice(), phase: "current",
+          message: `Assume ${values[order[i]]} is the smallest remaining`,
+        }));
+        for (let j = i + 1; j < n; j++) {
+          steps.push(mkStep(order, {
+            compare: [order[minIdx], order[j]], current: [order[minIdx]], sorted: sortedIds.slice(), phase: "compare",
+            message: `Compare ${values[order[minIdx]]} and ${values[order[j]]}`,
+          }));
+          if (values[order[j]] < values[order[minIdx]]) {
+            minIdx = j;
+            steps.push(mkStep(order, {
+              current: [order[minIdx]], sorted: sortedIds.slice(), phase: "newmin",
+              message: `New smallest so far: ${values[order[minIdx]]}`,
+            }));
+          }
+        }
+        if (minIdx !== i) {
+          steps.push(mkStep(order, {
+            swap: [order[i], order[minIdx]], sorted: sortedIds.slice(), phase: "swap",
+            message: `Swap ${values[order[i]]} and ${values[order[minIdx]]} into position ${i}`,
