@@ -3238,3 +3238,23 @@ def dijkstra(adj, start):
           steps.push(mkStep(order, {
             swap: [order[i], order[minIdx]], sorted: sortedIds.slice(), phase: "swap",
             message: `Swap ${values[order[i]]} and ${values[order[minIdx]]} into position ${i}`,
+            }));
+          [order[i], order[minIdx]] = [order[minIdx], order[i]];
+        }
+        sortedIds.push(order[i]);
+        steps.push(mkStep(order, { sorted: sortedIds.slice(), phase: "sorted", message: `${values[order[i]]} is now sorted` }));
+      }
+      return steps;
+    }
+    function insertionSortSteps(values) {
+      const n = values.length;
+      let order = values.map((_, i) => i);
+      const steps = [];
+      steps.push(mkStep(order, { sorted: [order[0]], message: `Starting Insertion Sort on [${values.join(", ")}]` }));
+      for (let i = 1; i < n; i++) {
+        const keyId = order[i];
+        steps.push(mkStep(order, {
+          current: [keyId], sorted: order.slice(0, i), phase: "current",
+          message: `Pick up ${values[keyId]} to insert into the sorted portion`,
+        }));
+        let j = i;
