@@ -3298,3 +3298,23 @@ def dijkstra(adj, start):
         const left = order.slice(lo, mid + 1);
         const right = order.slice(mid + 1, hi + 1);
         let i = 0, j = 0;
+         const merged = [];
+        steps.push(mkStep(snapshot(lo, merged, left.slice(i).concat(right.slice(j))), {
+          range: [lo, hi], phase: "merge", message: `Merging [${lo}..${mid}] with [${mid + 1}..${hi}]`,
+        }));
+        while (i < left.length && j < right.length) {
+          steps.push(mkStep(snapshot(lo, merged, left.slice(i).concat(right.slice(j))), {
+            compare: [left[i], right[j]], range: [lo, hi], phase: "compare",
+            message: `Compare ${values[left[i]]} and ${values[right[j]]}`,
+          }));
+          let chosen;
+          if (values[left[i]] <= values[right[j]]) { chosen = left[i]; i++; } else { chosen = right[j]; j++; }
+          merged.push(chosen);
+          steps.push(mkStep(snapshot(lo, merged, left.slice(i).concat(right.slice(j))), {
+            overwrite: [chosen], range: [lo, hi], phase: "overwrite",
+            message: `Place ${values[chosen]} next in the merged run`,
+          }));
+        }
+        while (i < left.length) {
+          merged.push(left[i]); i++;
+          steps.push(mkStep(snapshot(lo, merged, left.slice(i).concat(right.slice(j))), {
