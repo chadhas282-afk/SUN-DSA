@@ -2898,3 +2898,23 @@ public:
         return value;
     }
 }`,
+ cpp: `class CircularQueue {
+    vector<int> data;
+    int capacity, front = 0, size = 0;
+public:
+    CircularQueue(int cap) : capacity(cap), data(cap) {}
+    void enqueue(int value) {
+        if (size == capacity) throw runtime_error("queue is full");  // @phase:full
+        int rear = (front + size) % capacity;
+        data[rear] = value;                                     // @phase:enqueue
+        size++;
+    }
+    int dequeue() {
+        if (size == 0) throw runtime_error("queue is empty");        // @phase:empty
+        int value = data[front];
+        front = (front + 1) % capacity;                          // @phase:dequeue
+        size--;
+        return value;
+    }
+};`,
+      },
