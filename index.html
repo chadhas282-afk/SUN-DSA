@@ -3078,3 +3078,23 @@ def dijkstra(adj, start):
     pq = [(0, start)]
     while pq:
         d, node = heapq.heappop(pq)
+        if node in visited:                                # @phase:visit
+            continue
+        visited.add(node)
+        for neighbor, weight in adj[node]:                  # @phase:neighbor
+            if dist[node] + weight < dist[neighbor]:
+                dist[neighbor] = dist[node] + weight          # @phase:relax
+                heapq.heappush(pq, (dist[neighbor], neighbor))
+    return dist`,
+        java: `Map<Integer, Integer> dijkstra(Map<Integer, List<int[]>> adj, int start) {
+    Map<Integer, Integer> dist = new HashMap<>();
+    for (int node : adj.keySet()) dist.put(node, Integer.MAX_VALUE);
+    dist.put(start, 0);
+    PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+    pq.add(new int[]{0, start});
+    Set<Integer> visited = new HashSet<>();
+    while (!pq.isEmpty()) {
+        int[] cur = pq.poll();
+        int node = cur[1];
+        if (visited.contains(node)) continue;                // @phase:visit
+        visited.add(node);
