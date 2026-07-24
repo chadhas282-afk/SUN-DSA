@@ -3058,3 +3058,23 @@ public:
         data.pop_back();
         int i = 0, n = data.size();
         while (true) {
+        int left = 2 * i + 1, right = 2 * i + 2, largest = i;
+            if (left < n && data[left] > data[largest]) largest = left;
+            if (right < n && data[right] > data[largest]) largest = right;
+            if (largest == i) break;
+            swap(data[i], data[largest]);                         // @phase:swap
+            i = largest;
+        }
+        return top;
+    }
+};`,
+      },
+      dijkstra: {
+        python: `import heapq
+def dijkstra(adj, start):
+    dist = {node: float("inf") for node in adj}
+    dist[start] = 0
+    visited = set()
+    pq = [(0, start)]
+    while pq:
+        d, node = heapq.heappop(pq)
