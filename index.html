@@ -2998,3 +2998,23 @@ public:
             while True:
                 left, right = 2 * i + 1, 2 * i + 2
                 largest = i
+                if left < n and self.data[left] > self.data[largest]:
+                    largest = left
+                if right < n and self.data[right] > self.data[largest]:
+                    largest = right
+                if largest == i:
+                    break
+                self.data[i], self.data[largest] = self.data[largest], self.data[i]  # @phase:swap
+                i = largest
+        return top`,
+        java: `class MaxHeap {
+    List<Integer> data = new ArrayList<>();
+    void insert(int value) {
+        data.add(value);                                    // @phase:insert
+        int i = data.size() - 1;
+        while (i > 0) {
+            int parent = (i - 1) / 2;
+            if (data.get(i) > data.get(parent)) {            // @phase:compare
+                Collections.swap(data, i, parent);             // @phase:swap
+                i = parent;
+            } else break;
