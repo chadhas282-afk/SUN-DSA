@@ -2818,3 +2818,23 @@ class DoublyLinkedList {
         if (cur.prev != null) cur.prev.next = cur.next;        // @phase:delete
         else head = cur.next;
         if (cur.next != null) cur.next.prev = cur.prev;        // @phase:delete
+        else tail = cur.prev;
+    }
+}`,
+        cpp: `struct Node {
+    int value;
+    Node* prev;
+    Node* next;
+    Node(int v) : value(v), prev(nullptr), next(nullptr) {}
+};
+class DoublyLinkedList {
+    Node* head = nullptr;
+    Node* tail = nullptr;
+public:
+    void insertAtHead(int value) {
+        Node* node = new Node(value);
+        node->next = head;                                     // @phase:insert_head
+        if (head) head->prev = node; else tail = node;
+        head = node;                                            // @phase:insert_head
+    }
+    void insertAtTail(int value) {
