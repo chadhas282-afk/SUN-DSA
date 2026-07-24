@@ -2938,3 +2938,23 @@ class MyDeque:
         java: `class MyDeque {
     Deque<Integer> items = new ArrayDeque<>();
     void pushFront(int value) {
+     items.addFirst(value);                            // @phase:push_front
+    }
+    void pushBack(int value) {
+        items.addLast(value);                              // @phase:push_back
+    }
+    int popFront() {
+        if (items.isEmpty()) throw new RuntimeException("deque is empty");  // @phase:empty
+        return items.removeFirst();                         // @phase:pop_front
+    }
+    int popBack() {
+        if (items.isEmpty()) throw new RuntimeException("deque is empty");  // @phase:empty
+        return items.removeLast();                           // @phase:pop_back
+    }
+}`,
+        cpp: `class MyDeque {
+    deque<int> items;
+public:
+    void pushFront(int value) {
+        items.push_front(value);                            // @phase:push_front
+    }
