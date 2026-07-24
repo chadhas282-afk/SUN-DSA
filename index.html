@@ -2858,3 +2858,23 @@ public:
 };`,
       },
       circular_queue: {
+        python: `class CircularQueue:
+    def __init__(self, capacity):
+        self.data = [None] * capacity
+        self.capacity = capacity
+        self.front = 0
+        self.size = 0
+    def enqueue(self, value):
+        if self.size == self.capacity:
+            raise OverflowError("queue is full")           # @phase:full
+        rear = (self.front + self.size) % self.capacity
+        self.data[rear] = value                             # @phase:enqueue
+        self.size += 1
+    def dequeue(self):
+        if self.size == 0:
+            raise IndexError("queue is empty")              # @phase:empty
+        value = self.data[self.front]
+        self.front = (self.front + 1) % self.capacity        # @phase:dequeue
+        self.size -= 1
+        return value`,
+        java: `class CircularQueue {
