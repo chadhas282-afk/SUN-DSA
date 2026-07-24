@@ -2978,3 +2978,23 @@ public:
       heap: {
         python: `class MaxHeap:
     def __init__(self):
+    self.data = []
+    def insert(self, value):
+        self.data.append(value)                          # @phase:insert
+        i = len(self.data) - 1
+        while i > 0:
+            parent = (i - 1) // 2
+            if self.data[i] > self.data[parent]:          # @phase:compare
+                self.data[i], self.data[parent] = self.data[parent], self.data[i]  # @phase:swap
+                i = parent
+            else:
+                break
+    def extract_max(self):
+        top = self.data[0]                                 # @phase:found
+        last = self.data.pop()
+        if self.data:
+            self.data[0] = last
+            i, n = 0, len(self.data)
+            while True:
+                left, right = 2 * i + 1, 2 * i + 2
+                largest = i
