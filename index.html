@@ -3158,3 +3158,23 @@ def dijkstra(adj, start):
         java: `static int fib(int n) {
     if (n <= 1) {                                           // @phase:base
         return n;
+        }
+    return fib(n - 1) + fib(n - 2);                          // @phase:call
+}`,
+        cpp: `int fib(int n) {
+    if (n <= 1) {                                             // @phase:base
+        return n;
+    }
+    return fib(n - 1) + fib(n - 2);                            // @phase:call
+}`,
+      },
+    };
+    function mkStep(order, extra) {
+      return Object.assign({
+        order: order.slice(),
+        compare: [], swap: [], sorted: [], pivot: [], current: [], found: [],
+        overwrite: [], range: null, phase: null, message: "",
+      }, extra || {});
+    }
+    function bubbleSortSteps(values) {
+      const n = values.length;
