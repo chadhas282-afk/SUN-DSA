@@ -2958,3 +2958,23 @@ public:
     void pushFront(int value) {
         items.push_front(value);                            // @phase:push_front
     }
+        void pushBack(int value) {
+        items.push_back(value);                              // @phase:push_back
+    }
+    int popFront() {
+        if (items.empty()) throw runtime_error("deque is empty");  // @phase:empty
+        int v = items.front();
+        items.pop_front();                                    // @phase:pop_front
+        return v;
+    }
+    int popBack() {
+        if (items.empty()) throw runtime_error("deque is empty");   // @phase:empty
+        int v = items.back();
+        items.pop_back();                                      // @phase:pop_back
+        return v;
+    }
+};`,
+      },
+      heap: {
+        python: `class MaxHeap:
+    def __init__(self):
