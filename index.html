@@ -3318,3 +3318,23 @@ def dijkstra(adj, start):
         while (i < left.length) {
           merged.push(left[i]); i++;
           steps.push(mkStep(snapshot(lo, merged, left.slice(i).concat(right.slice(j))), {
+            overwrite: [merged[merged.length - 1]], range: [lo, hi], phase: "overwrite",
+            message: `Copy remaining ${values[merged[merged.length - 1]]} from the left half`,
+          }));
+        }
+        while (j < right.length) {
+          merged.push(right[j]); j++;
+          steps.push(mkStep(snapshot(lo, merged, left.slice(i).concat(right.slice(j))), {
+            overwrite: [merged[merged.length - 1]], range: [lo, hi], phase: "overwrite",
+            message: `Copy remaining ${values[merged[merged.length - 1]]} from the right half`,
+          }));
+        }
+        for (let t = 0; t < merged.length; t++) order[lo + t] = merged[t];
+        steps.push(mkStep(order, { sorted: order.slice(lo, hi + 1), range: [lo, hi], phase: "merge", message: `Range [${lo}..${hi}] is now merged and sorted` }));
+      }
+      doSort(0, n - 1);
+      steps.push(mkStep(order, { sorted: order.slice(), message: "Array is fully sorted!" }));
+      return steps;
+    }
+    function quickSortSteps(values) {
+      const n = values.length;
