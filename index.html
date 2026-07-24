@@ -2798,3 +2798,23 @@ class DoublyLinkedList:
 class DoublyLinkedList {
     Node head, tail;
     void insertAtHead(int value) {
+    Node node = new Node(value);
+        node.next = head;                                    // @phase:insert_head
+        if (head != null) head.prev = node; else tail = node;
+        head = node;                                          // @phase:insert_head
+    }
+    void insertAtTail(int value) {
+        Node node = new Node(value);
+        node.prev = tail;                                     // @phase:insert_tail
+        if (tail != null) tail.next = node; else head = node;
+        tail = node;                                          // @phase:insert_tail
+    }
+    void delete(int value) {
+        Node cur = head;
+        while (cur != null && cur.value != value) {            // @phase:search
+            cur = cur.next;
+        }
+        if (cur == null) return;
+        if (cur.prev != null) cur.prev.next = cur.next;        // @phase:delete
+        else head = cur.next;
+        if (cur.next != null) cur.next.prev = cur.prev;        // @phase:delete
