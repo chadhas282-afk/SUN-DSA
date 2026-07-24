@@ -3258,3 +3258,23 @@ def dijkstra(adj, start):
           message: `Pick up ${values[keyId]} to insert into the sorted portion`,
         }));
         let j = i;
+         while (j > 0 && values[order[j - 1]] > values[order[j]]) {
+          steps.push(mkStep(order, {
+            compare: [order[j - 1], order[j]], current: [keyId], phase: "compare",
+            message: `${values[order[j - 1]]} > ${values[keyId]}, shift it right`,
+          }));
+          [order[j - 1], order[j]] = [order[j], order[j - 1]];
+          steps.push(mkStep(order, {
+            swap: [order[j - 1], order[j]], current: [keyId], phase: "shift",
+            message: `Moved ${values[keyId]} one step left`,
+          }));
+          j--;
+        }
+        steps.push(mkStep(order, { sorted: order.slice(0, i + 1), phase: "place", message: `${values[keyId]} is now in place` }));
+      }
+      steps.push(mkStep(order, { sorted: order.slice(), message: "Array is fully sorted!" }));
+      return steps;
+    }
+    function mergeSortSteps(values) {
+      const n = values.length;
+      let order = values.map((_, i) => i);
