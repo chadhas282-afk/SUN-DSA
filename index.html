@@ -2838,3 +2838,23 @@ public:
         head = node;                                            // @phase:insert_head
     }
     void insertAtTail(int value) {
+    Node* node = new Node(value);
+        node->prev = tail;                                      // @phase:insert_tail
+        if (tail) tail->next = node; else head = node;
+        tail = node;                                             // @phase:insert_tail
+    }
+    void deleteValue(int value) {
+        Node* cur = head;
+        while (cur && cur->value != value) {                     // @phase:search
+            cur = cur->next;
+        }
+        if (!cur) return;
+        if (cur->prev) cur->prev->next = cur->next;               // @phase:delete
+        else head = cur->next;
+        if (cur->next) cur->next->prev = cur->prev;               // @phase:delete
+        else tail = cur->prev;
+        delete cur;
+    }
+};`,
+      },
+      circular_queue: {
