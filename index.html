@@ -3198,3 +3198,23 @@ def dijkstra(adj, start):
               message: `${a} > ${b}, so swap them`,
             }));
           }
+           }
+        sortedIds.unshift(order[n - 1 - i]);
+        steps.push(mkStep(order, {
+          sorted: sortedIds.slice(), phase: "sorted",
+          message: `${values[order[n - 1 - i]]} is now in its final position`,
+        }));
+        if (!swappedAny) break;
+      }
+      steps.push(mkStep(order, { sorted: order.slice(), message: "Array is fully sorted!" }));
+      return steps;
+    }
+    function selectionSortSteps(values) {
+      const n = values.length;
+      let order = values.map((_, i) => i);
+      const steps = [];
+      const sortedIds = [];
+      steps.push(mkStep(order, { message: `Starting Selection Sort on [${values.join(", ")}]` }));
+      for (let i = 0; i < n; i++) {
+        let minIdx = i;
+        steps.push(mkStep(order, {
