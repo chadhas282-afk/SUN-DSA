@@ -3338,3 +3338,23 @@ def dijkstra(adj, start):
     }
     function quickSortSteps(values) {
       const n = values.length;
+      let order = values.map((_, i) => i);
+      const steps = [];
+      const sortedIds = [];
+      steps.push(mkStep(order, { message: `Starting Quick Sort on [${values.join(", ")}]` }));
+      function doSort(lo, hi) {
+        if (lo > hi) return;
+        if (lo === hi) {
+          sortedIds.push(order[lo]);
+          steps.push(mkStep(order, { sorted: sortedIds.slice(), range: [lo, hi], message: `${values[order[lo]]} is alone in its range, so it's sorted` }));
+          return;
+        }
+        const pivotId = order[hi];
+        steps.push(mkStep(order, { pivot: [pivotId], range: [lo, hi], sorted: sortedIds.slice(), phase: "pivot", message: `Choose ${values[pivotId]} (last element) as the pivot` }));
+        let i = lo - 1;
+        for (let j = lo; j < hi; j++) {
+          steps.push(mkStep(order, { compare: [order[j]], pivot: [pivotId], range: [lo, hi], sorted: sortedIds.slice(), phase: "compare", message: `Compare ${values[order[j]]} with pivot ${values[pivotId]}` }));
+          if (values[order[j]] < values[pivotId]) {
+            i++;
+            if (i !== j) {
+              steps.push(mkStep(order, { swap: [order[i], order[j]], pivot: [pivotId], range: [lo, hi], sorted: sortedIds.slice(), phase: "swap", message: `${values[order[j]]} < pivot, swap it into the left side` }));
