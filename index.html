@@ -2918,3 +2918,23 @@ public:
     }
 };`,
       },
+       deque: {
+        python: `from collections import deque as Deque
+class MyDeque:
+    def __init__(self):
+        self.items = Deque()
+    def push_front(self, value):
+        self.items.appendleft(value)                    # @phase:push_front
+    def push_back(self, value):
+        self.items.append(value)                         # @phase:push_back
+    def pop_front(self):
+        if not self.items:
+            raise IndexError("deque is empty")            # @phase:empty
+        return self.items.popleft()                        # @phase:pop_front
+    def pop_back(self):
+        if not self.items:
+            raise IndexError("deque is empty")             # @phase:empty
+        return self.items.pop()                             # @phase:pop_back`,
+        java: `class MyDeque {
+    Deque<Integer> items = new ArrayDeque<>();
+    void pushFront(int value) {
