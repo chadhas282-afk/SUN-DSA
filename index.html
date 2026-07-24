@@ -3178,3 +3178,23 @@ def dijkstra(adj, start):
     }
     function bubbleSortSteps(values) {
       const n = values.length;
+      let order = values.map((_, i) => i);
+      const steps = [];
+      const sortedIds = [];
+      steps.push(mkStep(order, { message: `Starting Bubble Sort on [${values.join(", ")}]` }));
+      for (let i = 0; i < n - 1; i++) {
+        let swappedAny = false;
+        for (let j = 0; j < n - i - 1; j++) {
+          steps.push(mkStep(order, {
+            compare: [order[j], order[j + 1]], sorted: sortedIds.slice(), phase: "compare",
+            message: `Compare ${values[order[j]]} and ${values[order[j + 1]]}`,
+          }));
+          if (values[order[j]] > values[order[j + 1]]) {
+            const a = values[order[j]], b = values[order[j + 1]];
+            [order[j], order[j + 1]] = [order[j + 1], order[j]];
+            swappedAny = true;
+            steps.push(mkStep(order, {
+              swap: [order[j], order[j + 1]], sorted: sortedIds.slice(), phase: "swap",
+              message: `${a} > ${b}, so swap them`,
+            }));
+          }
