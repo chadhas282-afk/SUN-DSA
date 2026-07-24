@@ -3378,3 +3378,23 @@ def dijkstra(adj, start):
       const steps = [];
       steps.push(mkStep(order, { message: `Searching for ${target} in [${values.join(", ")}]` }));
       for (let i = 0; i < values.length; i++) {
+        steps.push(mkStep(order, { current: [order[i]], phase: "compare", message: `Check index ${i}: is ${values[i]} equal to ${target}?` }));
+        if (values[i] === target) {
+          steps.push(mkStep(order, { found: [order[i]], phase: "found", message: `Found ${target} at index ${i}!` }));
+          return steps;
+        }
+      }
+      steps.push(mkStep(order, { phase: "notfound", message: `${target} was not found in the array` }));
+      return steps;
+    }
+    function binarySearchSteps(values, target) {
+      const order = values.map((_, i) => i);
+      const steps = [];
+      let lo = 0, hi = values.length - 1;
+      steps.push(mkStep(order, { range: [lo, hi], message: `Searching for ${target} in the sorted array [${values.join(", ")}]` }));
+      while (lo <= hi) {
+        const mid = Math.floor((lo + hi) / 2);
+        steps.push(mkStep(order, { current: [order[mid]], range: [lo, hi], phase: "compare", message: `Middle of [${lo}..${hi}] is index ${mid}: ${values[mid]}` }));
+        if (values[mid] === target) {
+          steps.push(mkStep(order, { found: [order[mid]], range: [lo, hi], phase: "found", message: `Found ${target} at index ${mid}!` }));
+          return steps;
