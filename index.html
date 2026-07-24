@@ -3278,3 +3278,23 @@ def dijkstra(adj, start):
     function mergeSortSteps(values) {
       const n = values.length;
       let order = values.map((_, i) => i);
+      const steps = [];
+      steps.push(mkStep(order, { message: `Starting Merge Sort on [${values.join(", ")}]` }));
+      function snapshot(lo, merged, remaining) {
+        const disp = order.slice();
+        for (let t = 0; t < merged.length; t++) disp[lo + t] = merged[t];
+        for (let s = 0; s < remaining.length; s++) disp[lo + merged.length + s] = remaining[s];
+        return disp;
+      }
+      function doSort(lo, hi) {
+        if (lo >= hi) return;
+        const mid = Math.floor((lo + hi) / 2);
+        steps.push(mkStep(order, { range: [lo, hi], phase: "split", message: `Split range [${lo}..${hi}] around index ${mid}` }));
+        doSort(lo, mid);
+        doSort(mid + 1, hi);
+        doMerge(lo, mid, hi);
+      }
+      function doMerge(lo, mid, hi) {
+        const left = order.slice(lo, mid + 1);
+        const right = order.slice(mid + 1, hi + 1);
+        let i = 0, j = 0;
