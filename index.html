@@ -3098,3 +3098,23 @@ def dijkstra(adj, start):
         int node = cur[1];
         if (visited.contains(node)) continue;                // @phase:visit
         visited.add(node);
+        for (int[] edge : adj.getOrDefault(node, new ArrayList<>())) {  // @phase:neighbor
+            int neighbor = edge[0], weight = edge[1];
+            if (dist.get(node) + weight < dist.get(neighbor)) {
+                dist.put(neighbor, dist.get(node) + weight);    // @phase:relax
+                pq.add(new int[]{dist.get(neighbor), neighbor});
+            }
+        }
+    }
+    return dist;
+}`,
+        cpp: `unordered_map<int,int> dijkstra(unordered_map<int, vector<pair<int,int>>>& adj, int start) {
+    unordered_map<int,int> dist;
+    for (auto& p : adj) dist[p.first] = INT_MAX;
+    dist[start] = 0;
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;
+    pq.push({0, start});
+    unordered_set<int> visited;
+    while (!pq.empty()) {
+        auto [d, node] = pq.top(); pq.pop();
+        if (visited.count(node)) continue;                    // @phase:visit
