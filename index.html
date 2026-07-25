@@ -3498,3 +3498,23 @@ def dijkstra(adj, start):
       const n = values.length;
       svg.innerHTML = "";
       svg.setAttribute("viewBox", "0 0 900 340");
+      svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+      const padding = 46;
+      const width = 900 - padding * 2;
+      const slotWidth = width / n;
+      const barWidth = Math.min(58, slotWidth * 0.6);
+      const baselineY = 264;
+      const maxBarHeight = 206;
+      const maxVal = Math.max.apply(null, values.map(v => Math.abs(v)).concat([1]));
+      const state = { svg, n, padding, slotWidth, barWidth, baselineY, maxBarHeight, maxVal, values: values.slice(), barEls: {} };
+      const rangeRect = svgEl("rect", { x: 0, y: 6, width: 0, height: baselineY - 2, rx: 10, class: "range-rect", opacity: "0" });
+      svg.appendChild(rangeRect);
+      state.rangeRect = rangeRect;
+      svg.appendChild(svgEl("line", { x1: padding - 12, y1: baselineY, x2: 900 - padding + 12, y2: baselineY, class: "baseline" }));
+      for (let slot = 0; slot < n; slot++) {
+        const xCenter = padding + slot * slotWidth + slotWidth / 2;
+        const idxLabel = svgEl("text", { x: xCenter, y: baselineY + 22, class: "bar-index", "text-anchor": "middle" });
+        idxLabel.textContent = String(slot);
+        svg.appendChild(idxLabel);
+      }
+      for (let id = 0; id < n; id++) {
