@@ -3618,3 +3618,23 @@ def dijkstra(adj, start):
       svg._label_rear = null;
       svg._label_head = null;
       svg._label_null = null;
+      }
+    function computeBSTLayout(nodes, rootId, viewWidth) {
+      const positions = {};
+      let counter = 0;
+      let count = 0;
+      (function countNodes(id) { if (id === null || id === undefined) return; count++; countNodes(nodes[id].left); countNodes(nodes[id].right); })(rootId);
+      const spacingX = Math.max(56, Math.min(92, (viewWidth - 80) / Math.max(1, count)));
+      const spacingY = 74;
+      function walk(id, depth) {
+        if (id === null || id === undefined) return;
+        walk(nodes[id].left, depth + 1);
+        positions[id] = { x: 60 + counter * spacingX, y: 50 + depth * spacingY };
+        counter++;
+        walk(nodes[id].right, depth + 1);
+      }
+      walk(rootId, 0);
+      let maxX = 0;
+      Object.values(positions).forEach(p => { if (p.x > maxX) maxX = p.x; });
+      const shift = Math.max(0, (viewWidth - (maxX + 60)) / 2);
+      Object.keys(positions).forEach(k => { positions[k].x += shift; });
