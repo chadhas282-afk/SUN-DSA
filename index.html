@@ -3558,3 +3558,23 @@ def dijkstra(adj, start):
         const rx = padding + step.range[0] * slotWidth + 3;
         const rw = (step.range[1] - step.range[0] + 1) * slotWidth - 6;
         state.rangeRect.setAttribute("x", rx);
+        state.rangeRect.setAttribute("width", Math.max(0, rw));
+        state.rangeRect.setAttribute("opacity", "1");
+      } else {
+        state.rangeRect.setAttribute("opacity", "0");
+      }
+    }
+    function diffRenderBoxes(svg, items, computePos, boxSize) {
+      if (!svg._boxEls) svg._boxEls = new Map();
+      const boxEls = svg._boxEls;
+      const seen = new Set();
+      items.forEach((item, idx) => {
+        seen.add(item.id);
+        const pos = computePos(idx, items.length);
+        let el = boxEls.get(item.id);
+        if (!el) {
+          const g = svgEl("g", { class: "box-group", transform: `translate(${pos.x},${pos.y}) scale(0.4)`, opacity: "0" });
+          const rect = svgEl("rect", {
+            class: `box-rect ${item.stateClass || "viz-default"}`,
+            x: -boxSize.w / 2, y: -boxSize.h / 2, width: boxSize.w, height: boxSize.h, rx: 8,
+          });
