@@ -3778,3 +3778,23 @@ def dijkstra(adj, start):
         return { text: line, phase: null };
       });
     }
+    function renderCodePanel(container, topicId, langId) {
+      const raw = (CODE[topicId] && CODE[topicId][langId]) || "";
+      const parsed = parseCodeWithPhases(raw);
+      const langMeta = LANGS.find(l => l.id === langId);
+      container.innerHTML = "";
+      const frag = document.createDocumentFragment();
+      parsed.forEach((line, i) => {
+        const row = document.createElement("div");
+        row.className = "code-line";
+        row.dataset.phase = line.phase || "";
+        const ln = document.createElement("span");
+        ln.className = "ln";
+        ln.textContent = String(i + 1);
+        const codeText = document.createElement("span");
+        codeText.className = "code-text";
+        let highlighted;
+        try {
+          highlighted = window.hljs ? hljs.highlight(line.text, { language: langMeta.hljs }).value : escapeHtml(line.text);
+        } catch (e) {
+          highlighted = escapeHtml(line.text);
