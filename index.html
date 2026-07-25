@@ -3978,3 +3978,23 @@ def dijkstra(adj, start):
       BST_NEXT_ID = 1;
       BSTModel.nodes = {};
       BSTModel.rootId = null;
+      [50, 30, 70, 20, 40, 60, 80].forEach(v => {
+        BSTModel.rootId = plainBSTInsert(BSTModel.nodes, BSTModel.rootId, v);
+      });
+    }
+    function bstInsertSteps(nodesIn, rootIdIn, value) {
+      const nodes = cloneNodes(nodesIn);
+      let rootId = rootIdIn;
+      const steps = [];
+      if (rootId === null || rootId === undefined) {
+        const id = BST_NEXT_ID++;
+        nodes[id] = { id, value, left: null, right: null };
+        rootId = id;
+        steps.push(mkTreeStep(nodes, rootId, { newNode: id, phase: "insert", message: `Tree is empty \u2014 ${value} becomes the root` }));
+        return { steps, nodes, rootId };
+      }
+      let curId = rootId;
+      while (true) {
+        const cur = nodes[curId];
+        steps.push(mkTreeStep(nodes, rootId, { compare: [curId], phase: "compare", message: `Compare ${value} with ${cur.value}` }));
+        if (value === cur.value) {
