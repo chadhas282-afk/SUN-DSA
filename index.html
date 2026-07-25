@@ -3898,3 +3898,23 @@ def dijkstra(adj, start):
         const w = 34 + size * 20;
         const g = svgEl("g", { class: "hanoi-disk-group" });
         const rect = svgEl("rect", { x: -w / 2, y: -11, width: w, height: 22, rx: 8, class: `hanoi-disk hanoi-disk-${((size - 1) % 6) + 1}` });
+        const text = svgEl("text", { class: "box-value", "text-anchor": "middle", y: 5 });
+        text.textContent = size;
+        g.appendChild(rect);
+        g.appendChild(text);
+        svg.appendChild(g);
+        diskEls[size] = g;
+      }
+      return { svg, pegX, baseY, diskEls, n };
+    }
+    function renderHanoiStep(state, step) {
+      step.pegs.forEach((peg, pegIdx) => {
+        peg.forEach((size, stackIdx) => {
+          const x = state.pegX[pegIdx];
+          const y = state.baseY - 7 - stackIdx * 24 - 11;
+          const el = state.diskEls[size];
+          if (!el) return;
+          el.setAttribute("transform", `translate(${x},${y})`);
+          el.setAttribute("class", `hanoi-disk-group${step.disk === size ? " hanoi-disk-moving" : ""}`);
+        });
+      });
