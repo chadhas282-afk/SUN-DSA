@@ -3478,3 +3478,23 @@ def dijkstra(adj, start):
       return steps;
     }
     Object.assign(ALGORITHMS, { twoPointerSteps, slidingWindowSteps, kadaneSteps });
+     if (typeof module !== "undefined" && module.exports) {
+      module.exports = {
+        bubbleSortSteps, selectionSortSteps, insertionSortSteps, mergeSortSteps, quickSortSteps,
+        linearSearchSteps, binarySearchSteps, twoPointerSteps, slidingWindowSteps, kadaneSteps,
+        mkStep, ALGORITHMS,
+      };
+    }
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    function svgEl(tag, attrs) {
+      const el = document.createElementNS(SVG_NS, tag);
+      if (attrs) for (const k in attrs) el.setAttribute(k, attrs[k]);
+      return el;
+    }
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    }
+    function initArrayViz(svg, values) {
+      const n = values.length;
+      svg.innerHTML = "";
+      svg.setAttribute("viewBox", "0 0 900 340");
