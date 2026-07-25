@@ -3818,3 +3818,23 @@ def dijkstra(adj, start):
         }
       });
       if (activeRow) {
+        const targetTop = activeRow.offsetTop - container.clientHeight / 2 + activeRow.clientHeight / 2;
+        container.scrollTo({ top: Math.max(0, targetTop), behavior: "smooth" });
+      }
+    }
+    function computeHeapLayout(n, viewW) {
+      const positions = {};
+      if (n === 0) return positions;
+      const depthOf = i => Math.floor(Math.log2(i + 1));
+      const maxDepth = depthOf(n - 1);
+      const spacingY = 66;
+      for (let i = 0; i < n; i++) {
+        const depth = depthOf(i);
+        const slotsAtDepth = Math.pow(2, depth);
+        const posInLevel = i - (slotsAtDepth - 1);
+        const x = ((posInLevel + 0.5) / slotsAtDepth) * viewW;
+        const y = 46 + depth * spacingY;
+        positions[i] = { x, y };
+      }
+      return { positions, maxDepth };
+    }
