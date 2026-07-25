@@ -3638,3 +3638,23 @@ def dijkstra(adj, start):
       Object.values(positions).forEach(p => { if (p.x > maxX) maxX = p.x; });
       const shift = Math.max(0, (viewWidth - (maxX + 60)) / 2);
       Object.keys(positions).forEach(k => { positions[k].x += shift; });
+      return positions;
+    }
+    function classifyTreeState(id, step) {
+      if (step.found === id) return "viz-found";
+      if (step.newNode === id) return "viz-swap";
+      if (step.compare.includes(id)) return "viz-compare";
+      if (step.current === id) return "viz-current";
+      if (step.visit.includes(id)) return "viz-current";
+      if (step.resolved && step.resolved.includes(id)) return "viz-sorted";
+      if (step.visitOrder && step.visitOrder.includes(id)) return "viz-visited";
+      return "viz-default";
+    }
+    function renderTreeStep(svg, step, opts) {
+      opts = opts || {};
+      const VW = 860, VH = 340;
+      svg.setAttribute("viewBox", `0 0 ${VW} ${VH}`);
+      svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+      svg.innerHTML = "";
+      const nodes = step.nodes;
+      const rootId = step.rootId;
