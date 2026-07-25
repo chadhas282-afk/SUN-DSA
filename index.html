@@ -3538,3 +3538,23 @@ def dijkstra(adj, start):
       if (step.swap.includes(id)) return "viz-swap";
       if (step.overwrite.includes(id)) return "viz-swap";
       if (step.pivot.includes(id)) return "viz-pivot";
+      if (step.compare.includes(id)) return "viz-compare";
+      if (step.current.includes(id)) return "viz-current";
+      if (step.sorted.includes(id)) return "viz-sorted";
+      return "viz-default";
+    }
+    function renderArrayStep(state, step) {
+      const { padding, slotWidth, barWidth, barEls } = state;
+      step.order.forEach((id, slot) => {
+        const bar = barEls[id];
+        if (!bar) return;
+        const x = padding + slot * slotWidth + (slotWidth - barWidth) / 2;
+        bar.g.setAttribute("transform", `translate(${x},0)`);
+        bar.rect.setAttribute("class", `bar-rect ${classifyArrayState(id, step)}`);
+        const inRange = !step.range || (slot >= step.range[0] && slot <= step.range[1]);
+        bar.g.classList.toggle("viz-dim", !inRange);
+      });
+      if (step.range) {
+        const rx = padding + step.range[0] * slotWidth + 3;
+        const rw = (step.range[1] - step.range[0] + 1) * slotWidth - 6;
+        state.rangeRect.setAttribute("x", rx);
