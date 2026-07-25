@@ -3578,3 +3578,23 @@ def dijkstra(adj, start):
             class: `box-rect ${item.stateClass || "viz-default"}`,
             x: -boxSize.w / 2, y: -boxSize.h / 2, width: boxSize.w, height: boxSize.h, rx: 8,
           });
+          const text = svgEl("text", { class: "box-value", "text-anchor": "middle", y: 5 });
+          text.textContent = item.value;
+          g.appendChild(rect);
+          g.appendChild(text);
+          svg.appendChild(g);
+          el = { g, rect, text };
+          boxEls.set(item.id, el);
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              g.setAttribute("transform", `translate(${pos.x},${pos.y}) scale(1)`);
+              g.setAttribute("opacity", "1");
+            });
+          });
+        } else {
+          el.g.setAttribute("transform", `translate(${pos.x},${pos.y}) scale(1)`);
+          el.g.setAttribute("opacity", "1");
+          el.rect.setAttribute("class", `box-rect ${item.stateClass || "viz-default"}`);
+        }
+      });
+      Array.from(boxEls.keys()).forEach(id => {
