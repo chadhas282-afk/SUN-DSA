@@ -3678,3 +3678,23 @@ def dijkstra(adj, start):
           if (childId !== null && childId !== undefined && pos[childId]) {
             edgeLayer.appendChild(svgEl("line", {
               x1: pos[id].x, y1: pos[id].y, x2: pos[childId].x, y2: pos[childId].y, class: "tree-edge",
+              }));
+          }
+        });
+      });
+      Object.keys(pos).forEach(idStr => {
+        const id = Number(idStr);
+        const p = pos[id];
+        const hasLabel = nodes[id].label !== undefined;
+        const g = svgEl("g", { transform: `translate(${p.x},${p.y})`, class: "tree-node-group" });
+        const circle = svgEl("circle", { r: hasLabel ? r + 6 : r, class: `tree-node ${classifyTreeState(id, step)}` });
+        const text = svgEl("text", { class: hasLabel ? "tree-node-value tree-node-label" : "tree-node-value", "text-anchor": "middle", y: 5 });
+        text.textContent = hasLabel ? nodes[id].label : nodes[id].value;
+        g.appendChild(circle);
+        g.appendChild(text);
+        nodeLayer.appendChild(g);
+      });
+    }
+    function computeGraphLayout(n, viewW, viewH) {
+      const cx = viewW / 2, cy = viewH / 2 + 6;
+      const radius = Math.min(viewW, viewH) / 2 - 60;
