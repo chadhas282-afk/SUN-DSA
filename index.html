@@ -3438,3 +3438,23 @@ def dijkstra(adj, start):
     function slidingWindowSteps(values, k) {
       const order = values.map((_, i) => i);
       const steps = [];
+       k = Math.max(1, Math.min(k || 3, values.length));
+      let windowSum = 0;
+      for (let i = 0; i < k; i++) windowSum += values[i];
+      let best = windowSum, bestStart = 0;
+      steps.push(mkStep(order, { range: [0, k - 1], phase: "window", message: `Window size ${k}. Initial sum = ${windowSum}` }));
+      for (let end = k; end < values.length; end++) {
+        const start = end - k + 1;
+        const dropped = values[end - k];
+        windowSum += values[end] - dropped;
+        steps.push(mkStep(order, { range: [start, end], overwrite: [order[end]], phase: "slide", message: `Drop ${dropped}, add ${values[end]} \u2192 window sum = ${windowSum}` }));
+        if (windowSum > best) {
+          best = windowSum; bestStart = start;
+          steps.push(mkStep(order, { range: [start, end], sorted: order.slice(start, end + 1), phase: "newmax", message: `New best sum: ${best}` }));
+        }
+      }
+      steps.push(mkStep(order, { range: [bestStart, bestStart + k - 1], sorted: order.slice(bestStart, bestStart + k), message: `Max window sum = ${best}, starting at index ${bestStart}` }));
+      return steps;
+    }
+    function kadaneSteps(values) {
+      const order = values.map((_, i) => i);
