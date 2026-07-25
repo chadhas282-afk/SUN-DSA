@@ -3458,3 +3458,23 @@ def dijkstra(adj, start):
     }
     function kadaneSteps(values) {
       const order = values.map((_, i) => i);
+      const steps = [];
+      let maxEndingHere = values[0], maxSoFar = values[0], start = 0, bestStart = 0, bestEnd = 0;
+      steps.push(mkStep(order, { current: [order[0]], range: [0, 0], message: `Start: running sum = ${values[0]}` }));
+      for (let i = 1; i < values.length; i++) {
+        if (values[i] > maxEndingHere + values[i]) {
+          maxEndingHere = values[i];
+          start = i;
+          steps.push(mkStep(order, { current: [order[i]], range: [start, i], phase: "reset", message: `${values[i]} alone beats extending the run \u2014 restart here` }));
+        } else {
+          maxEndingHere += values[i];
+          steps.push(mkStep(order, { current: [order[i]], range: [start, i], phase: "extend", message: `Extend the run: running sum = ${maxEndingHere}` }));
+        }
+        if (maxEndingHere > maxSoFar) {
+          maxSoFar = maxEndingHere; bestStart = start; bestEnd = i;
+        }
+      }
+      steps.push(mkStep(order, { sorted: order.slice(bestStart, bestEnd + 1), range: [bestStart, bestEnd], message: `Maximum subarray sum = ${maxSoFar}` }));
+      return steps;
+    }
+    Object.assign(ALGORITHMS, { twoPointerSteps, slidingWindowSteps, kadaneSteps });
