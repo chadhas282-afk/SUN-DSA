@@ -3398,3 +3398,23 @@ def dijkstra(adj, start):
         if (values[mid] === target) {
           steps.push(mkStep(order, { found: [order[mid]], range: [lo, hi], phase: "found", message: `Found ${target} at index ${mid}!` }));
           return steps;
+          } else if (values[mid] < target) {
+          steps.push(mkStep(order, { range: [mid + 1, hi], phase: "range", message: `${values[mid]} < ${target}, so search the right half` }));
+          lo = mid + 1;
+        } else {
+          steps.push(mkStep(order, { range: [lo, mid - 1], phase: "range", message: `${values[mid]} > ${target}, so search the left half` }));
+          hi = mid - 1;
+        }
+      }
+      steps.push(mkStep(order, { phase: "notfound", message: `${target} is not in the array` }));
+      return steps;
+    }
+    const ALGORITHMS = {
+      bubbleSortSteps, selectionSortSteps, insertionSortSteps, mergeSortSteps, quickSortSteps,
+      linearSearchSteps, binarySearchSteps,
+    };
+    function twoPointerSteps(values, target) {
+      const order = values.map((_, i) => i);
+      const steps = [];
+      let lo = 0, hi = values.length - 1;
+      steps.push(mkStep(order, { current: [order[lo]], compare: [order[hi]], message: `Find two numbers that add up to ${target} in [${values.join(", ")}]` }));
