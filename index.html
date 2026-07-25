@@ -3418,3 +3418,23 @@ def dijkstra(adj, start):
       const steps = [];
       let lo = 0, hi = values.length - 1;
       steps.push(mkStep(order, { current: [order[lo]], compare: [order[hi]], message: `Find two numbers that add up to ${target} in [${values.join(", ")}]` }));
+      while (lo < hi) {
+        const total = values[lo] + values[hi];
+        steps.push(mkStep(order, { current: [order[lo]], compare: [order[hi]], phase: "compare", message: `${values[lo]} + ${values[hi]} = ${total}` }));
+        if (total === target) {
+          steps.push(mkStep(order, { found: [order[lo], order[hi]], phase: "found", message: `Found it: ${values[lo]} + ${values[hi]} = ${target}` }));
+          return steps;
+        } else if (total < target) {
+          lo++;
+          steps.push(mkStep(order, { current: [order[lo]], compare: [order[hi]], phase: "moveright", message: `${total} < ${target}, so move the left pointer right` }));
+        } else {
+          hi--;
+          steps.push(mkStep(order, { current: [order[lo]], compare: [order[hi]], phase: "moveleft", message: `${total} > ${target}, so move the right pointer left` }));
+        }
+      }
+      steps.push(mkStep(order, { phase: "notfound", message: `No pair adds up to ${target}` }));
+      return steps;
+    }
+    function slidingWindowSteps(values, k) {
+      const order = values.map((_, i) => i);
+      const steps = [];
