@@ -3718,3 +3718,23 @@ def dijkstra(adj, start):
         svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
         svg.innerHTML = "";
         const pos = computeGraphLayout(graph.labels.length, VW, VH);
+        const r = 24;
+        const edgeLayer = svgEl("g", { class: "edge-layer" });
+        svg.appendChild(edgeLayer);
+        const edgeEls = graph.edges.map(([a, b]) => {
+          const line = svgEl("line", { x1: pos[a].x, y1: pos[a].y, x2: pos[b].x, y2: pos[b].y, class: "graph-edge" });
+          edgeLayer.appendChild(line);
+          if (weights) {
+            const mx = (pos[a].x + pos[b].x) / 2, my = (pos[a].y + pos[b].y) / 2;
+            const wrap = svgEl("circle", { cx: mx, cy: my, r: 11, class: "edge-weight-bg" });
+            const wt = svgEl("text", { x: mx, y: my + 4, class: "edge-weight-text", "text-anchor": "middle" });
+            wt.textContent = weights(a, b);
+            edgeLayer.appendChild(wrap);
+            edgeLayer.appendChild(wt);
+          }
+          return { a, b, line };
+        });
+        const nodeLayer = svgEl("g", { class: "node-layer" });
+        svg.appendChild(nodeLayer);
+        const nodeEls = {};
+        for (let i = 0; i < graph.labels.length; i++) {
