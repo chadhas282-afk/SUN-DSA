@@ -3958,3 +3958,23 @@ def dijkstra(adj, start):
     function plainBSTInsert(nodes, rootId, value) {
       if (rootId === null) {
         const id = BST_NEXT_ID++;
+        nodes[id] = { id, value, left: null, right: null };
+        return id;
+      }
+      let curId = rootId;
+      while (true) {
+        const cur = nodes[curId];
+        if (value === cur.value) return rootId;
+        if (value < cur.value) {
+          if (cur.left === null) { const id = BST_NEXT_ID++; nodes[id] = { id, value, left: null, right: null }; cur.left = id; return rootId; }
+          curId = cur.left;
+        } else {
+          if (cur.right === null) { const id = BST_NEXT_ID++; nodes[id] = { id, value, left: null, right: null }; cur.right = id; return rootId; }
+          curId = cur.right;
+        }
+      }
+    }
+    function seedBST() {
+      BST_NEXT_ID = 1;
+      BSTModel.nodes = {};
+      BSTModel.rootId = null;
