@@ -3658,3 +3658,23 @@ def dijkstra(adj, start):
       svg.innerHTML = "";
       const nodes = step.nodes;
       const rootId = step.rootId;
+      if (rootId === null || rootId === undefined) {
+        const t = svgEl("text", { x: VW / 2, y: VH / 2, class: "empty-msg", "text-anchor": "middle" });
+        t.textContent = "Tree is empty — insert a value to begin";
+        svg.appendChild(t);
+        return;
+      }
+      const pos = computeBSTLayout(nodes, rootId, VW);
+      const r = 22;
+      const edgeLayer = svgEl("g", { class: "edge-layer" });
+      const nodeLayer = svgEl("g", { class: "node-layer" });
+      svg.appendChild(edgeLayer);
+      svg.appendChild(nodeLayer);
+      Object.keys(nodes).forEach(idStr => {
+        const id = Number(idStr);
+        if (!pos[id]) return;
+        const node = nodes[id];
+        [node.left, node.right].forEach(childId => {
+          if (childId !== null && childId !== undefined && pos[childId]) {
+            edgeLayer.appendChild(svgEl("line", {
+              x1: pos[id].x, y1: pos[id].y, x2: pos[childId].x, y2: pos[childId].y, class: "tree-edge",
