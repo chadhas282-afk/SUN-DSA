@@ -3758,3 +3758,23 @@ def dijkstra(adj, start):
       const { edgeEls, nodeEls } = svg._graphBuilt;
       edgeEls.forEach(({ a, b, line }) => {
         const activeEdge = (step.current === a && step.checking === b) || (step.current === b && step.checking === a);
+        line.setAttribute("class", activeEdge ? "graph-edge graph-edge-active" : "graph-edge");
+      });
+      Object.keys(nodeEls).forEach(idStr => {
+        const id = Number(idStr);
+        nodeEls[id].circle.setAttribute("class", `tree-node ${classifyGraphNode(id, step)}`);
+        if (nodeEls[id].distText && step.distances) {
+          const d = step.distances[id];
+          nodeEls[id].distText.textContent = d === undefined || d === Infinity ? "\u221E" : d;
+        }
+      });
+    }
+    function parseCodeWithPhases(rawCode) {
+      const lines = rawCode.split("\n");
+      const phaseRe = /[ \t]*(#|\/\/)\s*@phase:(\w+)\s*$/;
+      return lines.map(line => {
+        const m = line.match(phaseRe);
+        if (m) return { text: line.slice(0, m.index), phase: m[2] };
+        return { text: line, phase: null };
+      });
+    }
