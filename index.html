@@ -3798,3 +3798,23 @@ def dijkstra(adj, start):
           highlighted = window.hljs ? hljs.highlight(line.text, { language: langMeta.hljs }).value : escapeHtml(line.text);
         } catch (e) {
           highlighted = escapeHtml(line.text);
+          }
+        codeText.innerHTML = line.text.length ? highlighted : "&nbsp;";
+        row.appendChild(ln);
+        row.appendChild(codeText);
+        frag.appendChild(row);
+      });
+      container.appendChild(frag);
+    }
+    function setActiveLine(container, phase) {
+      const rows = container.querySelectorAll(".code-line");
+      let activeRow = null;
+      rows.forEach(r => {
+        if (phase && r.dataset.phase === phase) {
+          r.classList.add("active-line");
+          activeRow = r;
+        } else {
+          r.classList.remove("active-line");
+        }
+      });
+      if (activeRow) {
