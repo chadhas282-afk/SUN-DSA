@@ -3738,3 +3738,23 @@ def dijkstra(adj, start):
         svg.appendChild(nodeLayer);
         const nodeEls = {};
         for (let i = 0; i < graph.labels.length; i++) {
+          const p = pos[i];
+          const g = svgEl("g", { transform: `translate(${p.x},${p.y})`, class: "graph-node-group" });
+          const circle = svgEl("circle", { r, class: "tree-node viz-default" });
+          const text = svgEl("text", { class: "tree-node-value", "text-anchor": "middle", y: 5 });
+          text.textContent = graph.labels[i];
+          g.appendChild(circle);
+          g.appendChild(text);
+          let distText = null;
+          if (weights) {
+            distText = svgEl("text", { class: "graph-dist-label", "text-anchor": "middle", y: r + 18 });
+            g.appendChild(distText);
+          }
+          nodeLayer.appendChild(g);
+          nodeEls[i] = { g, circle, distText };
+        }
+        svg._graphBuilt = { pos, edgeEls, nodeEls };
+      }
+      const { edgeEls, nodeEls } = svg._graphBuilt;
+      edgeEls.forEach(({ a, b, line }) => {
+        const activeEdge = (step.current === a && step.checking === b) || (step.current === b && step.checking === a);
