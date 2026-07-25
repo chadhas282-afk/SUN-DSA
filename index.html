@@ -3598,3 +3598,23 @@ def dijkstra(adj, start):
         }
       });
       Array.from(boxEls.keys()).forEach(id => {
+        if (!seen.has(id)) {
+          const el = boxEls.get(id);
+          const m = /translate\(([^,]+),([^)]+)\)/.exec(el.g.getAttribute("transform") || "");
+          const px = m ? m[1] : 0, py = m ? m[2] : 0;
+          el.g.setAttribute("transform", `translate(${px},${py}) scale(0.4)`);
+          el.g.setAttribute("opacity", "0");
+          setTimeout(() => { if (el.g.parentNode) el.g.parentNode.removeChild(el.g); }, 380);
+          boxEls.delete(id);
+        }
+      });
+    }
+    function clearBoxSvg(svg) {
+      svg.innerHTML = "";
+      svg._boxEls = new Map();
+      svg._graphBuilt = null;
+      svg._label_top = null;
+      svg._label_front = null;
+      svg._label_rear = null;
+      svg._label_head = null;
+      svg._label_null = null;
