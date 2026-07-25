@@ -3838,3 +3838,23 @@ def dijkstra(adj, start):
       }
       return { positions, maxDepth };
     }
+    function classifyHeapState(id, step) {
+      if (step.found.includes(id)) return "viz-found";
+      if (step.swap.includes(id)) return "viz-swap";
+      if (step.compare.includes(id)) return "viz-compare";
+      if (step.current.includes(id)) return "viz-current";
+      return "viz-default";
+    }
+    function renderHeapStep(svg, step) {
+      const VW = 820, VH = 340;
+      svg.setAttribute("viewBox", `0 0 ${VW} ${VH}`);
+      svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+      svg.innerHTML = "";
+      const items = step.items;
+      if (!items.length) {
+        const t = svgEl("text", { x: VW / 2, y: VH / 2, class: "empty-msg", "text-anchor": "middle" });
+        t.textContent = "Heap is empty — insert a value to begin";
+        svg.appendChild(t);
+        return;
+      }
+      const { positions } = computeHeapLayout(items.length, VW);
