@@ -3938,3 +3938,23 @@ def dijkstra(adj, start):
       const idx = ListModel.items.findIndex(it => it.value === value);
       if (idx !== -1) { ListModel.items.splice(idx, 1); return true; }
       return false;
+      }
+    function listSearch(value) { return ListModel.items.findIndex(it => it.value === value); }
+    function listClear() { ListModel.items = []; ListModel.nextId = 1; }
+    function seedList() { listClear();[10, 20, 30].forEach(listInsertTail); }
+    let BST_NEXT_ID = 1;
+    const BSTModel = { nodes: {}, rootId: null };
+    function cloneNodes(nodes) {
+      const out = {};
+      for (const k in nodes) out[k] = Object.assign({}, nodes[k]);
+      return out;
+    }
+    function mkTreeStep(nodes, rootId, extra) {
+      return Object.assign({
+        nodes: cloneNodes(nodes), rootId,
+        compare: [], found: null, newNode: null, visit: [], visitOrder: [], phase: null, message: "",
+      }, extra || {});
+    }
+    function plainBSTInsert(nodes, rootId, value) {
+      if (rootId === null) {
+        const id = BST_NEXT_ID++;
