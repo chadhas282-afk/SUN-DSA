@@ -3698,3 +3698,23 @@ def dijkstra(adj, start):
     function computeGraphLayout(n, viewW, viewH) {
       const cx = viewW / 2, cy = viewH / 2 + 6;
       const radius = Math.min(viewW, viewH) / 2 - 60;
+       const pos = {};
+      for (let i = 0; i < n; i++) {
+        const angle = (i * 2 * Math.PI) / n - Math.PI / 2;
+        pos[i] = { x: cx + radius * Math.cos(angle), y: cy + radius * Math.sin(angle) };
+      }
+      return pos;
+    }
+    function classifyGraphNode(id, step) {
+      if (step.current === id) return "viz-current";
+      if (step.checking === id) return "viz-compare";
+      if (step.visited.includes(id)) return "viz-visited";
+      return "viz-default";
+    }
+    function renderGraphStep(svg, graph, step, weights) {
+      const VW = 720, VH = 420;
+      if (!svg._graphBuilt) {
+        svg.setAttribute("viewBox", `0 0 ${VW} ${VH}`);
+        svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+        svg.innerHTML = "";
+        const pos = computeGraphLayout(graph.labels.length, VW, VH);
