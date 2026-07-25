@@ -3878,3 +3878,23 @@ def dijkstra(adj, start):
         g.appendChild(text);
         nodeLayer.appendChild(g);
       });
+      }
+    function initHanoiViz(svg, n) {
+      svg.innerHTML = "";
+      svg.setAttribute("viewBox", "0 0 700 320");
+      svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+      const pegX = [150, 350, 550];
+      const baseY = 280, poleTop = 88, poleWidth = 8;
+      svg.appendChild(svgEl("rect", { x: 60, y: baseY, width: 580, height: 14, rx: 4, class: "hanoi-base" }));
+      const pegLabels = ["A", "B", "C"];
+      pegX.forEach((x, i) => {
+        svg.appendChild(svgEl("rect", { x: x - poleWidth / 2, y: poleTop, width: poleWidth, height: baseY - poleTop, rx: 3, class: "hanoi-peg" }));
+        const lbl = svgEl("text", { x, y: baseY + 34, class: "bar-index", "text-anchor": "middle", "font-weight": "700" });
+        lbl.textContent = pegLabels[i];
+        svg.appendChild(lbl);
+      });
+      const diskEls = {};
+      for (let size = 1; size <= n; size++) {
+        const w = 34 + size * 20;
+        const g = svgEl("g", { class: "hanoi-disk-group" });
+        const rect = svgEl("rect", { x: -w / 2, y: -11, width: w, height: 22, rx: 8, class: `hanoi-disk hanoi-disk-${((size - 1) % 6) + 1}` });
