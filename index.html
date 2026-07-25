@@ -3858,3 +3858,23 @@ def dijkstra(adj, start):
         return;
       }
       const { positions } = computeHeapLayout(items.length, VW);
+      const r = 22;
+      const edgeLayer = svgEl("g", { class: "edge-layer" });
+      const nodeLayer = svgEl("g", { class: "node-layer" });
+      svg.appendChild(edgeLayer);
+      svg.appendChild(nodeLayer);
+      for (let i = 0; i < items.length; i++) {
+        const left = 2 * i + 1, right = 2 * i + 2;
+        if (left < items.length) edgeLayer.appendChild(svgEl("line", { x1: positions[i].x, y1: positions[i].y, x2: positions[left].x, y2: positions[left].y, class: "tree-edge" }));
+        if (right < items.length) edgeLayer.appendChild(svgEl("line", { x1: positions[i].x, y1: positions[i].y, x2: positions[right].x, y2: positions[right].y, class: "tree-edge" }));
+      }
+      items.forEach((item, i) => {
+        const p = positions[i];
+        const g = svgEl("g", { transform: `translate(${p.x},${p.y})`, class: "tree-node-group" });
+        const circle = svgEl("circle", { r, class: `tree-node ${classifyHeapState(item.id, step)}` });
+        const text = svgEl("text", { class: "tree-node-value", "text-anchor": "middle", y: 5 });
+        text.textContent = item.value;
+        g.appendChild(circle);
+        g.appendChild(text);
+        nodeLayer.appendChild(g);
+      });
