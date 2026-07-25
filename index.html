@@ -3918,3 +3918,23 @@ def dijkstra(adj, start):
           el.setAttribute("class", `hanoi-disk-group${step.disk === size ? " hanoi-disk-moving" : ""}`);
         });
       });
+      }
+    const StackModel = { items: [], nextId: 1 };
+    function stackPush(value) { StackModel.items.push({ id: StackModel.nextId++, value }); }
+    function stackPop() { return StackModel.items.pop(); }
+    function stackPeek() { return StackModel.items[StackModel.items.length - 1]; }
+    function stackClear() { StackModel.items = []; StackModel.nextId = 1; }
+    function seedStack() { stackClear();[10, 20, 30].forEach(stackPush); }
+    const QueueModel = { items: [], nextId: 1 };
+    function queueEnqueue(value) { QueueModel.items.push({ id: QueueModel.nextId++, value }); }
+    function queueDequeue() { return QueueModel.items.shift(); }
+    function queuePeek() { return QueueModel.items[0]; }
+    function queueClear() { QueueModel.items = []; QueueModel.nextId = 1; }
+    function seedQueue() { queueClear();[5, 15, 25].forEach(queueEnqueue); }
+    const ListModel = { items: [], nextId: 1 };
+    function listInsertHead(value) { ListModel.items.unshift({ id: ListModel.nextId++, value }); }
+    function listInsertTail(value) { ListModel.items.push({ id: ListModel.nextId++, value }); }
+    function listDelete(value) {
+      const idx = ListModel.items.findIndex(it => it.value === value);
+      if (idx !== -1) { ListModel.items.splice(idx, 1); return true; }
+      return false;
