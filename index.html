@@ -4158,3 +4158,23 @@ def dijkstra(adj, start):
       for (let iter = 0; iter < n; iter++) {
         let u = -1, best = Infinity;
         for (let i = 0; i < n; i++) { if (!visited.has(i) && dist[i] < best) { best = dist[i]; u = i; } }
+        if (u === -1) break;
+        visited.add(u);
+        steps.push(mkGraphStep({ visited: [...visited], current: u, distances: Object.assign({}, dist), phase: "visit", message: `Visit ${labels[u]} (shortest known distance ${dist[u]})` }));
+        for (const v of adj[u]) {
+          const w = edgeWeight(u, v);
+          steps.push(mkGraphStep({ visited: [...visited], current: u, checking: v, distances: Object.assign({}, dist), phase: "neighbor", message: `Check edge ${labels[u]}\u2013${labels[v]} (weight ${w})` }));
+          if (dist[u] + w < dist[v]) {
+            dist[v] = dist[u] + w;
+            steps.push(mkGraphStep({ visited: [...visited], current: u, checking: v, distances: Object.assign({}, dist), phase: "relax", message: `Shorter path to ${labels[v]}: now ${dist[v]}` }));
+          }
+        }
+      }
+      steps.push(mkGraphStep({ visited: [...visited], distances: Object.assign({}, dist), phase: "done", message: `Shortest distances from ${labels[start]} computed` }));
+      return steps;
+    }
+    const DListModel = { items: [], nextId: 1 };
+    function dlistInsertHead(value) { DListModel.items.unshift({ id: DListModel.nextId++, value }); }
+    function dlistInsertTail(value) { DListModel.items.push({ id: DListModel.nextId++, value }); }
+    function dlistDelete(value) {
+      const idx = DListModel.items.findIndex(it => it.value === value);
