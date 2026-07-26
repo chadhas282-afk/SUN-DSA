@@ -4578,3 +4578,23 @@ def dijkstra(adj, start):
         case "binary_search": annotateBinarySearch(steps, ctx.values, ctx.target); break;
         case "two_pointers": annotateTwoPointers(steps, ctx.values, ctx.target); break;
         case "kadane": annotateKadane(steps, ctx.values); break;
+        case "bst": annotateBST(steps, ctx.value); break;
+        case "graph_bfs": annotateGraphNeighbor(steps, SampleGraph); break;
+        case "graph_dfs": annotateGraphNeighbor(steps, SampleGraph); break;
+        case "dijkstra": annotateDijkstra(steps, SampleGraph); break;
+        case "heap": annotateHeap(steps); break;
+        case "recursion": annotateRecursion(steps); break;
+        case "tower_of_hanoi": annotateHanoi(steps); break;
+        default: break;
+      }
+      return steps;
+    }
+    if (typeof module !== "undefined" && module.exports) {
+      module.exports = {
+        mkQuiz, annotateQuiz,
+        annotateBubbleSort, annotateSelectionSort, annotateInsertionSort, annotateQuickSort, annotateMergeSort,
+        annotateLinearSearch, annotateBinarySearch, annotateTwoPointers, annotateKadane,
+        annotateBST, annotateHeap, annotateGraphNeighbor, annotateDijkstra, annotateRecursion, annotateHanoi,
+      };
+    }
+    const App = {
