@@ -4478,3 +4478,23 @@ def dijkstra(adj, start):
     function annotateBST(steps, targetValue) {
       steps.forEach(s => {
         if (s.phase !== "compare" || !s.compare.length) return;
+        const nodeVal = s.nodes[s.compare[0]].value;
+        let correctIndex, explanation;
+        if (targetValue === nodeVal) { correctIndex = 0; explanation = `${targetValue} equals ${nodeVal}.`; }
+        else if (targetValue < nodeVal) { correctIndex = 1; explanation = `${targetValue} < ${nodeVal}, so we go left.`; }
+        else { correctIndex = 2; explanation = `${targetValue} > ${nodeVal}, so we go right.`; }
+        s.quiz = mkQuiz(
+          `Comparing ${targetValue} with ${nodeVal}: which way?`,
+          ["Equal", "Go left (smaller)", "Go right (larger)"],
+          correctIndex, explanation
+        );
+      });
+    }
+    function annotateHeap(steps) {
+      steps.forEach(s => {
+        if (s.phase !== "compare" || s.compare.length < 2) return;
+        const byId = {};
+        s.items.forEach(it => { byId[it.id] = it.value; });
+        const aVal = byId[s.compare[0]], bVal = byId[s.compare[1]];
+        if (aVal === undefined || bVal === undefined) return;
+        const willSwap = aVal > bVal;
