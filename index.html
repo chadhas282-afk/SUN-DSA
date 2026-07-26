@@ -4438,3 +4438,23 @@ def dijkstra(adj, start):
         if (val === target) { correctIndex = 0; explanation = `${val} = ${target}, found it!`; }
         else if (val < target) { correctIndex = 2; explanation = `${val} < ${target}, so the target must be in the right half.`; }
         else { correctIndex = 1; explanation = `${val} > ${target}, so the target must be in the left half.`; }
+        s.quiz = mkQuiz(
+          `Comparing ${val} with target ${target}: what next?`,
+          ["Found it \u2014 equal", "Search the left half", "Search the right half"],
+          correctIndex, explanation
+        );
+      });
+    }
+    function annotateTwoPointers(steps, values, target) {
+      steps.forEach(s => {
+        if (s.phase !== "compare" || !s.current.length || !s.compare.length) return;
+        const a = values[s.current[0]], b = values[s.compare[0]];
+        const sum = a + b;
+        let correctIndex, explanation;
+        if (sum === target) { correctIndex = 0; explanation = `${a} + ${b} = ${target}, found the pair!`; }
+        else if (sum < target) { correctIndex = 2; explanation = `${sum} < ${target}, so move the left pointer right to increase the sum.`; }
+        else { correctIndex = 1; explanation = `${sum} > ${target}, so move the right pointer left to decrease the sum.`; }
+        s.quiz = mkQuiz(
+          `${a} + ${b} = ${sum}. Compared to target ${target}?`,
+          ["Exact match \u2014 found it!", "Too high \u2014 move the right pointer left", "Too low \u2014 move the left pointer right"],
+          correctIndex, explanation
