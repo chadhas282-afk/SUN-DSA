@@ -4418,3 +4418,23 @@ def dijkstra(adj, start):
       });
     }
     function annotateLinearSearch(steps, values, target) {
+      steps.forEach(s => {
+        if (s.phase !== "compare" || !s.current.length) return;
+        const val = values[s.current[0]];
+        const isMatch = val === target;
+        s.quiz = mkQuiz(
+          `Does ${val} equal the target, ${target}?`,
+          ["Yes \u2014 found it!", "No \u2014 keep looking"],
+          isMatch ? 0 : 1,
+          isMatch ? `${val} = ${target}, search complete.` : `${val} \u2260 ${target}, move to the next index.`
+        );
+      });
+    }
+    function annotateBinarySearch(steps, values, target) {
+      steps.forEach(s => {
+        if (s.phase !== "compare" || !s.current.length) return;
+        const val = values[s.current[0]];
+        let correctIndex, explanation;
+        if (val === target) { correctIndex = 0; explanation = `${val} = ${target}, found it!`; }
+        else if (val < target) { correctIndex = 2; explanation = `${val} < ${target}, so the target must be in the right half.`; }
+        else { correctIndex = 1; explanation = `${val} > ${target}, so the target must be in the left half.`; }
