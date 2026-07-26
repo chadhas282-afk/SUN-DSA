@@ -4238,3 +4238,23 @@ def dijkstra(adj, start):
         if (items[i].value > items[p].value) {
           steps.push(mkHeapStep(items, { swap: [items[i].id, items[p].id], phase: "swap", message: `${items[i].value} > ${items[p].value}, swap up` }));
           const tmp = items[i]; items[i] = items[p]; items[p] = tmp;
+          i = p;
+        } else break;
+      }
+      steps.push(mkHeapStep(items, { current: items.length ? [items[0].id] : [], message: "Heap property restored" }));
+      return { steps, items, nextId: nextId + 1 };
+    }
+    function heapExtractSteps(currentItems) {
+      const items = currentItems.map(x => Object.assign({}, x));
+      const steps = [];
+      if (!items.length) { steps.push(mkHeapStep(items, { message: "Heap is empty" })); return { steps, items, extracted: null }; }
+      const extracted = items[0];
+      steps.push(mkHeapStep(items, { found: [items[0].id], phase: "found", message: `Extract max: ${items[0].value}` }));
+      const last = items.pop();
+      if (items.length > 0) {
+        items[0] = last;
+        steps.push(mkHeapStep(items, { current: [items[0].id], message: `Move last element ${last.value} to the root` }));
+        let i = 0;
+        while (true) {
+          const l = heapLeftIdx(i), r = heapRightIdx(i);
+          let largest = i;
