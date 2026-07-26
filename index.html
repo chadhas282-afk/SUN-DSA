@@ -3998,3 +3998,23 @@ def dijkstra(adj, start):
         const cur = nodes[curId];
         steps.push(mkTreeStep(nodes, rootId, { compare: [curId], phase: "compare", message: `Compare ${value} with ${cur.value}` }));
         if (value === cur.value) {
+        steps.push(mkTreeStep(nodes, rootId, { compare: [curId], message: `${value} is already in the tree \u2014 no duplicate inserted` }));
+          return { steps, nodes, rootId };
+        } else if (value < cur.value) {
+          if (cur.left === null) {
+            const id = BST_NEXT_ID++;
+            nodes[id] = { id, value, left: null, right: null };
+            nodes[curId] = Object.assign({}, cur, { left: id });
+            steps.push(mkTreeStep(nodes, rootId, { newNode: id, phase: "insert", message: `${value} < ${cur.value}: attach as its left child` }));
+            return { steps, nodes, rootId };
+          }
+          curId = cur.left;
+        } else {
+          if (cur.right === null) {
+            const id = BST_NEXT_ID++;
+            nodes[id] = { id, value, left: null, right: null };
+            nodes[curId] = Object.assign({}, cur, { right: id });
+            steps.push(mkTreeStep(nodes, rootId, { newNode: id, phase: "insert", message: `${value} > ${cur.value}: attach as its right child` }));
+            return { steps, nodes, rootId };
+          }
+          curId = cur.right;
