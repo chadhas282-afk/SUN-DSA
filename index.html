@@ -4098,3 +4098,23 @@ def dijkstra(adj, start):
         order.push(node);
         steps.push(mkGraphStep({ visited: [...visited], queue: queue.slice(), current: node, order: order.slice(), phase: "dequeue", message: `Dequeue ${labels[node]} and visit it` }));
         for (const neighbor of adj[node]) {
+          steps.push(mkGraphStep({ visited: [...visited], queue: queue.slice(), current: node, checking: neighbor, order: order.slice(), phase: "neighbor", message: `Check neighbor ${labels[neighbor]} of ${labels[node]}` }));
+          if (!visited.has(neighbor)) {
+            visited.add(neighbor);
+            queue.push(neighbor);
+            steps.push(mkGraphStep({ visited: [...visited], queue: queue.slice(), current: node, checking: neighbor, order: order.slice(), phase: "enqueue", message: `${labels[neighbor]} is new \u2014 mark visited and enqueue` }));
+          }
+        }
+      }
+      steps.push(mkGraphStep({ visited: [...visited], queue: [], order: order.slice(), phase: "done", message: `BFS complete. Visit order: ${order.map(i => labels[i]).join(" \u2192 ")}` }));
+      return steps;
+    }
+    function graphDFSSteps(graph, start) {
+      const { adj, labels } = graph;
+      const steps = [];
+      const visited = new Set();
+      const order = [];
+      const callStack = [];
+      function dfs(node) {
+        visited.add(node);
+        callStack.push(node);
