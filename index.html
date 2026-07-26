@@ -4078,3 +4078,23 @@ def dijkstra(adj, start):
     }
     function buildSampleGraph() {
       const labels = ["A", "B", "C", "D", "E", "F", "G", "H"];
+       const edgeList = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 0], [0, 3], [1, 5], [2, 6]];
+      const adj = {};
+      labels.forEach((_, i) => { adj[i] = []; });
+      edgeList.forEach(([a, b]) => { adj[a].push(b); adj[b].push(a); });
+      Object.keys(adj).forEach(k => adj[k].sort((a, b) => a - b));
+      return { labels, edges: edgeList, adj };
+    }
+    const SampleGraph = buildSampleGraph();
+    function graphBFSSteps(graph, start) {
+      const { adj, labels } = graph;
+      const steps = [];
+      const visited = new Set([start]);
+      const queue = [start];
+      const order = [];
+      steps.push(mkGraphStep({ visited: [...visited], queue: queue.slice(), order: order.slice(), phase: "visit", message: `Start BFS at ${labels[start]}: mark it visited and enqueue it` }));
+      while (queue.length) {
+        const node = queue.shift();
+        order.push(node);
+        steps.push(mkGraphStep({ visited: [...visited], queue: queue.slice(), current: node, order: order.slice(), phase: "dequeue", message: `Dequeue ${labels[node]} and visit it` }));
+        for (const neighbor of adj[node]) {
