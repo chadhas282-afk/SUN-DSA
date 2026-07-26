@@ -4458,3 +4458,23 @@ def dijkstra(adj, start):
           `${a} + ${b} = ${sum}. Compared to target ${target}?`,
           ["Exact match \u2014 found it!", "Too high \u2014 move the right pointer left", "Too low \u2014 move the left pointer right"],
           correctIndex, explanation
+          );
+      });
+    }
+    function annotateKadane(steps, values) {
+      for (let i = 0; i < steps.length - 1; i++) {
+        const next = steps[i + 1];
+        if (next.phase !== "reset" && next.phase !== "extend") continue;
+        const val = values[next.current[0]];
+        const willReset = next.phase === "reset";
+        steps[i].quiz = mkQuiz(
+          `Next value is ${val}. Should the run extend, or restart here?`,
+          ["Extend the current run", "Restart \u2014 begin a new run at this value"],
+          willReset ? 1 : 0,
+          willReset ? `${val} alone beats extending the old run, so it restarts.` : `Adding ${val} to the running sum still beats starting fresh.`
+        );
+      }
+    }
+    function annotateBST(steps, targetValue) {
+      steps.forEach(s => {
+        if (s.phase !== "compare" || !s.compare.length) return;
