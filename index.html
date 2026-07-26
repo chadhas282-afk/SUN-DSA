@@ -4538,3 +4538,23 @@ def dijkstra(adj, start):
       });
     }
     function annotateRecursion(steps) {
+      steps.forEach(s => {
+        if (s.phase !== "call" || s.current === null) return;
+        const node = s.nodes[s.current];
+        const m = /fib\((\d+)\)/.exec(node.label);
+        if (!m) return;
+        const k = parseInt(m[1], 10);
+        const isBase = k <= 1;
+        s.quiz = mkQuiz(
+          `Will fib(${k}) hit the base case immediately, or make more recursive calls?`,
+          ["Base case \u2014 returns immediately", "Recurses further into fib(k-1) and fib(k-2)"],
+          isBase ? 0 : 1,
+          isBase ? `${k} \u2264 1, so it returns right away.` : `${k} > 1, so it calls fib(${k - 1}) and fib(${k - 2}).`
+        );
+      });
+    }
+    function annotateHanoi(steps) {
+      const pegNames = ["A", "B", "C"];
+      for (let i = 0; i < steps.length - 1; i++) {
+        const next = steps[i + 1];
+        if (next.disk === null) continue;
