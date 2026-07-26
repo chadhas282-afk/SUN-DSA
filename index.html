@@ -4358,4 +4358,23 @@ def dijkstra(adj, start):
           `Will ${a} and ${b} be swapped?`,
           ["Yes \u2014 swap them", "No \u2014 leave them in place"],
           willSwap ? 0 : 1,
-        
+        willSwap ? `${a} > ${b}, so they're out of order.` : `${a} \u2264 ${b}, already in the right order.`
+        );
+      });
+    }
+    function annotateSelectionSort(steps, values) {
+      steps.forEach(s => {
+        if (s.phase !== "compare" || s.compare.length < 2) return;
+        const minVal = values[s.compare[0]], jVal = values[s.compare[1]];
+        const isNewMin = jVal < minVal;
+        s.quiz = mkQuiz(
+          `Is ${jVal} smaller than the current minimum, ${minVal}?`,
+          ["Yes \u2014 it's the new minimum", "No \u2014 keep the current minimum"],
+          isNewMin ? 0 : 1,
+          isNewMin ? `${jVal} < ${minVal}, so it becomes the new candidate.` : `${jVal} \u2265 ${minVal}, so the minimum doesn't change.`
+        );
+      });
+    }
+    function annotateInsertionSort(steps, values) {
+      for (let i = 0; i < steps.length - 1; i++) {
+        const s = steps[i];
