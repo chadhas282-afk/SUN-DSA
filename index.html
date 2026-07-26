@@ -4018,3 +4018,23 @@ def dijkstra(adj, start):
             return { steps, nodes, rootId };
           }
           curId = cur.right;
+          }
+      }
+    }
+    function bstSearchSteps(nodesIn, rootId, value) {
+      const nodes = cloneNodes(nodesIn);
+      const steps = [];
+      if (rootId === null || rootId === undefined) {
+        steps.push(mkTreeStep(nodes, rootId, { message: "Tree is empty" }));
+        return steps;
+      }
+      let curId = rootId;
+      while (curId !== null && curId !== undefined) {
+        const cur = nodes[curId];
+        steps.push(mkTreeStep(nodes, rootId, { compare: [curId], phase: "compare", message: `Compare ${value} with ${cur.value}` }));
+        if (value === cur.value) {
+          steps.push(mkTreeStep(nodes, rootId, { found: curId, phase: "found", message: `Found ${value}!` }));
+          return steps;
+        }
+        curId = value < cur.value ? cur.left : cur.right;
+      }
