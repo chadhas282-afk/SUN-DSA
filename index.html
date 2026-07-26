@@ -4318,3 +4318,23 @@ def dijkstra(adj, start):
         steps.push(snap({ current: id, phase: "call", message: `Call fib(${k})` }));
         let result;
         if (k <= 1) {
+          result = k;
+        } else {
+          const a = call(k - 1, id);
+          const b = call(k - 2, id);
+          result = a + b;
+        }
+        nodes[id] = Object.assign({}, nodes[id], { value: result, label: `fib(${k})=${result}` });
+        steps.push(snap({ current: id, phase: "return", message: `fib(${k}) returns ${result}` }));
+        return result;
+      }
+      call(Math.max(0, Math.min(n, 6)), null);
+      return steps;
+    }
+    if (typeof module !== "undefined" && module.exports) {
+      module.exports = {
+        StackModel, stackPush, stackPop, stackPeek, stackClear, seedStack,
+        QueueModel, queueEnqueue, queueDequeue, queuePeek, queueClear, seedQueue,
+        ListModel, listInsertHead, listInsertTail, listDelete, listSearch, listClear, seedList,
+        BSTModel, seedBST, bstInsertSteps, bstSearchSteps, bstTraverseSteps, cloneNodes,
+        SampleGraph, buildSampleGraph, graphBFSSteps, graphDFSSteps,
