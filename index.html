@@ -4138,3 +4138,23 @@ def dijkstra(adj, start):
     (function assignSampleWeights() {
       const w = [4, 2, 7, 3, 5, 6, 2, 8, 4, 3, 5];
       SampleGraph.edges.forEach(([a, b], i) => {
+        const key = a < b ? `${a}-${b}` : `${b}-${a}`;
+        SampleGraphWeights[key] = w[i % w.length];
+      });
+    })();
+    function edgeWeight(a, b) {
+      const key = a < b ? `${a}-${b}` : `${b}-${a}`;
+      return SampleGraphWeights[key];
+    }
+    function dijkstraSteps(graph, start) {
+      const { adj, labels } = graph;
+      const n = labels.length;
+      const dist = {};
+      labels.forEach((_, i) => { dist[i] = Infinity; });
+      dist[start] = 0;
+      const visited = new Set();
+      const steps = [];
+      steps.push(mkGraphStep({ visited: [], current: start, distances: Object.assign({}, dist), message: `Start Dijkstra at ${labels[start]}, distance 0` }));
+      for (let iter = 0; iter < n; iter++) {
+        let u = -1, best = Infinity;
+        for (let i = 0; i < n; i++) { if (!visited.has(i) && dist[i] < best) { best = dist[i]; u = i; } }
