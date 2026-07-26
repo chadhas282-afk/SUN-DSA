@@ -4058,3 +4058,23 @@ def dijkstra(adj, start):
         while (q.length) {
           const cur = q.shift();
           visit(cur);
+          if (nodes[cur].left !== null) q.push(nodes[cur].left);
+          if (nodes[cur].right !== null) q.push(nodes[cur].right);
+        }
+      }
+      if (rootId === null || rootId === undefined) { steps.push(mkTreeStep(nodes, rootId, { message: "Tree is empty" })); return steps; }
+      if (mode === "inorder") inorder(rootId);
+      else if (mode === "preorder") preorder(rootId);
+      else if (mode === "postorder") postorder(rootId);
+      else levelorder(rootId);
+      steps.push(mkTreeStep(nodes, rootId, {
+        visit: [], visitOrder: order.slice(),
+        message: `Traversal complete: ${order.map(id => nodes[id].value).join(", ")}`,
+      }));
+      return steps;
+    }
+    function mkGraphStep(extra) {
+      return Object.assign({ visited: [], queue: [], callStack: [], current: null, checking: null, order: [], distances: {}, phase: null, message: "" }, extra || {});
+    }
+    function buildSampleGraph() {
+      const labels = ["A", "B", "C", "D", "E", "F", "G", "H"];
