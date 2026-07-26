@@ -4278,3 +4278,23 @@ def dijkstra(adj, start):
       [50, 30, 70, 20, 65, 90, 15].forEach(v => {
         const r = heapInsertSteps(HeapModel.items, HeapModel.nextId, v);
         HeapModel.items = r.items;
+        HeapModel.nextId = r.nextId;
+      });
+    }
+    const PEG_NAMES = ["A", "B", "C"];
+    function mkHanoiStep(pegs, extra) {
+      return Object.assign({ pegs: pegs.map(p => p.slice()), disk: null, from: null, to: null, message: "" }, extra || {});
+    }
+    function hanoiSteps(n) {
+      const pegs = [Array.from({ length: n }, (_, i) => n - i), [], []];
+      const steps = [];
+      steps.push(mkHanoiStep(pegs, { message: `Move ${n} disks from peg A to peg C using peg B as a spare` }));
+      function move(k, from, to, via) {
+        if (k === 0) return;
+        move(k - 1, from, via, to);
+        const disk = pegs[from].pop();
+        pegs[to].push(disk);
+        steps.push(mkHanoiStep(pegs, { disk, from, to, phase: "move", message: `Move disk ${disk} from ${PEG_NAMES[from]} to ${PEG_NAMES[to]}` }));
+        move(k - 1, via, to, from);
+      }
+      move(n, 0, 2, 1);
