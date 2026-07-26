@@ -4558,3 +4558,23 @@ def dijkstra(adj, start):
       for (let i = 0; i < steps.length - 1; i++) {
         const next = steps[i + 1];
         if (next.disk === null) continue;
+        steps[i].quiz = mkQuiz(
+          `Which peg will disk ${next.disk} move to next?`,
+          pegNames.map(p => `Peg ${p}`),
+          next.to,
+          `Disk ${next.disk} moves from peg ${pegNames[next.from]} to peg ${pegNames[next.to]}.`
+        );
+      }
+    }
+    function annotateQuiz(topicId, steps, ctx) {
+      ctx = ctx || {};
+      switch (topicId) {
+        case "bubble_sort": annotateBubbleSort(steps, ctx.values); break;
+        case "selection_sort": annotateSelectionSort(steps, ctx.values); break;
+        case "insertion_sort": annotateInsertionSort(steps, ctx.values); break;
+        case "quick_sort": annotateQuickSort(steps, ctx.values); break;
+        case "merge_sort": annotateMergeSort(steps, ctx.values); break;
+        case "linear_search": annotateLinearSearch(steps, ctx.values, ctx.target); break;
+        case "binary_search": annotateBinarySearch(steps, ctx.values, ctx.target); break;
+        case "two_pointers": annotateTwoPointers(steps, ctx.values, ctx.target); break;
+        case "kadane": annotateKadane(steps, ctx.values); break;
