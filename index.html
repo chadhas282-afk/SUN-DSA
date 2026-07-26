@@ -4198,3 +4198,23 @@ def dijkstra(adj, start):
       CQueueModel.data[rear] = { id: CQueueModel.nextId++, value };
       CQueueModel.size++;
       return true;
+      }
+    function cqueueDequeue() {
+      if (CQueueModel.size === 0) return null;
+      const item = CQueueModel.data[CQueueModel.front];
+      CQueueModel.data[CQueueModel.front] = null;
+      CQueueModel.front = (CQueueModel.front + 1) % CQueueModel.capacity;
+      CQueueModel.size--;
+      return item;
+    }
+    function seedCQueue() { cqueueReset(6); cqueueEnqueue(10); cqueueEnqueue(20); }
+    const DequeModel = { items: [], nextId: 1 };
+    function dequePushFront(value) { DequeModel.items.unshift({ id: DequeModel.nextId++, value }); }
+    function dequePushBack(value) { DequeModel.items.push({ id: DequeModel.nextId++, value }); }
+    function dequePopFront() { return DequeModel.items.shift(); }
+    function dequePopBack() { return DequeModel.items.pop(); }
+    function dequeClear() { DequeModel.items = []; DequeModel.nextId = 1; }
+    function seedDeque() { dequeClear();[10, 20, 30].forEach(dequePushBack); }
+    const HeapModel = { items: [], nextId: 1 };
+    function heapParentIdx(i) { return Math.floor((i - 1) / 2); }
+    function heapLeftIdx(i) { return 2 * i + 1; }
