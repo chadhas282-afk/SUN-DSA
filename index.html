@@ -4398,3 +4398,23 @@ def dijkstra(adj, start):
         s.quiz = mkQuiz(
           `Is ${val} less than the pivot, ${pivotVal}?`,
           ["Yes \u2014 belongs in the left partition", "No \u2014 stays in the right partition"],
+          goesLeft ? 0 : 1,
+          goesLeft ? `${val} < ${pivotVal}, so it moves left.` : `${val} \u2265 ${pivotVal}, so it stays right.`
+        );
+      });
+    }
+    function annotateMergeSort(steps, values) {
+      steps.forEach(s => {
+        if (s.phase !== "compare" || s.compare.length < 2) return;
+        const [leftId, rightId] = s.compare;
+        const leftVal = values[leftId], rightVal = values[rightId];
+        const leftWins = leftVal <= rightVal;
+        s.quiz = mkQuiz(
+          `Which value goes into the merged run next: ${leftVal} or ${rightVal}?`,
+          [`${leftVal} (from the left half)`, `${rightVal} (from the right half)`],
+          leftWins ? 0 : 1,
+          leftWins ? `${leftVal} \u2264 ${rightVal}, so the left value goes first.` : `${rightVal} < ${leftVal}, so the right value goes first.`
+        );
+      });
+    }
+    function annotateLinearSearch(steps, values, target) {
