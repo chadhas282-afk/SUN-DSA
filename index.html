@@ -4338,3 +4338,24 @@ def dijkstra(adj, start):
         ListModel, listInsertHead, listInsertTail, listDelete, listSearch, listClear, seedList,
         BSTModel, seedBST, bstInsertSteps, bstSearchSteps, bstTraverseSteps, cloneNodes,
         SampleGraph, buildSampleGraph, graphBFSSteps, graphDFSSteps,
+        SampleGraphWeights, edgeWeight, dijkstraSteps,
+        DListModel, dlistInsertHead, dlistInsertTail, dlistDelete, dlistSearch, dlistClear, seedDList,
+        CQueueModel, cqueueReset, cqueueEnqueue, cqueueDequeue, seedCQueue,
+        DequeModel, dequePushFront, dequePushBack, dequePopFront, dequePopBack, dequeClear, seedDeque,
+        HeapModel, heapInsertSteps, heapExtractSteps, seedHeap,
+        hanoiSteps, fibCallTreeSteps,
+      };
+    }
+    function mkQuiz(question, options, correctIndex, explanation) {
+      return { question, options, correctIndex, explanation };
+    }
+    function annotateBubbleSort(steps, values) {
+      steps.forEach(s => {
+        if (s.phase !== "compare" || s.compare.length < 2) return;
+        const a = values[s.compare[0]], b = values[s.compare[1]];
+        const willSwap = a > b;
+        s.quiz = mkQuiz(
+          `Will ${a} and ${b} be swapped?`,
+          ["Yes \u2014 swap them", "No \u2014 leave them in place"],
+          willSwap ? 0 : 1,
+        
