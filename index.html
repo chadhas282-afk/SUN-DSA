@@ -4178,3 +4178,23 @@ def dijkstra(adj, start):
     function dlistInsertTail(value) { DListModel.items.push({ id: DListModel.nextId++, value }); }
     function dlistDelete(value) {
       const idx = DListModel.items.findIndex(it => it.value === value);
+       if (idx !== -1) { DListModel.items.splice(idx, 1); return true; }
+      return false;
+    }
+    function dlistSearch(value) { return DListModel.items.findIndex(it => it.value === value); }
+    function dlistClear() { DListModel.items = []; DListModel.nextId = 1; }
+    function seedDList() { dlistClear();[10, 20, 30].forEach(dlistInsertTail); }
+    const CQueueModel = { data: [], capacity: 6, front: 0, size: 0, nextId: 1 };
+    function cqueueReset(capacity) {
+      CQueueModel.capacity = capacity || 6;
+      CQueueModel.data = new Array(CQueueModel.capacity).fill(null);
+      CQueueModel.front = 0;
+      CQueueModel.size = 0;
+      CQueueModel.nextId = 1;
+    }
+    function cqueueEnqueue(value) {
+      if (CQueueModel.size === CQueueModel.capacity) return false;
+      const rear = (CQueueModel.front + CQueueModel.size) % CQueueModel.capacity;
+      CQueueModel.data[rear] = { id: CQueueModel.nextId++, value };
+      CQueueModel.size++;
+      return true;
