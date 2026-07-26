@@ -4218,3 +4218,23 @@ def dijkstra(adj, start):
     const HeapModel = { items: [], nextId: 1 };
     function heapParentIdx(i) { return Math.floor((i - 1) / 2); }
     function heapLeftIdx(i) { return 2 * i + 1; }
+    function heapRightIdx(i) { return 2 * i + 2; }
+    function mkHeapStep(items, extra) {
+      return Object.assign({
+        items: items.map(x => Object.assign({}, x)),
+        compare: [], swap: [], current: [], found: [], phase: null, message: "",
+      }, extra || {});
+    }
+    function heapInsertSteps(currentItems, nextId, value) {
+      const items = currentItems.map(x => Object.assign({}, x));
+      const newId = nextId;
+      items.push({ id: newId, value });
+      const steps = [];
+      steps.push(mkHeapStep(items, { current: [newId], phase: "insert", message: `Add ${value} at the end of the heap` }));
+      let i = items.length - 1;
+      while (i > 0) {
+        const p = heapParentIdx(i);
+        steps.push(mkHeapStep(items, { compare: [items[i].id, items[p].id], current: [items[i].id], phase: "compare", message: `Compare ${items[i].value} with parent ${items[p].value}` }));
+        if (items[i].value > items[p].value) {
+          steps.push(mkHeapStep(items, { swap: [items[i].id, items[p].id], phase: "swap", message: `${items[i].value} > ${items[p].value}, swap up` }));
+          const tmp = items[i]; items[i] = items[p]; items[p] = tmp;
