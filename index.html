@@ -4378,3 +4378,23 @@ def dijkstra(adj, start):
     function annotateInsertionSort(steps, values) {
       for (let i = 0; i < steps.length - 1; i++) {
         const s = steps[i];
+        if (s.phase !== "current" || !s.current.length) continue;
+        const willShift = steps[i + 1].phase === "compare";
+        const keyVal = values[s.current[0]];
+        s.quiz = mkQuiz(
+          `Does ${keyVal} need to shift left at all, or is it already in the right spot?`,
+          ["It shifts left at least once", "It's already in place \u2014 no shift needed"],
+          willShift ? 0 : 1,
+          willShift ? `${keyVal} is smaller than its left neighbor, so it has to move.` : `${keyVal} is already \u2265 its left neighbor, so it stays put.`
+        );
+      }
+    }
+    function annotateQuickSort(steps, values) {
+      steps.forEach(s => {
+        if (s.phase !== "compare" || !s.pivot.length || !s.compare.length) return;
+        const val = values[s.compare[0]];
+        const pivotVal = values[s.pivot[0]];
+        const goesLeft = val < pivotVal;
+        s.quiz = mkQuiz(
+          `Is ${val} less than the pivot, ${pivotVal}?`,
+          ["Yes \u2014 belongs in the left partition", "No \u2014 stays in the right partition"],
