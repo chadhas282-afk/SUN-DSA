@@ -4118,3 +4118,23 @@ def dijkstra(adj, start):
       function dfs(node) {
         visited.add(node);
         callStack.push(node);
+        order.push(node);
+        steps.push(mkGraphStep({ visited: [...visited], callStack: callStack.slice(), current: node, order: order.slice(), phase: "visit", message: `Visit ${labels[node]} (push onto the call stack)` }));
+        for (const neighbor of adj[node]) {
+          steps.push(mkGraphStep({ visited: [...visited], callStack: callStack.slice(), current: node, checking: neighbor, order: order.slice(), phase: "neighbor", message: `Check neighbor ${labels[neighbor]} of ${labels[node]}` }));
+          if (!visited.has(neighbor)) {
+            steps.push(mkGraphStep({ visited: [...visited], callStack: callStack.slice(), current: node, checking: neighbor, order: order.slice(), phase: "recurse", message: `${labels[neighbor]} is unvisited \u2014 recurse into it` }));
+            dfs(neighbor);
+          }
+        }
+        callStack.pop();
+        steps.push(mkGraphStep({ visited: [...visited], callStack: callStack.slice(), current: node, order: order.slice(), phase: "backtrack", message: `Done exploring ${labels[node]} \u2014 backtrack` }));
+      }
+      dfs(start);
+      steps.push(mkGraphStep({ visited: [...visited], callStack: [], order: order.slice(), phase: "done", message: `DFS complete. Visit order: ${order.map(i => labels[i]).join(" \u2192 ")}` }));
+      return steps;
+    }
+    const SampleGraphWeights = {};
+    (function assignSampleWeights() {
+      const w = [4, 2, 7, 3, 5, 6, 2, 8, 4, 3, 5];
+      SampleGraph.edges.forEach(([a, b], i) => {
