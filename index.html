@@ -4298,3 +4298,23 @@ def dijkstra(adj, start):
         move(k - 1, via, to, from);
       }
       move(n, 0, 2, 1);
+      return steps;
+    }
+    function fibCallTreeSteps(n) {
+      let nextId = 1;
+      const nodes = {};
+      const steps = [];
+      function snap(extra) {
+        const resolved = Object.keys(nodes).filter(k => nodes[k].value !== null).map(Number);
+        return Object.assign({ nodes: cloneNodes(nodes), rootId: 1, current: null, resolved, compare: [], found: null, newNode: null, visit: [], visitOrder: [], phase: null, message: "" }, extra || {});
+      }
+      function call(k, parentId) {
+        const id = nextId++;
+        nodes[id] = { id, value: null, left: null, right: null, label: `fib(${k})` };
+        if (parentId !== null) {
+          if (nodes[parentId].left === null) nodes[parentId].left = id;
+          else nodes[parentId].right = id;
+        }
+        steps.push(snap({ current: id, phase: "call", message: `Call fib(${k})` }));
+        let result;
+        if (k <= 1) {
