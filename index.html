@@ -4518,3 +4518,23 @@ def dijkstra(adj, start):
           alreadyVisited ? `${label} is already in the visited set, so it's skipped.` : `${label} hasn't been seen yet, so it gets added.`
         );
       });
+      }
+    function annotateDijkstra(steps, graph) {
+      steps.forEach(s => {
+        if (s.phase !== "neighbor" || s.checking === null || s.current === null) return;
+        const u = s.current, v = s.checking;
+        const w = edgeWeight(u, v);
+        const distU = s.distances[u], distV = s.distances[v];
+        const newDist = distU + w;
+        const improves = newDist < distV;
+        const uLabel = graph.labels[u], vLabel = graph.labels[v];
+        const distVShown = distV === Infinity ? "\u221E" : distV;
+        s.quiz = mkQuiz(
+          `Path to ${vLabel} via ${uLabel}: ${distU} + ${w} = ${newDist}. Current best to ${vLabel} is ${distVShown}. Shorter?`,
+          ["Yes \u2014 update the distance", "No \u2014 keep the current distance"],
+          improves ? 0 : 1,
+          improves ? `${newDist} < ${distVShown}, a shorter path was found.` : `${newDist} \u2265 ${distVShown}, no improvement.`
+        );
+      });
+    }
+    function annotateRecursion(steps) {
