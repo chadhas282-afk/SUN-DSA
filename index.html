@@ -4498,3 +4498,23 @@ def dijkstra(adj, start):
         const aVal = byId[s.compare[0]], bVal = byId[s.compare[1]];
         if (aVal === undefined || bVal === undefined) return;
         const willSwap = aVal > bVal;
+        s.quiz = mkQuiz(
+          `Is ${aVal} greater than ${bVal}?`,
+          ["Yes \u2014 they need to swap", "No \u2014 the heap property already holds"],
+          willSwap ? 0 : 1,
+          willSwap ? `${aVal} > ${bVal}, so they swap to restore the heap property.` : `${aVal} \u2264 ${bVal}, already valid.`
+        );
+      });
+    }
+    function annotateGraphNeighbor(steps, graph) {
+      steps.forEach(s => {
+        if (s.phase !== "neighbor" || s.checking === null) return;
+        const alreadyVisited = s.visited.includes(s.checking);
+        const label = graph.labels[s.checking];
+        s.quiz = mkQuiz(
+          `Has ${label} already been visited?`,
+          ["Yes \u2014 skip it", "No \u2014 visit it now"],
+          alreadyVisited ? 0 : 1,
+          alreadyVisited ? `${label} is already in the visited set, so it's skipped.` : `${label} hasn't been seen yet, so it gets added.`
+        );
+      });
