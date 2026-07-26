@@ -4258,3 +4258,23 @@ def dijkstra(adj, start):
         while (true) {
           const l = heapLeftIdx(i), r = heapRightIdx(i);
           let largest = i;
+          if (l < items.length && items[l].value > items[largest].value) largest = l;
+          if (r < items.length && items[r].value > items[largest].value) largest = r;
+          if (largest === i) break;
+          steps.push(mkHeapStep(items, { compare: [items[i].id, items[largest].id], phase: "compare", message: `Larger child is ${items[largest].value}` }));
+          steps.push(mkHeapStep(items, { swap: [items[i].id, items[largest].id], phase: "swap", message: `Swap down with ${items[largest].value}` }));
+          const tmp = items[i]; items[i] = items[largest]; items[largest] = tmp;
+          i = largest;
+        }
+      } else {
+        steps.push(mkHeapStep(items, { message: "Heap is now empty" }));
+      }
+      steps.push(mkHeapStep(items, { message: `Removed ${extracted.value}. Heap property restored` }));
+      return { steps, items, extracted };
+    }
+    function seedHeap() {
+      HeapModel.items = [];
+      HeapModel.nextId = 1;
+      [50, 30, 70, 20, 65, 90, 15].forEach(v => {
+        const r = heapInsertSteps(HeapModel.items, HeapModel.nextId, v);
+        HeapModel.items = r.items;
