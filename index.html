@@ -4038,3 +4038,23 @@ def dijkstra(adj, start):
         }
         curId = value < cur.value ? cur.left : cur.right;
       }
+      steps.push(mkTreeStep(nodes, rootId, { phase: "notfound", message: `${value} is not in the tree` }));
+      return steps;
+    }
+    function bstTraverseSteps(nodesIn, rootId, mode) {
+      const nodes = cloneNodes(nodesIn);
+      const steps = [];
+      const order = [];
+      function visit(id) {
+        order.push(id);
+        steps.push(mkTreeStep(nodes, rootId, { visit: [id], visitOrder: order.slice(), phase: "visit", message: `Visit ${nodes[id].value}` }));
+      }
+      function inorder(id) { if (id === null || id === undefined) return; inorder(nodes[id].left); visit(id); inorder(nodes[id].right); }
+      function preorder(id) { if (id === null || id === undefined) return; visit(id); preorder(nodes[id].left); preorder(nodes[id].right); }
+      function postorder(id) { if (id === null || id === undefined) return; postorder(nodes[id].left); postorder(nodes[id].right); visit(id); }
+      function levelorder(id) {
+        if (id === null || id === undefined) return;
+        const q = [id];
+        while (q.length) {
+          const cur = q.shift();
+          visit(cur);
