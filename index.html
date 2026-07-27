@@ -5078,3 +5078,23 @@ $("#main").scrollTop = 0;
         App.arrayValues = values;
         $("#customArrayInput").value = values.join(", ");
         if (topic.needsTarget) {
+          const t = values[Math.floor(Math.random() * values.length)];
+          $("#targetInput").value = t;
+          loadArraySteps(topic, values, t);
+        } else if (topic.needsWindow) {
+          const k = Number($("#windowInput").value) || Math.min(3, values.length - 1) || 2;
+          loadArraySteps(topic, values, k);
+        } else {
+          loadArraySteps(topic, values);
+        }
+      });
+      $("#btnApplyArray").addEventListener("click", () => applyCustomArray(topic));
+      $("#customArrayInput").addEventListener("keydown", e => { if (e.key === "Enter") applyCustomArray(topic); });
+      if (topic.needsTarget) {
+        $("#btnSearchGo").addEventListener("click", () => {
+          const t = Number($("#targetInput").value);
+          if ($("#targetInput").value.trim() === "" || Number.isNaN(t)) { setConsoleMessage("Enter a numeric target to search for."); return; }
+          loadArraySteps(topic, App.arrayValues, t);
+        });
+      }
+      if (topic.needsWindow) {
