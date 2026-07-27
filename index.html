@@ -4798,3 +4798,23 @@ $("#main").scrollTop = 0;
         const btn = document.createElement("button");
         btn.className = "code-tab" + (l.id === App.currentLang ? " active" : "");
         btn.innerHTML = `<span class="code-tab-dot" style="background:${l.color}"></span>${topic.id}${l.ext}`;
+         btn.addEventListener("click", () => {
+          App.currentLang = l.id;
+          $$(".code-tab").forEach(t => t.classList.remove("active"));
+          btn.classList.add("active");
+          renderCodePanel($("#codeBody"), App.currentTopicId, App.currentLang);
+          applyActiveLineForCurrentStep();
+        });
+        tabs.appendChild(btn);
+      });
+      renderCodePanel($("#codeBody"), topic.id, App.currentLang);
+    }
+    function applyActiveLineForCurrentStep() {
+      const step = App.steps[App.stepIndex];
+      setActiveLine($("#codeBody"), step ? step.phase : null);
+    }
+    function setConsoleMessage(msg) {
+      $("#consoleMsg").textContent = msg || "";
+    }
+    function readValueInput() {
+      const input = $("#valueInput");
