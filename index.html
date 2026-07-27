@@ -4898,3 +4898,23 @@ $("#main").scrollTop = 0;
       }, delayMap[App.speed] || 620);
     }
     function stopPlayback() {
+      App.playing = false;
+      clearTimeout(App.playTimer);
+      updateTransportUI();
+    }
+    function resetSteps() {
+      stopPlayback();
+      App.stepIndex = 0;
+      App.quizzedSteps = new Set();
+      renderCurrentStep();
+    }
+    function autoPlay() { startPlayback(); }
+    function updateTransportUI() {
+      const playBtn = $("#btnPlayPause");
+      if (!playBtn) return;
+      playBtn.innerHTML = App.playing ? `${ICONS.pause} Pause` : `${ICONS.play} Play`;
+      $("#btnStepBack").disabled = App.stepIndex <= 0;
+      $("#btnStepFwd").disabled = App.stepIndex >= App.steps.length - 1;
+      const counter = $("#stepCounter");
+      if (counter) counter.textContent = `step ${App.stepIndex + 1} / ${App.steps.length}`;
+    }
