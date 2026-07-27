@@ -5138,3 +5138,23 @@ $("#main").scrollTop = 0;
       if (!pos) { label.setAttribute("opacity", "0"); return; }
       label.setAttribute("opacity", "1");
       label.setAttribute("x", pos.x);
+      label.setAttribute("y", pos.y + 5);
+      label.textContent = text;
+    }
+    function ensureDefsArrowhead(svg) {
+      if (svg.querySelector("#arrowhead")) return;
+      const defs = svgEl("defs");
+      const marker = svgEl("marker", { id: "arrowhead", markerWidth: 8, markerHeight: 8, refX: 6, refY: 3, orient: "auto" });
+      marker.appendChild(svgEl("path", { d: "M0,0 L6,3 L0,6 Z", class: "arrowhead-fill" }));
+      defs.appendChild(marker);
+      svg.insertBefore(defs, svg.firstChild);
+    }
+    function renderListArrows(svg, count, computePos, boxSize, bidirectional) {
+      ensureDefsArrowhead(svg);
+      let layer = svg.querySelector("#arrowLayer");
+      if (!layer) { layer = svgEl("g", { id: "arrowLayer" }); svg.appendChild(layer); }
+      layer.innerHTML = "";
+      for (let i = 0; i < count - 1; i++) {
+        const p1 = computePos(i), p2 = computePos(i + 1);
+        const attrs = {
+          x1: p1.x + boxSize.w / 2, y1: p1.y - (bidirectional ? 6 : 0),
