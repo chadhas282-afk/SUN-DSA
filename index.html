@@ -4958,3 +4958,23 @@ $("#main").scrollTop = 0;
       panel.innerHTML = `
     <div class="quiz-question"><span class="quiz-icon">?</span><span>${quiz.question}</span></div>
     <div class="quiz-options">
+      ${quiz.options.map((opt, i) => `<button class="quiz-option" data-idx="${i}">${opt}</button>`).join("")}
+    </div>
+  `;
+      $$(".quiz-option", panel).forEach(btn => {
+        btn.addEventListener("click", () => answerQuiz(Number(btn.dataset.idx), quiz));
+      });
+      $("#console").style.display = "none";
+    }
+    function answerQuiz(selectedIdx, quiz) {
+      const panel = $("#quizPanel");
+      const correct = selectedIdx === quiz.correctIndex;
+      App.learnScore.total++;
+      if (correct) App.learnScore.correct++;
+      updateLearnScoreUI();
+      $$(".quiz-option", panel).forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === quiz.correctIndex) btn.classList.add("quiz-correct");
+        else if (i === selectedIdx) btn.classList.add("quiz-incorrect");
+      });
+      const feedback = document.createElement("div");
