@@ -5098,3 +5098,23 @@ $("#main").scrollTop = 0;
         });
       }
       if (topic.needsWindow) {
+        $("#btnWindowGo").addEventListener("click", () => {
+          const k = Number($("#windowInput").value);
+          if (!k || k < 1 || k > App.arrayValues.length) { setConsoleMessage(`Enter a window size between 1 and ${App.arrayValues.length}.`); return; }
+          loadArraySteps(topic, App.arrayValues, k);
+        });
+      }
+    }
+    function applyCustomArray(topic) {
+      const raw = $("#customArrayInput").value.trim();
+      if (!raw) { setConsoleMessage("Type some numbers separated by commas first."); return; }
+      let values = raw.split(/[,\s]+/).filter(Boolean).map(Number);
+      if (values.some(Number.isNaN)) { setConsoleMessage("That doesn't look like a list of numbers \u2014 try e.g. 5, 3, 8, 1"); return; }
+      if (values.length < 2) { setConsoleMessage("Enter at least 2 numbers."); return; }
+      if (values.length > 12) values = values.slice(0, 12);
+      if (topic.requiresSorted) values = values.sort((a, b) => a - b);
+      App.arrayValues = values;
+      $("#customArrayInput").value = values.join(", ");
+      if (topic.needsTarget) {
+        const t = values[Math.floor(Math.random() * values.length)];
+        $("#targetInput").value = t;
