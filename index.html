@@ -4737,4 +4737,24 @@ def dijkstra(adj, start):
       App.steps = [];
       App.stepIndex = 0;
       App.quizzedSteps = new Set();
-      if (App.quizActive) {f
+      if (App.quizActive) {
+        App.quizActive = false;
+        $("#quizPanel").style.display = "none";
+        $("#quizPanel").innerHTML = "";
+        $("#console").style.display = "flex";
+        setControlsDisabled(false);
+      }
+      $("#mainShell").classList.remove("catalogue-active");
+      $("#catalogueView").style.display = "none";
+      $("#transitionScreen").style.display = "flex";
+      const fill = $("#logoFill");
+      fill.style.transition = "none";
+      fill.style.clipPath = "inset(100% 0 0 0)";
+      void fill.offsetWidth;
+      fill.style.transition = "clip-path 4s cubic-bezier(0.25, 0.1, 0.25, 1)";
+      fill.style.clipPath = "inset(0 0 0 0)";
+      setTimeout(() => {
+        $("#transitionScreen").style.display = "none";
+        $("#topicView").style.display = "block";
+        updateSidebarActive();
+        renderTopicHeader(topic);
