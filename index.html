@@ -4878,3 +4878,23 @@ $("#main").scrollTop = 0;
     function startPlayback() {
       if (!App.steps.length) return;
       if (App.stepIndex >= App.steps.length - 1) App.stepIndex = 0;
+       App.playing = true;
+      updateTransportUI();
+      scheduleNext();
+    }
+    function scheduleNext() {
+      clearTimeout(App.playTimer);
+      const delayMap = { 1: 1400, 2: 950, 3: 620, 4: 380, 5: 190 };
+      App.playTimer = setTimeout(() => {
+        if (!App.playing) return;
+        if (App.stepIndex < App.steps.length - 1) {
+          App.stepIndex++;
+          renderCurrentStep();
+          if (maybeTriggerQuiz()) return;
+          scheduleNext();
+        } else {
+          stopPlayback();
+        }
+      }, delayMap[App.speed] || 620);
+    }
+    function stopPlayback() {
