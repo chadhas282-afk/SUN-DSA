@@ -4998,3 +4998,23 @@ $("#main").scrollTop = 0;
     }
     function setControlsDisabled(disabled) {
       const a = $("#controlsAction"), t = $("#controlsTransport");
+      if (a) a.classList.toggle("controls-disabled", disabled);
+      if (t) t.classList.toggle("controls-disabled", disabled);
+    }
+    function updateLearnScoreUI() {
+      const el = $("#learnScore");
+      if (!el) return;
+      if (App.learnScore.total === 0) { el.style.display = "none"; return; }
+      el.style.display = "inline-flex";
+      el.textContent = `${App.learnScore.correct} / ${App.learnScore.total} correct`;
+    }
+    function initLearnToggle() {
+      $("#learnSwitch").addEventListener("click", () => {
+        App.learnMode = !App.learnMode;
+        $("#learnSwitch").classList.toggle("on", App.learnMode);
+        $("#learnToggle").classList.toggle("active", App.learnMode);
+        if (!App.learnMode && App.quizActive) closeQuiz();
+      });
+    }
+    function randomArray(topic) {
+      const size = 6 + Math.floor(Math.random() * 4);
