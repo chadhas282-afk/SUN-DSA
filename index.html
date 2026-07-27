@@ -4598,3 +4598,23 @@ def dijkstra(adj, start):
       };
     }
     const App = {
+    currentTopicId: null,
+      currentLang: "python",
+      steps: [],
+      stepIndex: 0,
+      playing: false,
+      playTimer: null,
+      speed: 3,
+      vizState: null,
+      arrayValues: [],
+      searchTarget: null,
+      graphStart: 0,
+      learnMode: false,
+      learnScore: { correct: 0, total: 0 },
+      quizzedSteps: new Set(),
+      quizActive: false,
+      wasPlayingBeforeQuiz: false,
+    };
+    const $ = (sel, root) => (root || document).querySelector(sel);
+    const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+    const ICONS = {
