@@ -4978,3 +4978,23 @@ $("#main").scrollTop = 0;
         else if (i === selectedIdx) btn.classList.add("quiz-incorrect");
       });
       const feedback = document.createElement("div");
+      feedback.className = "quiz-feedback " + (correct ? "quiz-feedback-correct" : "quiz-feedback-incorrect");
+      feedback.innerHTML = `<strong>${correct ? "\u2713 Correct!" : "\u2717 Not quite."}</strong> ${quiz.explanation}`;
+      panel.appendChild(feedback);
+      const cont = document.createElement("button");
+      cont.className = "btn-text btn-primary quiz-continue";
+      cont.innerHTML = "Continue \u25B8";
+      cont.addEventListener("click", closeQuiz);
+      panel.appendChild(cont);
+      cont.focus();
+    }
+    function closeQuiz() {
+      App.quizActive = false;
+      $("#quizPanel").style.display = "none";
+      $("#quizPanel").innerHTML = "";
+      $("#console").style.display = "flex";
+      setControlsDisabled(false);
+      if (App.wasPlayingBeforeQuiz) startPlayback();
+    }
+    function setControlsDisabled(disabled) {
+      const a = $("#controlsAction"), t = $("#controlsTransport");
