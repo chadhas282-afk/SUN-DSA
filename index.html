@@ -4698,3 +4698,23 @@ def dijkstra(adj, start):
           card.className = "concept-card";
           card.style.setProperty("--card-color", cat.color);
           const badges = [];
+          if (t.complexity.time) badges.push(`<span class="concept-badge">${t.complexity.time}</span>`);
+          card.innerHTML = `
+        <div class="concept-card-top"><span class="concept-dot"></span><span class="concept-name">${t.name}</span></div>
+        <p class="concept-desc">${t.desc}</p>
+        <div class="concept-badges">${badges.join("")}</div>
+      `;
+          card.addEventListener("click", () => selectTopic(t.id));
+          grid.appendChild(card);
+        });
+        group.appendChild(grid);
+        list.appendChild(group);
+      });
+      if (!totalShown) {
+        list.innerHTML = `<div class="catalogue-empty">No concepts match "${escapeHtml(query)}" \u2014 try a different search.</div>`;
+      }
+    }
+    function showWelcomeScreen() {
+      $("#loadingScreen").style.display = "flex";
+      $("#mainShell").style.display = "none";
+    }
