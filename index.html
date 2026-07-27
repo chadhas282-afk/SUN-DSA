@@ -4638,3 +4638,23 @@ def dijkstra(adj, start):
         label.addEventListener("click", () => catDiv.classList.toggle("collapsed"));
         catDiv.appendChild(label);
         const items = document.createElement("div");
+        items.className = "tree-items";
+        TOPICS.filter(t => t.category === cat.id).forEach(t => {
+          const btn = document.createElement("button");
+          btn.className = "tree-item";
+          btn.dataset.topicId = t.id;
+          btn.innerHTML = `<span class="tree-item-dot" style="--dot-color:${cat.color}"></span>${t.id}`;
+          btn.addEventListener("click", () => { selectTopic(t.id); closeMobileSidebar(); });
+          items.appendChild(btn);
+        });
+        catDiv.appendChild(items);
+        container.appendChild(catDiv);
+      });
+    }
+    function updateSidebarActive() {
+      $$(".tree-item").forEach(el => el.classList.toggle("active", el.dataset.topicId === App.currentTopicId));
+    }
+    const BOOT_LINES = [
+      "booting sun_visualizer...",
+      "mounting sorting/ ..................... ok",
+      "mounting searching/ .................... ok",
