@@ -4838,3 +4838,23 @@ $("#main").scrollTop = 0;
       const topic = TOPIC_BY_ID[App.currentTopicId];
       $("#extraPanel").style.display = "none";
       $("#extraPanel").innerHTML = "";
+      if (topic.vizType === "array") {
+        renderArrayStep(App.vizState, step);
+        $("#vizSubLabel").textContent = `n = ${step.order.length}`;
+      } else if (topic.vizType === "tree") {
+        renderTreeStep($("#vizSvg"), step);
+        renderTreeExtra(step);
+        $("#vizSubLabel").textContent = `${Object.keys(step.nodes).length} node${Object.keys(step.nodes).length === 1 ? "" : "s"}`;
+      } else if (topic.vizType === "recursion") {
+        renderTreeStep($("#vizSvg"), step);
+        $("#vizSubLabel").textContent = `${Object.keys(step.nodes).length} call${Object.keys(step.nodes).length === 1 ? "" : "s"}`;
+      } else if (topic.vizType === "heap") {
+        renderHeapStep($("#vizSvg"), step);
+        $("#vizSubLabel").textContent = `${step.items.length} item${step.items.length === 1 ? "" : "s"}`;
+      } else if (topic.vizType === "hanoi") {
+        renderHanoiStep(App.vizState, step);
+        $("#vizSubLabel").textContent = `${App.vizState ? App.vizState.n : ""} disks`;
+      } else if (topic.vizType === "graph") {
+        const weightsFn = topic.graphAlgo === "dijkstra" ? edgeWeight : null;
+        renderGraphStep($("#vizSvg"), SampleGraph, step, weightsFn);
+        renderGraphExtra(step, topic.graphAlgo === "dijkstra");
