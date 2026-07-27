@@ -4678,3 +4678,23 @@ def dijkstra(adj, start):
       $("#catalogueSearch").addEventListener("input", e => renderCatalogueList(e.target.value));
     }
     function renderCatalogueList(query) {
+      const list = $("#catalogueList");
+      list.innerHTML = "";
+      const q = query.trim().toLowerCase();
+      let totalShown = 0;
+      CATEGORIES.forEach(cat => {
+        const topicsInCat = TOPICS.filter(t => t.category === cat.id).filter(t =>
+          !q || t.name.toLowerCase().includes(q) || t.id.includes(q) || t.desc.toLowerCase().includes(q)
+        );
+        if (!topicsInCat.length) return;
+        totalShown += topicsInCat.length;
+        const group = document.createElement("div");
+        group.className = "catalogue-group";
+        group.innerHTML = `<div class="catalogue-group-label" style="--cat-color:${cat.color}">${cat.label}<span class="catalogue-group-count">${topicsInCat.length}</span></div>`;
+        const grid = document.createElement("div");
+        grid.className = "catalogue-grid";
+        topicsInCat.forEach(t => {
+          const card = document.createElement("button");
+          card.className = "concept-card";
+          card.style.setProperty("--card-color", cat.color);
+          const badges = [];
