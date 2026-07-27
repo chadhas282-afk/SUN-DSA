@@ -4918,3 +4918,23 @@ $("#main").scrollTop = 0;
       const counter = $("#stepCounter");
       if (counter) counter.textContent = `step ${App.stepIndex + 1} / ${App.steps.length}`;
     }
+    function renderTransportControls() {
+      const el = $("#controlsTransport");
+      el.style.display = "flex";
+      el.innerHTML = `
+    <div class="transport">
+      <button class="btn-icon" id="btnStepBack" title="Step back">${ICONS.stepBack}</button>
+      <button class="btn-icon btn-play" id="btnPlayPause" title="Play / Pause">${ICONS.play} Play</button>
+      <button class="btn-icon" id="btnStepFwd" title="Step forward">${ICONS.stepFwd}</button>
+    </div>
+    <div class="control-divider"></div>
+    <div class="speed-control"><label>speed</label><input type="range" id="speedSlider" min="1" max="5" value="${App.speed}"></div>
+    <div class="control-divider"></div>
+    <button class="btn-text" id="btnResetSteps">${ICONS.restart} Restart</button>
+    <div class="controls-note" id="stepCounter"></div>
+  `;
+      $("#btnStepBack").addEventListener("click", () => { stopPlayback(); stepBack(); });
+      $("#btnStepFwd").addEventListener("click", () => { stopPlayback(); stepForward(); });
+      $("#btnPlayPause").addEventListener("click", togglePlay);
+      $("#btnResetSteps").addEventListener("click", resetSteps);
+      $("#speedSlider").addEventListener("input", e => { App.speed = Number(e.target.value); if (App.playing) scheduleNext(); });
