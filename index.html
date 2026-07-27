@@ -5178,3 +5178,23 @@ $("#main").scrollTop = 0;
           class: "tree-edge", "marker-end": "url(#arrowhead)",
         }));
       }
+      renderEdgeLabel(svg, "null", { x: nullX, y: lastPos.y }, "NULL");
+    }
+    function initStackTopic() {
+      $("#controlsTransport").style.display = "none";
+      $("#controlsTransport").innerHTML = "";
+      seedStack();
+      const el = $("#controlsAction");
+      el.style.display = "flex";
+      el.innerHTML = `
+    <div class="field-inline"><label>value</label><input type="number" id="valueInput" style="width:90px" placeholder="42"></div>
+    <button class="btn-text btn-primary" id="btnPush">Push</button>
+    <button class="btn-text" id="btnPop">Pop</button>
+    <button class="btn-text" id="btnPeek">Peek</button>
+    <div class="control-divider"></div>
+    <button class="btn-text" id="btnClearStruct">Clear</button>
+  `;
+      $("#btnPush").addEventListener("click", () => {
+        const v = readValueInput(); if (v === null) return;
+        stackPush(v);
+        renderStackViz();
