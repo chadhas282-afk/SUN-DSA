@@ -5118,3 +5118,23 @@ $("#main").scrollTop = 0;
       if (topic.needsTarget) {
         const t = values[Math.floor(Math.random() * values.length)];
         $("#targetInput").value = t;
+        loadArraySteps(topic, values, t);
+      } else if (topic.needsWindow) {
+        const k = Math.min(Number($("#windowInput").value) || 3, values.length);
+        $("#windowInput").value = k;
+        loadArraySteps(topic, values, k);
+      } else {
+        loadArraySteps(topic, values);
+      }
+    }
+    function renderEdgeLabel(svg, key, pos, text) {
+      const propKey = "_label_" + key;
+      let label = svg[propKey];
+      if (!label) {
+        label = svgEl("text", { class: "bar-index", "font-weight": "700", "text-anchor": "middle" });
+        svg.appendChild(label);
+        svg[propKey] = label;
+      }
+      if (!pos) { label.setAttribute("opacity", "0"); return; }
+      label.setAttribute("opacity", "1");
+      label.setAttribute("x", pos.x);
