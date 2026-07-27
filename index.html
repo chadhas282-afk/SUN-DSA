@@ -5018,3 +5018,23 @@ $("#main").scrollTop = 0;
     }
     function randomArray(topic) {
       const size = 6 + Math.floor(Math.random() * 4);
+      if (topic && topic.allowNegative) {
+        return Array.from({ length: size }, () => Math.floor(Math.random() * 41) - 15);
+      }
+      return Array.from({ length: size }, () => 5 + Math.floor(Math.random() * 90));
+    }
+    function initArrayTopic(topic) {
+      renderActionControlsArray(topic);
+      renderTransportControls();
+      let values = randomArray(topic);
+      if (topic.requiresSorted) values = values.sort((a, b) => a - b);
+      App.arrayValues = values;
+      $("#customArrayInput").value = values.join(", ");
+      if (topic.needsTarget) {
+        const t = values[Math.floor(Math.random() * values.length)];
+        $("#targetInput").value = t;
+        loadArraySteps(topic, values, t);
+      } else if (topic.needsWindow) {
+        const k = Math.min(3, values.length - 1) || 2;
+        $("#windowInput").value = k;
+        loadArraySteps(topic, values, k);
