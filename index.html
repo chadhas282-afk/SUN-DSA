@@ -4778,3 +4778,23 @@ $("#main").scrollTop = 0;
       else if (topic.vizType === "hanoi") initHanoiTopic(topic);
       else if (topic.vizType === "recursion") initRecursionTopic();
       $("#main").scrollTop = 0;
+      }
+    function renderTopicHeader(topic) {
+      const cat = CATEGORIES.find(c => c.id === topic.category);
+      $("#breadcrumb").innerHTML = `<button class="breadcrumb-home" id="breadcrumbHome">dsa</button><span class="sep">/</span>${cat.label.replace("/", "")}<span class="sep">/</span><span class="current">${topic.id}</span>`;
+      $("#breadcrumbHome").addEventListener("click", showCatalogueScreen);
+      $("#topicTitle").textContent = topic.name;
+      $("#topicDesc").textContent = topic.desc;
+      const badges = [];
+      if (topic.complexity.time) badges.push(`<span class="badge badge-time">time <b>${topic.complexity.time}</b></span>`);
+      if (topic.complexity.space) badges.push(`<span class="badge badge-space">space <b>${topic.complexity.space}</b></span>`);
+      if (typeof topic.complexity.stable === "boolean") badges.push(`<span class="badge badge-stable">stable <b>${topic.complexity.stable ? "yes" : "no"}</b></span>`);
+      $("#badgeRow").innerHTML = badges.join("");
+    }
+    function renderCodeTabs(topic) {
+      const tabs = $("#codeTabs");
+      tabs.innerHTML = "";
+      LANGS.forEach(l => {
+        const btn = document.createElement("button");
+        btn.className = "code-tab" + (l.id === App.currentLang ? " active" : "");
+        btn.innerHTML = `<span class="code-tab-dot" style="background:${l.color}"></span>${topic.id}${l.ext}`;
