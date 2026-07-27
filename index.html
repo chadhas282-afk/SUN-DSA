@@ -4858,3 +4858,23 @@ $("#main").scrollTop = 0;
         const weightsFn = topic.graphAlgo === "dijkstra" ? edgeWeight : null;
         renderGraphStep($("#vizSvg"), SampleGraph, step, weightsFn);
         renderGraphExtra(step, topic.graphAlgo === "dijkstra");
+        $("#vizSubLabel").textContent = `${SampleGraph.labels.length} nodes, ${SampleGraph.edges.length} edges`;
+      }
+      setConsoleMessage(step.message);
+      setActiveLine($("#codeBody"), step.phase);
+      updateTransportUI();
+    }
+    function stepForward() {
+      if (App.stepIndex < App.steps.length - 1) {
+        App.stepIndex++;
+        renderCurrentStep();
+        maybeTriggerQuiz();
+      }
+    }
+    function stepBack() {
+      if (App.stepIndex > 0) { App.stepIndex--; renderCurrentStep(); }
+    }
+    function togglePlay() { if (App.playing) stopPlayback(); else startPlayback(); }
+    function startPlayback() {
+      if (!App.steps.length) return;
+      if (App.stepIndex >= App.steps.length - 1) App.stepIndex = 0;
