@@ -4658,3 +4658,23 @@ def dijkstra(adj, start):
       "booting sun_visualizer...",
       "mounting sorting/ ..................... ok",
       "mounting searching/ .................... ok",
+      "mounting arrays/ ....................... ok",
+      "mounting linear/ ....................... ok",
+      "mounting trees/ ........................ ok",
+      "mounting graphs/ ....................... ok",
+      "mounting recursion/ .................... ok",
+      "indexing 23 concepts ................... ok",
+      "starting learn_mode engine ............. ok",
+      "ready.",
+    ];
+    function runBootSequence() {
+      const btn = $("#btnStartApp");
+      if (btn) {
+        btn.addEventListener("click", showCatalogueScreen);
+      }
+    }
+    function buildCatalogue() {
+      renderCatalogueList("");
+      $("#catalogueSearch").addEventListener("input", e => renderCatalogueList(e.target.value));
+    }
+    function renderCatalogueList(query) {
