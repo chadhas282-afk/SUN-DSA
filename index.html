@@ -4718,3 +4718,23 @@ def dijkstra(adj, start):
       $("#loadingScreen").style.display = "flex";
       $("#mainShell").style.display = "none";
     }
+     function showCatalogueScreen() {
+      $("#loadingScreen").style.display = "none";
+      $("#mainShell").style.display = "flex";
+      $("#mainShell").classList.add("catalogue-active");
+      stopPlayback();
+      App.currentTopicId = null;
+      $("#catalogueView").style.display = "block";
+      $("#topicView").style.display = "none";
+      updateSidebarActive();
+      $("#main").scrollTop = 0;
+    }
+    function selectTopic(topicId) {
+      stopPlayback();
+      const topic = TOPIC_BY_ID[topicId];
+      if (!topic) return;
+      App.currentTopicId = topicId;
+      App.steps = [];
+      App.stepIndex = 0;
+      App.quizzedSteps = new Set();
+      if (App.quizActive) {f
