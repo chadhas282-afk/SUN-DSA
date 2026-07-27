@@ -4818,3 +4818,23 @@ $("#main").scrollTop = 0;
     }
     function readValueInput() {
       const input = $("#valueInput");
+      if (!input) return null;
+      const v = Number(input.value);
+      if (input.value.trim() === "" || Number.isNaN(v)) { setConsoleMessage("Enter a number first."); return null; }
+      input.value = "";
+      input.focus();
+      return v;
+    }
+    function setSteps(steps) {
+      App.steps = steps;
+      App.stepIndex = 0;
+      App.quizzedSteps = new Set();
+      renderCurrentStep();
+      autoPlay();
+    }
+    function renderCurrentStep() {
+      const step = App.steps[App.stepIndex];
+      if (!step) return;
+      const topic = TOPIC_BY_ID[App.currentTopicId];
+      $("#extraPanel").style.display = "none";
+      $("#extraPanel").innerHTML = "";
