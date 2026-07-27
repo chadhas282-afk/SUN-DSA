@@ -5158,3 +5158,23 @@ $("#main").scrollTop = 0;
         const p1 = computePos(i), p2 = computePos(i + 1);
         const attrs = {
           x1: p1.x + boxSize.w / 2, y1: p1.y - (bidirectional ? 6 : 0),
+          x2: p2.x - boxSize.w / 2 - 6, y2: p2.y - (bidirectional ? 6 : 0),
+          class: "tree-edge", "marker-end": "url(#arrowhead)",
+        };
+        if (bidirectional) attrs["marker-start"] = "url(#arrowhead)";
+        layer.appendChild(svgEl("line", attrs));
+        if (bidirectional) {
+          layer.appendChild(svgEl("line", {
+            x1: p2.x - boxSize.w / 2 - 6, y1: p1.y + 6, x2: p1.x + boxSize.w / 2, y2: p2.y + 6,
+            class: "tree-edge",
+          }));
+        }
+      }
+      const lastPos = count ? computePos(count - 1) : { x: 90, y: 100 };
+      const nullX = lastPos.x + boxSize.w / 2 + 50;
+      if (count > 0) {
+        layer.appendChild(svgEl("line", {
+          x1: lastPos.x + boxSize.w / 2, y1: lastPos.y, x2: nullX - 16, y2: lastPos.y,
+          class: "tree-edge", "marker-end": "url(#arrowhead)",
+        }));
+      }
