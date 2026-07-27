@@ -5058,3 +5058,23 @@ $("#main").scrollTop = 0;
     <button class="btn-text btn-primary" id="btnRandomArray">${ICONS.dice} Random</button>
   `;
       if (topic.needsTarget) {
+        html += `
+      <div class="control-divider"></div>
+      <div class="field-inline"><label>target</label><input type="number" id="targetInput" style="width:70px"></div>
+      <button class="btn-text btn-primary" id="btnSearchGo">Search</button>
+    `;
+      }
+      if (topic.needsWindow) {
+        html += `
+      <div class="control-divider"></div>
+      <div class="field-inline"><label>window size</label><input type="number" id="windowInput" min="1" max="8" style="width:60px"></div>
+      <button class="btn-text btn-primary" id="btnWindowGo">Slide</button>
+    `;
+      }
+      el.innerHTML = html;
+      $("#btnRandomArray").addEventListener("click", () => {
+        let values = randomArray(topic);
+        if (topic.requiresSorted) values = values.sort((a, b) => a - b);
+        App.arrayValues = values;
+        $("#customArrayInput").value = values.join(", ");
+        if (topic.needsTarget) {
