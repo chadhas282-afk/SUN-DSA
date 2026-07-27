@@ -4938,3 +4938,23 @@ $("#main").scrollTop = 0;
       $("#btnPlayPause").addEventListener("click", togglePlay);
       $("#btnResetSteps").addEventListener("click", resetSteps);
       $("#speedSlider").addEventListener("input", e => { App.speed = Number(e.target.value); if (App.playing) scheduleNext(); });
+      }
+    function maybeTriggerQuiz() {
+      if (!App.learnMode) return false;
+      const step = App.steps[App.stepIndex];
+      if (!step || !step.quiz) return false;
+      if (App.quizzedSteps.has(App.stepIndex)) return false;
+      App.quizzedSteps.add(App.stepIndex);
+      showQuiz(step.quiz);
+      return true;
+    }
+    function showQuiz(quiz) {
+      App.wasPlayingBeforeQuiz = App.playing;
+      stopPlayback();
+      App.quizActive = true;
+      setControlsDisabled(true);
+      const panel = $("#quizPanel");
+      panel.style.display = "block";
+      panel.innerHTML = `
+    <div class="quiz-question"><span class="quiz-icon">?</span><span>${quiz.question}</span></div>
+    <div class="quiz-options">
