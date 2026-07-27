@@ -5038,3 +5038,23 @@ $("#main").scrollTop = 0;
         const k = Math.min(3, values.length - 1) || 2;
         $("#windowInput").value = k;
         loadArraySteps(topic, values, k);
+        } else {
+        loadArraySteps(topic, values);
+      }
+    }
+    function loadArraySteps(topic, values, param) {
+      const svg = $("#vizSvg");
+      App.vizState = initArrayViz(svg, values);
+      const steps = (topic.needsTarget || topic.needsWindow) ? ALGORITHMS[topic.algo](values, param) : ALGORITHMS[topic.algo](values);
+      annotateQuiz(topic.id, steps, { values, target: param });
+      setSteps(steps);
+    }
+    function renderActionControlsArray(topic) {
+      const el = $("#controlsAction");
+      el.style.display = "flex";
+      let html = `
+    <div class="field-inline"><label>array</label><input type="text" id="customArrayInput" style="width:190px" placeholder="e.g. 5, 3, 8, 1"></div>
+    <button class="btn-text" id="btnApplyArray">Use</button>
+    <button class="btn-text btn-primary" id="btnRandomArray">${ICONS.dice} Random</button>
+  `;
+      if (topic.needsTarget) {
