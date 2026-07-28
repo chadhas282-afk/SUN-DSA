@@ -5418,3 +5418,23 @@ $("#main").scrollTop = 0;
       $("#btnEnqueue").addEventListener("click", () => {
         const v = readValueInput(); if (v === null) return;
         const ok = cqueueEnqueue(v);
+        renderCQueueViz();
+        setConsoleMessage(ok ? `Enqueued ${v}.` : `Queue is full (capacity ${CQueueModel.capacity}) \u2014 can't enqueue.`);
+        setActiveLine($("#codeBody"), ok ? "enqueue" : "full");
+      });
+      $("#btnDequeue").addEventListener("click", () => {
+        const removed = cqueueDequeue();
+        renderCQueueViz();
+        setConsoleMessage(removed ? `Dequeued ${removed.value}.` : "Queue is empty \u2014 nothing to dequeue.");
+        setActiveLine($("#codeBody"), removed ? "dequeue" : "empty");
+      });
+      $("#btnClearStruct").addEventListener("click", () => { seedCQueue(); renderCQueueViz(); setConsoleMessage("Queue reset (capacity 6)."); setActiveLine($("#codeBody"), null); });
+      renderCQueueViz();
+      setConsoleMessage("A fixed-capacity queue \u2014 front and rear wrap back to slot 0 once they reach the end.");
+    }
+    function renderCQueueViz() {
+      const svg = $("#vizSvg");
+      const VW = 460, VH = 380;
+      svg.setAttribute("viewBox", `0 0 ${VW} ${VH}`);
+      svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+      svg.innerHTML = "";
