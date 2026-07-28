@@ -5198,3 +5198,23 @@ $("#main").scrollTop = 0;
         const v = readValueInput(); if (v === null) return;
         stackPush(v);
         renderStackViz();
+        setConsoleMessage(`Pushed ${v}. Stack now has ${StackModel.items.length} item${StackModel.items.length === 1 ? "" : "s"}.`);
+        setActiveLine($("#codeBody"), "push");
+      });
+      $("#btnPop").addEventListener("click", () => {
+        if (!StackModel.items.length) { setConsoleMessage("Stack is empty \u2014 nothing to pop."); setActiveLine($("#codeBody"), "empty"); return; }
+        const popped = stackPop();
+        renderStackViz();
+        setConsoleMessage(`Popped ${popped.value} off the top.`);
+        setActiveLine($("#codeBody"), "pop");
+      });
+      $("#btnPeek").addEventListener("click", () => {
+        const top = stackPeek();
+        setConsoleMessage(top ? `Top of stack is ${top.value}.` : "Stack is empty.");
+        setActiveLine($("#codeBody"), "peek");
+      });
+      $("#btnClearStruct").addEventListener("click", () => { stackClear(); renderStackViz(); setConsoleMessage("Stack cleared."); setActiveLine($("#codeBody"), null); });
+      renderStackViz();
+      setConsoleMessage("Push a value onto the stack, or pop the top one off.");
+    }
+    function renderStackViz() {
