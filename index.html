@@ -5258,3 +5258,23 @@ $("#main").scrollTop = 0;
         setConsoleMessage(`Dequeued ${removed.value} from the front.`);
         setActiveLine($("#codeBody"), "dequeue");
       });
+      $("#btnPeek").addEventListener("click", () => {
+        const front = queuePeek();
+        setConsoleMessage(front ? `Front of queue is ${front.value}.` : "Queue is empty.");
+        setActiveLine($("#codeBody"), "peek");
+      });
+      $("#btnClearStruct").addEventListener("click", () => { queueClear(); renderQueueViz(); setConsoleMessage("Queue cleared."); setActiveLine($("#codeBody"), null); });
+      renderQueueViz();
+      setConsoleMessage("Enqueue a value at the rear, or dequeue the front one.");
+    }
+    function renderQueueViz() {
+      const svg = $("#vizSvg");
+      svg.setAttribute("viewBox", "0 0 900 200");
+      svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+      const boxSize = { w: 84, h: 64 };
+      const startX = 90, gapX = 104, y = 110;
+      const items = QueueModel.items.map((it, idx) => ({
+        id: it.id, value: it.value,
+        stateClass: idx === 0 ? "viz-current" : (idx === QueueModel.items.length - 1 ? "viz-compare" : "viz-default"),
+      }));
+      diffRenderBoxes(svg, items, idx => ({ x: startX + idx * gapX, y }), boxSize);
