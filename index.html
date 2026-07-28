@@ -5378,3 +5378,23 @@ $("#main").scrollTop = 0;
       });
       $("#btnSearchList").addEventListener("click", () => {
         const v = readValueInput(); if (v === null) return;
+        const idx = dlistSearch(v);
+        renderDListViz(idx === -1 ? undefined : idx);
+        setConsoleMessage(idx !== -1 ? `Found ${v} at position ${idx}.` : `${v} isn't in the list.`);
+        setActiveLine($("#codeBody"), "search");
+      });
+      $("#btnClearStruct").addEventListener("click", () => { dlistClear(); renderDListViz(); setConsoleMessage("List cleared."); setActiveLine($("#codeBody"), null); });
+      renderDListViz();
+      setConsoleMessage("Insert at either end, delete, or search \u2014 notice the arrows point both ways.");
+    }
+    function renderDListViz(highlightIdx) {
+      const svg = $("#vizSvg");
+      svg.setAttribute("viewBox", "0 0 900 220");
+      svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+      const boxSize = { w: 76, h: 58 };
+      const startX = 100, gapX = 132, y = 110;
+      const items = DListModel.items.map((it, idx) => ({
+        id: it.id, value: it.value,
+        stateClass: highlightIdx !== undefined && idx === highlightIdx ? "viz-found" : "viz-default",
+      }));
+      diffRenderBoxes(svg, items, idx => ({ x: startX + idx * gapX, y }), boxSize);
