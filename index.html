@@ -5438,3 +5438,23 @@ $("#main").scrollTop = 0;
       svg.setAttribute("viewBox", `0 0 ${VW} ${VH}`);
       svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
       svg.innerHTML = "";
+      const pos = computeGraphLayout(CQueueModel.capacity, VW, VH - 30);
+      const boxSize = 54;
+      for (let i = 0; i < CQueueModel.capacity; i++) {
+        const p = pos[i];
+        const item = CQueueModel.data[i];
+        const isFront = CQueueModel.size > 0 && i === CQueueModel.front;
+        const isRear = CQueueModel.size > 0 && i === (CQueueModel.front + CQueueModel.size - 1) % CQueueModel.capacity;
+        const g = svgEl("g", { transform: `translate(${p.x},${p.y})` });
+        let cls = "viz-default";
+        if (item) cls = isFront ? "viz-current" : (isRear ? "viz-compare" : "viz-sorted");
+        const rect = svgEl("rect", { x: -boxSize / 2, y: -boxSize / 2, width: boxSize, height: boxSize, rx: 10, class: `box-rect ${cls}` });
+        const text = svgEl("text", { class: "box-value", "text-anchor": "middle", y: 5 });
+        text.textContent = item ? item.value : "\u00B7";
+        const idxLabel = svgEl("text", { class: "bar-index", "text-anchor": "middle", y: boxSize / 2 + 16 });
+        idxLabel.textContent = i;
+        g.appendChild(rect); g.appendChild(text); g.appendChild(idxLabel);
+        if (isFront || isRear) {
+          const lbl = svgEl("text", { class: "bar-index", "text-anchor": "middle", y: -boxSize / 2 - 10, "font-weight": "700" });
+          lbl.textContent = isFront ? "FRONT" : "REAR";
+          g.appendChild(lbl);
