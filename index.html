@@ -5618,3 +5618,23 @@ $("#main").scrollTop = 0;
       runHanoi();
     }
     function runHanoi() {
+      let n = Number($("#diskCountInput").value);
+      if (!n || n < 1) n = 4;
+      if (n > 7) n = 7;
+      $("#diskCountInput").value = n;
+      const svg = $("#vizSvg");
+      App.vizState = initHanoiViz(svg, n);
+      const steps = hanoiSteps(n);
+      annotateQuiz("tower_of_hanoi", steps, {});
+      setSteps(steps);
+    }
+    function initRecursionTopic() {
+      const el = $("#controlsAction");
+      el.style.display = "flex";
+      el.innerHTML = `
+    <div class="field-inline"><label>n</label><input type="number" id="fibInput" min="0" max="6" value="5" style="width:60px"></div>
+    <button class="btn-text btn-primary" id="btnRunFib">Run fib(n)</button>
+  `;
+      $("#btnRunFib").addEventListener("click", runFib);
+      renderTransportControls();
+      runFib();
