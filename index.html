@@ -5558,3 +5558,23 @@ $("#main").scrollTop = 0;
       $("#btnInorder").addEventListener("click", () => setSteps(bstTraverseSteps(BSTModel.nodes, BSTModel.rootId, "inorder")));
       $("#btnPreorder").addEventListener("click", () => setSteps(bstTraverseSteps(BSTModel.nodes, BSTModel.rootId, "preorder")));
       $("#btnPostorder").addEventListener("click", () => setSteps(bstTraverseSteps(BSTModel.nodes, BSTModel.rootId, "postorder")));
+      $("#btnLevelorder").addEventListener("click", () => setSteps(bstTraverseSteps(BSTModel.nodes, BSTModel.rootId, "levelorder")));
+      $("#btnResetTree").addEventListener("click", () => {
+        seedBST();
+        setSteps([mkTreeStep(BSTModel.nodes, BSTModel.rootId, { message: "Tree reset to the default example." })]);
+      });
+    }
+    function renderTreeExtra(step) {
+      const panel = $("#extraPanel");
+      if (step.visitOrder && step.visitOrder.length) {
+        panel.style.display = "block";
+        panel.innerHTML = `<div class="traverse-output"><span class="label">Visited order:</span>${step.visitOrder.map(id => `<span class="seq-item">${step.nodes[id].value}</span>`).join("")}</div>`;
+      } else {
+        panel.style.display = "none";
+        panel.innerHTML = "";
+      }
+    }
+    function initHeapTopic() {
+      seedHeap();
+      const el = $("#controlsAction");
+      el.style.display = "flex";
