@@ -5658,3 +5658,23 @@ $("#main").scrollTop = 0;
     </div>
     <button class="btn-text btn-primary" id="btnRunTraversal">${btnLabel}</button>
   `;
+  $("#startNodeSelect").addEventListener("change", e => { App.graphStart = Number(e.target.value); });
+      $("#btnRunTraversal").addEventListener("click", () => runGraphTraversal(topic));
+      renderTransportControls();
+      runGraphTraversal(topic);
+    }
+    function runGraphTraversal(topic) {
+      let steps;
+      if (topic.graphAlgo === "bfs") steps = graphBFSSteps(SampleGraph, App.graphStart);
+      else if (topic.graphAlgo === "dfs") steps = graphDFSSteps(SampleGraph, App.graphStart);
+      else steps = dijkstraSteps(SampleGraph, App.graphStart);
+      annotateQuiz(topic.id, steps, {});
+      setSteps(steps);
+    }
+    function renderGraphExtra(step, showDistances) {
+      const panel = $("#extraPanel");
+      const rows = [];
+      if (showDistances && step.distances) {
+        const chips = SampleGraph.labels.map((l, i) => {
+          const d = step.distances[i];
+          const shown = d === undefined || d === Infinity ? "\u221E" : d;
