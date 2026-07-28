@@ -5218,3 +5218,23 @@ $("#main").scrollTop = 0;
       setConsoleMessage("Push a value onto the stack, or pop the top one off.");
     }
     function renderStackViz() {
+    const svg = $("#vizSvg");
+      svg.setAttribute("viewBox", "0 0 320 420");
+      svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+      const boxSize = { w: 156, h: 52 };
+      const baseY = 388, gap = 60;
+      const items = StackModel.items.map((it, idx) => ({
+        id: it.id, value: it.value, stateClass: idx === StackModel.items.length - 1 ? "viz-current" : "viz-default",
+      }));
+      diffRenderBoxes(svg, items, idx => ({ x: 160, y: baseY - idx * gap }), boxSize);
+      renderEdgeLabel(svg, "top", items.length ? { x: 160 + boxSize.w / 2 + 34, y: baseY - (items.length - 1) * gap } : null, "\u2190 TOP");
+      $("#vizSubLabel").textContent = `${StackModel.items.length} item${StackModel.items.length === 1 ? "" : "s"}`;
+    }
+    function initQueueTopic() {
+      $("#controlsTransport").style.display = "none";
+      $("#controlsTransport").innerHTML = "";
+      seedQueue();
+      const el = $("#controlsAction");
+      el.style.display = "flex";
+      el.innerHTML = `
+    <div class="field-inline"><label>value</label><input type="number" id="valueInput" style="width:90px" placeholder="42"></div>
