@@ -5478,3 +5478,23 @@ $("#main").scrollTop = 0;
     <div class="control-divider"></div>
     <button class="btn-text" id="btnClearStruct">Clear</button>
   `;
+  $("#btnPushFront").addEventListener("click", () => {
+        const v = readValueInput(); if (v === null) return;
+        dequePushFront(v); renderDequeViz();
+        setConsoleMessage(`Pushed ${v} to the front.`);
+        setActiveLine($("#codeBody"), "push_front");
+      });
+      $("#btnPushBack").addEventListener("click", () => {
+        const v = readValueInput(); if (v === null) return;
+        dequePushBack(v); renderDequeViz();
+        setConsoleMessage(`Pushed ${v} to the back.`);
+        setActiveLine($("#codeBody"), "push_back");
+      });
+      $("#btnPopFront").addEventListener("click", () => {
+        if (!DequeModel.items.length) { setConsoleMessage("Deque is empty."); setActiveLine($("#codeBody"), "empty"); return; }
+        const v = dequePopFront(); renderDequeViz();
+        setConsoleMessage(`Popped ${v.value} from the front.`);
+        setActiveLine($("#codeBody"), "pop_front");
+      });
+      $("#btnPopBack").addEventListener("click", () => {
+        if (!DequeModel.items.length) { setConsoleMessage("Deque is empty."); setActiveLine($("#codeBody"), "empty"); return; }
