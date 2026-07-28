@@ -5598,3 +5598,23 @@ $("#main").scrollTop = 0;
         HeapModel.items = r.items;
         annotateQuiz("heap", r.steps, {});
         setSteps(r.steps);
+        });
+      $("#btnResetHeap").addEventListener("click", () => {
+        seedHeap();
+        setSteps([mkHeapStep(HeapModel.items, { message: "Heap reset to the default example." })]);
+      });
+      renderTransportControls();
+      setSteps([mkHeapStep(HeapModel.items, { message: "Max-heap ready \u2014 insert a value or extract the max." })]);
+    }
+    function initHanoiTopic() {
+      const el = $("#controlsAction");
+      el.style.display = "flex";
+      el.innerHTML = `
+    <div class="field-inline"><label>disks</label><input type="number" id="diskCountInput" min="1" max="7" value="4" style="width:60px"></div>
+    <button class="btn-text btn-primary" id="btnSolveHanoi">Solve</button>
+  `;
+      $("#btnSolveHanoi").addEventListener("click", runHanoi);
+      renderTransportControls();
+      runHanoi();
+    }
+    function runHanoi() {
