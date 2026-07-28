@@ -1158,7 +1158,7 @@
     .viz-sorted {
       fill: var(--accent-green);
       stroke: var(--accent-green);
-      }
+    }
 
     .viz-pivot {
       fill: var(--accent-purple);
@@ -1178,7 +1178,7 @@
     .viz-visited {
       fill: var(--accent-purple-dim);
       stroke: var(--accent-purple);
-      }
+    }
 
     .viz-dim {
       opacity: 0.32;
@@ -1258,7 +1258,7 @@
 
     .tree-node-label {
       font-size: 11.5px;
-      }
+    }
 
     .empty-msg {
       fill: var(--text-dim);
@@ -1298,7 +1298,7 @@
 
     .hanoi-disk-group {
       transition: transform 0.55s cubic-bezier(0.34, 1.1, 0.64, 1);
-       }
+    }
 
     .hanoi-disk-group.hanoi-disk-moving {
       transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1);
@@ -1318,7 +1318,7 @@
       stroke: var(--accent-green);
     }
 
-     .hanoi-disk-3 {
+    .hanoi-disk-3 {
       fill: var(--accent-orange);
       stroke: var(--accent-orange);
     }
@@ -1378,7 +1378,7 @@
       border-radius: 50%;
       background: var(--text-dim);
       transition: transform var(--transition-fast), background var(--transition-fast);
-       }
+    }
 
     .learn-switch.on {
       background: var(--accent-green-dim);
@@ -1438,7 +1438,7 @@
       display: flex;
       gap: 10px;
       align-items: baseline;
-      }
+    }
 
     .quiz-icon {
       color: var(--accent-blue);
@@ -1518,7 +1518,7 @@
     @media (max-width: 860px) {
       .sidebar-toggle {
         display: flex;
-        }
+      }
 
       .titlebar-hint {
         display: none;
@@ -1658,7 +1658,7 @@
           </svg></button>
         <div class="titlebar-title" id="titlebarHome"><strong>sun_visualizer</strong>.run()<span
             class="titlebar-cursor"></span></div>
-             <div class="titlebar-spacer"></div>
+        <div class="titlebar-spacer"></div>
         <div class="learn-toggle" id="learnToggle">
           <span class="learn-toggle-label">learn_mode</span>
           <button class="learn-switch" id="learnSwitch" aria-label="Toggle learn mode"></button>
@@ -1758,7 +1758,7 @@
         id: "insertion_sort", category: "sorting", name: "Insertion Sort",
         desc: "Builds a sorted region on the left by picking up the next value and sliding it into its correct place.",
         complexity: { time: "O(n\u00B2)", space: "O(1)", stable: true },
-         vizType: "array", algo: "insertionSortSteps",
+        vizType: "array", algo: "insertionSortSteps",
       },
       {
         id: "merge_sort", category: "sorting", name: "Merge Sort",
@@ -1898,7 +1898,7 @@
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]  # @phase:swap
     return arr`,
         java: `static void bubbleSort(int[] arr) {
-        int n = arr.length;
+    int n = arr.length;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {           // @phase:compare
@@ -1918,7 +1918,7 @@
             }
         }
     }
-        }`,
+}`,
       },
       selection_sort: {
         python: `def selection_sort(arr):
@@ -1938,7 +1938,7 @@
             if (arr[j] < arr[minIdx]) {          // @phase:compare
                 minIdx = j;                       // @phase:newmin
             }
-                }
+        }
         int temp = arr[i];                        // @phase:swap
         arr[i] = arr[minIdx];
         arr[minIdx] = temp;
@@ -1978,7 +1978,7 @@
         arr[j + 1] = key;                          // @phase:place
     }
 }`,
-cpp: `void insertionSort(vector<int>& arr) {
+        cpp: `void insertionSort(vector<int>& arr) {
     for (int i = 1; i < (int)arr.size(); i++) {
         int key = arr[i];                          // @phase:current
         int j = i - 1;
@@ -1998,7 +1998,7 @@ cpp: `void insertionSort(vector<int>& arr) {
     merge_sort(arr, lo, mid)                      # @phase:split
     merge_sort(arr, mid + 1, hi)                  # @phase:split
     merge(arr, lo, mid, hi)
-    def merge(arr, lo, mid, hi):
+def merge(arr, lo, mid, hi):
     left = arr[lo:mid + 1]
     right = arr[mid + 1:hi + 1]
     i = j = 0
@@ -2038,7 +2038,7 @@ static void merge(int[] arr, int lo, int mid, int hi) {
 }`,
         cpp: `void merge(vector<int>& arr, int lo, int mid, int hi) {
     vector<int> left(arr.begin() + lo, arr.begin() + mid + 1);
-      vector<int> right(arr.begin() + mid + 1, arr.begin() + hi + 1);
+    vector<int> right(arr.begin() + mid + 1, arr.begin() + hi + 1);
     int i = 0, j = 0, k = lo;
     while (i < (int)left.size() && j < (int)right.size()) {
         if (left[i] <= right[j]) {                  // @phase:compare
@@ -2078,7 +2078,7 @@ def partition(arr, lo, hi):
         int p = partition(arr, lo, hi);
         quickSort(arr, lo, p - 1);
         quickSort(arr, p + 1, hi);
-         }
+    }
 }
 static int partition(int[] arr, int lo, int hi) {
     int pivot = arr[hi];                             // @phase:pivot
@@ -2137,7 +2137,7 @@ void quickSort(vector<int>& arr, int lo, int hi) {
       },
       binary_search: {
         python: `def binary_search(arr, target):
-    lo, hi = 0, len(arr) - 1   
+    lo, hi = 0, len(arr) - 1
     while lo <= hi:
         mid = (lo + hi) // 2
         if arr[mid] == target:                        # @phase:compare
@@ -2158,7 +2158,7 @@ void quickSort(vector<int>& arr, int lo, int hi) {
         } else {
             hi = mid - 1;                                 // @phase:range
         }
-            }
+    }
     return -1;                                            // @phase:notfound
 }`,
         cpp: `int binarySearch(vector<int>& arr, int target) {
@@ -2178,7 +2178,7 @@ void quickSort(vector<int>& arr, int lo, int hi) {
       },
       stack: {
         python: `class Stack:
-        def __init__(self):
+    def __init__(self):
         self.items = []
     def push(self, value):
         self.items.append(value)                     # @phase:push
@@ -2198,7 +2198,7 @@ void quickSort(vector<int>& arr, int lo, int hi) {
     int pop() {
         if (isEmpty()) throw new RuntimeException("Stack is empty"); // @phase:empty
         return items.remove(items.size() - 1);           // @phase:pop
-        }
+    }
     int peek() {
         return items.get(items.size() - 1);               // @phase:peek
     }
@@ -2218,7 +2218,7 @@ public:
         items.pop_back();                                  // @phase:pop
         return top;
     }
-        int peek() {
+    int peek() {
         return items.back();                                // @phase:peek
     }
     bool isEmpty() {
@@ -2238,7 +2238,7 @@ public:
         return self.items.pop(0)                         # @phase:dequeue
     def peek(self):
         return self.items[0]                              # @phase:peek
-         def is_empty(self):
+    def is_empty(self):
         return len(self.items) == 0`,
         java: `class Queue {
     private LinkedList<Integer> items = new LinkedList<>();
@@ -2258,7 +2258,7 @@ public:
 }`,
         cpp: `class Queue {
     deque<int> items;
-      public:
+public:
     void enqueue(int value) {
         items.push_back(value);                           // @phase:enqueue
     }
@@ -2278,7 +2278,7 @@ public:
       },
       linked_list: {
         python: `class Node:
-        def __init__(self, value):
+    def __init__(self, value):
         self.value = value
         self.next = None
 class LinkedList:
@@ -2298,7 +2298,7 @@ class LinkedList:
             cur = cur.next
         cur.next = node                                   # @phase:insert_tail
     def delete(self, value):
-    if not self.head:
+        if not self.head:
             return
         if self.head.value == value:                      # @phase:search
             self.head = self.head.next                     # @phase:delete
@@ -2318,7 +2318,7 @@ class LinkedList:
         java: `class Node {
     int value;
     Node next;
-     Node(int value) { this.value = value; }
+    Node(int value) { this.value = value; }
 }
 class LinkedList {
     Node head;
@@ -2338,7 +2338,7 @@ class LinkedList {
             cur = cur.next;
         }
         cur.next = node;                                      // @phase:insert_tail
-        }
+    }
     void delete(int value) {
         if (head == null) return;
         if (head.value == value) {                             // @phase:search
@@ -2358,7 +2358,7 @@ class LinkedList {
         while (cur != null) {
             if (cur.value == value) return true;                 // @phase:search
             cur = cur.next;                                       // @phase:traverse
-            }
+        }
         return false;
     }
 }`,
@@ -2378,7 +2378,7 @@ public:
     void insertAtTail(int value) {
         Node* node = new Node(value);
         if (!head) {
-        head = node;                                          // @phase:insert_tail
+            head = node;                                          // @phase:insert_tail
             return;
         }
         Node* cur = head;
@@ -2398,7 +2398,7 @@ public:
         Node* cur = head;
         while (cur->next && cur->next->value != value) {            // @phase:search
             cur = cur->next;
-            }
+        }
         if (cur->next) {
             Node* temp = cur->next;
             cur->next = cur->next->next;                             // @phase:delete
@@ -2418,7 +2418,7 @@ public:
       bst: {
         python: `class Node:
     def __init__(self, value):
-    self.value = value
+        self.value = value
         self.left = None
         self.right = None
 class BST:
@@ -2438,7 +2438,7 @@ class BST:
         cur = self.root
         while cur:
             if value == cur.value:                            # @phase:found
-            return True
+                return True
             cur = cur.left if value < cur.value else cur.right # @phase:compare
         return False
     def inorder(self, node, out):
@@ -2478,7 +2478,7 @@ class BST {
         inorder(node.left, out);
         out.add(node.value);                                        // @phase:visit
         inorder(node.right, out);
-        }
+    }
 }`,
         cpp: `struct Node {
     int value;
@@ -2498,7 +2498,7 @@ class BST {
         return node;
     }
 public:
-void insert(int value) { root = insertNode(root, value); }
+    void insert(int value) { root = insertNode(root, value); }
     bool search(int value) {
         Node* cur = root;
         while (cur) {
@@ -2518,7 +2518,7 @@ void insert(int value) { root = insertNode(root, value); }
       graph_bfs: {
         python: `from collections import deque
 class Graph:
-def __init__(self):
+    def __init__(self):
         self.adj = {}
     def add_edge(self, u, v):
         self.adj.setdefault(u, []).append(v)
@@ -2538,7 +2538,7 @@ def __init__(self):
         java: `class Graph {
     Map<Integer, List<Integer>> adj = new HashMap<>();
     void addEdge(int u, int v) {
-    adj.computeIfAbsent(u, k -> new ArrayList<>()).add(v);
+        adj.computeIfAbsent(u, k -> new ArrayList<>()).add(v);
         adj.computeIfAbsent(v, k -> new ArrayList<>()).add(u);
     }
     List<Integer> bfs(int start) {
@@ -2558,7 +2558,7 @@ def __init__(self):
             }
         }
         return order;
-        }
+    }
 }`,
         cpp: `class Graph {
     unordered_map<int, vector<int>> adj;
@@ -2578,7 +2578,7 @@ public:
             order.push_back(node);
             for (int neighbor : adj[node]) {                             // @phase:neighbor
                 if (!visited.count(neighbor)) {
-                visited.insert(neighbor);                               // @phase:visit
+                    visited.insert(neighbor);                               // @phase:visit
                     q.push(neighbor);                                        // @phase:enqueue
                 }
             }
@@ -2596,7 +2596,7 @@ public:
         self.adj.setdefault(v, []).append(u)
     def dfs(self, node, visited=None, order=None):
         if visited is None:
-                  visited, order = set(), []
+            visited, order = set(), []
         visited.add(node)                                             # @phase:visit
         order.append(node)
         for neighbor in self.adj.get(node, []):                         # @phase:neighbor
@@ -2618,7 +2618,7 @@ public:
             }
         }
     }
-        }`,
+}`,
         cpp: `class Graph {
     unordered_map<int, vector<int>> adj;
 public:
@@ -2658,7 +2658,7 @@ public:
         } else if (total < target) {
             lo++;                                          // @phase:moveright
         } else {
-         hi--;                                          // @phase:moveleft
+            hi--;                                          // @phase:moveleft
         }
     }
     return null;                                           // @phase:notfound
@@ -2698,7 +2698,7 @@ public:
         }
     }
     return best;
-    }`,
+}`,
         cpp: `int maxSumSubarray(vector<int>& arr, int k) {
     int windowSum = 0;
     for (int i = 0; i < k; i++) windowSum += arr[i];      // @phase:window
@@ -2718,7 +2718,7 @@ public:
     max_so_far = arr[0]
     for i in range(1, len(arr)):
         if arr[i] > max_ending_here + arr[i]:
-        max_ending_here = arr[i]                     # @phase:reset
+            max_ending_here = arr[i]                     # @phase:reset
         else:
             max_ending_here += arr[i]                     # @phase:extend
         max_so_far = max(max_so_far, max_ending_here)
@@ -2758,7 +2758,7 @@ public:
         self.next = None
 class DoublyLinkedList:
     def __init__(self):
-    self.head = None
+        self.head = None
         self.tail = None
     def insert_at_head(self, value):
         node = Node(value)
@@ -2778,7 +2778,7 @@ class DoublyLinkedList:
         self.tail = node                                  # @phase:insert_tail
     def delete(self, value):
         cur = self.head
-         while cur and cur.value != value:                 # @phase:search
+        while cur and cur.value != value:                 # @phase:search
             cur = cur.next
         if not cur:
             return
@@ -2798,7 +2798,7 @@ class DoublyLinkedList:
 class DoublyLinkedList {
     Node head, tail;
     void insertAtHead(int value) {
-    Node node = new Node(value);
+        Node node = new Node(value);
         node.next = head;                                    // @phase:insert_head
         if (head != null) head.prev = node; else tail = node;
         head = node;                                          // @phase:insert_head
@@ -2838,7 +2838,7 @@ public:
         head = node;                                            // @phase:insert_head
     }
     void insertAtTail(int value) {
-    Node* node = new Node(value);
+        Node* node = new Node(value);
         node->prev = tail;                                      // @phase:insert_tail
         if (tail) tail->next = node; else head = node;
         tail = node;                                             // @phase:insert_tail
@@ -2878,7 +2878,7 @@ public:
         self.size -= 1
         return value`,
         java: `class CircularQueue {
-        int[] data;
+    int[] data;
     int capacity, front = 0, size = 0;
     CircularQueue(int capacity) {
         this.capacity = capacity;
@@ -2898,7 +2898,7 @@ public:
         return value;
     }
 }`,
- cpp: `class CircularQueue {
+        cpp: `class CircularQueue {
     vector<int> data;
     int capacity, front = 0, size = 0;
 public:
@@ -2918,7 +2918,7 @@ public:
     }
 };`,
       },
-       deque: {
+      deque: {
         python: `from collections import deque as Deque
 class MyDeque:
     def __init__(self):
@@ -2938,7 +2938,7 @@ class MyDeque:
         java: `class MyDeque {
     Deque<Integer> items = new ArrayDeque<>();
     void pushFront(int value) {
-     items.addFirst(value);                            // @phase:push_front
+        items.addFirst(value);                            // @phase:push_front
     }
     void pushBack(int value) {
         items.addLast(value);                              // @phase:push_back
@@ -2958,7 +2958,7 @@ public:
     void pushFront(int value) {
         items.push_front(value);                            // @phase:push_front
     }
-        void pushBack(int value) {
+    void pushBack(int value) {
         items.push_back(value);                              // @phase:push_back
     }
     int popFront() {
@@ -2978,7 +2978,7 @@ public:
       heap: {
         python: `class MaxHeap:
     def __init__(self):
-    self.data = []
+        self.data = []
     def insert(self, value):
         self.data.append(value)                          # @phase:insert
         i = len(self.data) - 1
@@ -3018,7 +3018,7 @@ public:
                 Collections.swap(data, i, parent);             // @phase:swap
                 i = parent;
             } else break;
-             }
+        }
     }
     int extractMax() {
         int top = data.get(0);                                // @phase:found
@@ -3038,7 +3038,7 @@ public:
         return top;
     }
 }`,
-cpp: `class MaxHeap {
+        cpp: `class MaxHeap {
     vector<int> data;
 public:
     void insert(int value) {
@@ -3058,7 +3058,7 @@ public:
         data.pop_back();
         int i = 0, n = data.size();
         while (true) {
-        int left = 2 * i + 1, right = 2 * i + 2, largest = i;
+            int left = 2 * i + 1, right = 2 * i + 2, largest = i;
             if (left < n && data[left] > data[largest]) largest = left;
             if (right < n && data[right] > data[largest]) largest = right;
             if (largest == i) break;
@@ -3138,7 +3138,7 @@ def dijkstra(adj, start):
     print(f"Move disk {n} from {source} to {target}")      # @phase:move
     hanoi(n - 1, auxiliary, target, source)                # @phase:recurse`,
         java: `static void hanoi(int n, char source, char target, char auxiliary) {
-        if (n == 0) return;
+    if (n == 0) return;
     hanoi(n - 1, source, auxiliary, target);                 // @phase:recurse
     System.out.println("Move disk " + n + " from " + source + " to " + target); // @phase:move
     hanoi(n - 1, auxiliary, target, source);                  // @phase:recurse
@@ -3158,7 +3158,7 @@ def dijkstra(adj, start):
         java: `static int fib(int n) {
     if (n <= 1) {                                           // @phase:base
         return n;
-        }
+    }
     return fib(n - 1) + fib(n - 2);                          // @phase:call
 }`,
         cpp: `int fib(int n) {
@@ -3198,7 +3198,7 @@ def dijkstra(adj, start):
               message: `${a} > ${b}, so swap them`,
             }));
           }
-           }
+        }
         sortedIds.unshift(order[n - 1 - i]);
         steps.push(mkStep(order, {
           sorted: sortedIds.slice(), phase: "sorted",
@@ -3238,7 +3238,7 @@ def dijkstra(adj, start):
           steps.push(mkStep(order, {
             swap: [order[i], order[minIdx]], sorted: sortedIds.slice(), phase: "swap",
             message: `Swap ${values[order[i]]} and ${values[order[minIdx]]} into position ${i}`,
-            }));
+          }));
           [order[i], order[minIdx]] = [order[minIdx], order[i]];
         }
         sortedIds.push(order[i]);
@@ -3258,7 +3258,7 @@ def dijkstra(adj, start):
           message: `Pick up ${values[keyId]} to insert into the sorted portion`,
         }));
         let j = i;
-         while (j > 0 && values[order[j - 1]] > values[order[j]]) {
+        while (j > 0 && values[order[j - 1]] > values[order[j]]) {
           steps.push(mkStep(order, {
             compare: [order[j - 1], order[j]], current: [keyId], phase: "compare",
             message: `${values[order[j - 1]]} > ${values[keyId]}, shift it right`,
@@ -3298,7 +3298,7 @@ def dijkstra(adj, start):
         const left = order.slice(lo, mid + 1);
         const right = order.slice(mid + 1, hi + 1);
         let i = 0, j = 0;
-         const merged = [];
+        const merged = [];
         steps.push(mkStep(snapshot(lo, merged, left.slice(i).concat(right.slice(j))), {
           range: [lo, hi], phase: "merge", message: `Merging [${lo}..${mid}] with [${mid + 1}..${hi}]`,
         }));
@@ -3398,7 +3398,7 @@ def dijkstra(adj, start):
         if (values[mid] === target) {
           steps.push(mkStep(order, { found: [order[mid]], range: [lo, hi], phase: "found", message: `Found ${target} at index ${mid}!` }));
           return steps;
-          } else if (values[mid] < target) {
+        } else if (values[mid] < target) {
           steps.push(mkStep(order, { range: [mid + 1, hi], phase: "range", message: `${values[mid]} < ${target}, so search the right half` }));
           lo = mid + 1;
         } else {
@@ -3438,7 +3438,7 @@ def dijkstra(adj, start):
     function slidingWindowSteps(values, k) {
       const order = values.map((_, i) => i);
       const steps = [];
-       k = Math.max(1, Math.min(k || 3, values.length));
+      k = Math.max(1, Math.min(k || 3, values.length));
       let windowSum = 0;
       for (let i = 0; i < k; i++) windowSum += values[i];
       let best = windowSum, bestStart = 0;
@@ -3478,7 +3478,7 @@ def dijkstra(adj, start):
       return steps;
     }
     Object.assign(ALGORITHMS, { twoPointerSteps, slidingWindowSteps, kadaneSteps });
-     if (typeof module !== "undefined" && module.exports) {
+    if (typeof module !== "undefined" && module.exports) {
       module.exports = {
         bubbleSortSteps, selectionSortSteps, insertionSortSteps, mergeSortSteps, quickSortSteps,
         linearSearchSteps, binarySearchSteps, twoPointerSteps, slidingWindowSteps, kadaneSteps,
@@ -3618,7 +3618,7 @@ def dijkstra(adj, start):
       svg._label_rear = null;
       svg._label_head = null;
       svg._label_null = null;
-      }
+    }
     function computeBSTLayout(nodes, rootId, viewWidth) {
       const positions = {};
       let counter = 0;
@@ -3678,7 +3678,7 @@ def dijkstra(adj, start):
           if (childId !== null && childId !== undefined && pos[childId]) {
             edgeLayer.appendChild(svgEl("line", {
               x1: pos[id].x, y1: pos[id].y, x2: pos[childId].x, y2: pos[childId].y, class: "tree-edge",
-              }));
+            }));
           }
         });
       });
@@ -3698,7 +3698,7 @@ def dijkstra(adj, start):
     function computeGraphLayout(n, viewW, viewH) {
       const cx = viewW / 2, cy = viewH / 2 + 6;
       const radius = Math.min(viewW, viewH) / 2 - 60;
-       const pos = {};
+      const pos = {};
       for (let i = 0; i < n; i++) {
         const angle = (i * 2 * Math.PI) / n - Math.PI / 2;
         pos[i] = { x: cx + radius * Math.cos(angle), y: cy + radius * Math.sin(angle) };
@@ -3798,7 +3798,7 @@ def dijkstra(adj, start):
           highlighted = window.hljs ? hljs.highlight(line.text, { language: langMeta.hljs }).value : escapeHtml(line.text);
         } catch (e) {
           highlighted = escapeHtml(line.text);
-          }
+        }
         codeText.innerHTML = line.text.length ? highlighted : "&nbsp;";
         row.appendChild(ln);
         row.appendChild(codeText);
@@ -3878,7 +3878,7 @@ def dijkstra(adj, start):
         g.appendChild(text);
         nodeLayer.appendChild(g);
       });
-      }
+    }
     function initHanoiViz(svg, n) {
       svg.innerHTML = "";
       svg.setAttribute("viewBox", "0 0 700 320");
@@ -3918,7 +3918,7 @@ def dijkstra(adj, start):
           el.setAttribute("class", `hanoi-disk-group${step.disk === size ? " hanoi-disk-moving" : ""}`);
         });
       });
-      }
+    }
     const StackModel = { items: [], nextId: 1 };
     function stackPush(value) { StackModel.items.push({ id: StackModel.nextId++, value }); }
     function stackPop() { return StackModel.items.pop(); }
@@ -3938,7 +3938,7 @@ def dijkstra(adj, start):
       const idx = ListModel.items.findIndex(it => it.value === value);
       if (idx !== -1) { ListModel.items.splice(idx, 1); return true; }
       return false;
-      }
+    }
     function listSearch(value) { return ListModel.items.findIndex(it => it.value === value); }
     function listClear() { ListModel.items = []; ListModel.nextId = 1; }
     function seedList() { listClear();[10, 20, 30].forEach(listInsertTail); }
@@ -3998,7 +3998,7 @@ def dijkstra(adj, start):
         const cur = nodes[curId];
         steps.push(mkTreeStep(nodes, rootId, { compare: [curId], phase: "compare", message: `Compare ${value} with ${cur.value}` }));
         if (value === cur.value) {
-        steps.push(mkTreeStep(nodes, rootId, { compare: [curId], message: `${value} is already in the tree \u2014 no duplicate inserted` }));
+          steps.push(mkTreeStep(nodes, rootId, { compare: [curId], message: `${value} is already in the tree \u2014 no duplicate inserted` }));
           return { steps, nodes, rootId };
         } else if (value < cur.value) {
           if (cur.left === null) {
@@ -4018,7 +4018,7 @@ def dijkstra(adj, start):
             return { steps, nodes, rootId };
           }
           curId = cur.right;
-          }
+        }
       }
     }
     function bstSearchSteps(nodesIn, rootId, value) {
@@ -4078,7 +4078,7 @@ def dijkstra(adj, start):
     }
     function buildSampleGraph() {
       const labels = ["A", "B", "C", "D", "E", "F", "G", "H"];
-       const edgeList = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 0], [0, 3], [1, 5], [2, 6]];
+      const edgeList = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 0], [0, 3], [1, 5], [2, 6]];
       const adj = {};
       labels.forEach((_, i) => { adj[i] = []; });
       edgeList.forEach(([a, b]) => { adj[a].push(b); adj[b].push(a); });
@@ -4178,7 +4178,7 @@ def dijkstra(adj, start):
     function dlistInsertTail(value) { DListModel.items.push({ id: DListModel.nextId++, value }); }
     function dlistDelete(value) {
       const idx = DListModel.items.findIndex(it => it.value === value);
-       if (idx !== -1) { DListModel.items.splice(idx, 1); return true; }
+      if (idx !== -1) { DListModel.items.splice(idx, 1); return true; }
       return false;
     }
     function dlistSearch(value) { return DListModel.items.findIndex(it => it.value === value); }
@@ -4198,7 +4198,7 @@ def dijkstra(adj, start):
       CQueueModel.data[rear] = { id: CQueueModel.nextId++, value };
       CQueueModel.size++;
       return true;
-      }
+    }
     function cqueueDequeue() {
       if (CQueueModel.size === 0) return null;
       const item = CQueueModel.data[CQueueModel.front];
@@ -4358,7 +4358,7 @@ def dijkstra(adj, start):
           `Will ${a} and ${b} be swapped?`,
           ["Yes \u2014 swap them", "No \u2014 leave them in place"],
           willSwap ? 0 : 1,
-        willSwap ? `${a} > ${b}, so they're out of order.` : `${a} \u2264 ${b}, already in the right order.`
+          willSwap ? `${a} > ${b}, so they're out of order.` : `${a} \u2264 ${b}, already in the right order.`
         );
       });
     }
@@ -4458,7 +4458,7 @@ def dijkstra(adj, start):
           `${a} + ${b} = ${sum}. Compared to target ${target}?`,
           ["Exact match \u2014 found it!", "Too high \u2014 move the right pointer left", "Too low \u2014 move the left pointer right"],
           correctIndex, explanation
-          );
+        );
       });
     }
     function annotateKadane(steps, values) {
@@ -4518,7 +4518,7 @@ def dijkstra(adj, start):
           alreadyVisited ? `${label} is already in the visited set, so it's skipped.` : `${label} hasn't been seen yet, so it gets added.`
         );
       });
-      }
+    }
     function annotateDijkstra(steps, graph) {
       steps.forEach(s => {
         if (s.phase !== "neighbor" || s.checking === null || s.current === null) return;
@@ -4598,7 +4598,7 @@ def dijkstra(adj, start):
       };
     }
     const App = {
-    currentTopicId: null,
+      currentTopicId: null,
       currentLang: "python",
       steps: [],
       stepIndex: 0,
@@ -4718,7 +4718,7 @@ def dijkstra(adj, start):
       $("#loadingScreen").style.display = "flex";
       $("#mainShell").style.display = "none";
     }
-     function showCatalogueScreen() {
+    function showCatalogueScreen() {
       $("#loadingScreen").style.display = "none";
       $("#mainShell").style.display = "flex";
       $("#mainShell").classList.add("catalogue-active");
@@ -4758,7 +4758,7 @@ def dijkstra(adj, start):
         $("#topicView").style.display = "block";
         updateSidebarActive();
         renderTopicHeader(topic);
-$("#main").scrollTop = 0;
+        $("#main").scrollTop = 0;
       }, 4000);
       renderCodeTabs(topic);
       $("#extraPanel").style.display = "none";
@@ -4778,7 +4778,7 @@ $("#main").scrollTop = 0;
       else if (topic.vizType === "hanoi") initHanoiTopic(topic);
       else if (topic.vizType === "recursion") initRecursionTopic();
       $("#main").scrollTop = 0;
-      }
+    }
     function renderTopicHeader(topic) {
       const cat = CATEGORIES.find(c => c.id === topic.category);
       $("#breadcrumb").innerHTML = `<button class="breadcrumb-home" id="breadcrumbHome">dsa</button><span class="sep">/</span>${cat.label.replace("/", "")}<span class="sep">/</span><span class="current">${topic.id}</span>`;
@@ -4798,7 +4798,7 @@ $("#main").scrollTop = 0;
         const btn = document.createElement("button");
         btn.className = "code-tab" + (l.id === App.currentLang ? " active" : "");
         btn.innerHTML = `<span class="code-tab-dot" style="background:${l.color}"></span>${topic.id}${l.ext}`;
-         btn.addEventListener("click", () => {
+        btn.addEventListener("click", () => {
           App.currentLang = l.id;
           $$(".code-tab").forEach(t => t.classList.remove("active"));
           btn.classList.add("active");
@@ -4878,7 +4878,7 @@ $("#main").scrollTop = 0;
     function startPlayback() {
       if (!App.steps.length) return;
       if (App.stepIndex >= App.steps.length - 1) App.stepIndex = 0;
-       App.playing = true;
+      App.playing = true;
       updateTransportUI();
       scheduleNext();
     }
@@ -4938,7 +4938,7 @@ $("#main").scrollTop = 0;
       $("#btnPlayPause").addEventListener("click", togglePlay);
       $("#btnResetSteps").addEventListener("click", resetSteps);
       $("#speedSlider").addEventListener("input", e => { App.speed = Number(e.target.value); if (App.playing) scheduleNext(); });
-      }
+    }
     function maybeTriggerQuiz() {
       if (!App.learnMode) return false;
       const step = App.steps[App.stepIndex];
@@ -5038,7 +5038,7 @@ $("#main").scrollTop = 0;
         const k = Math.min(3, values.length - 1) || 2;
         $("#windowInput").value = k;
         loadArraySteps(topic, values, k);
-        } else {
+      } else {
         loadArraySteps(topic, values);
       }
     }
@@ -5218,7 +5218,7 @@ $("#main").scrollTop = 0;
       setConsoleMessage("Push a value onto the stack, or pop the top one off.");
     }
     function renderStackViz() {
-    const svg = $("#vizSvg");
+      const svg = $("#vizSvg");
       svg.setAttribute("viewBox", "0 0 320 420");
       svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
       const boxSize = { w: 156, h: 52 };
@@ -5458,7 +5458,7 @@ $("#main").scrollTop = 0;
           const lbl = svgEl("text", { class: "bar-index", "text-anchor": "middle", y: -boxSize / 2 - 10, "font-weight": "700" });
           lbl.textContent = isFront ? "FRONT" : "REAR";
           g.appendChild(lbl);
-          }
+        }
         svg.appendChild(g);
       }
       $("#vizSubLabel").textContent = `${CQueueModel.size} / ${CQueueModel.capacity} filled`;
@@ -5478,7 +5478,7 @@ $("#main").scrollTop = 0;
     <div class="control-divider"></div>
     <button class="btn-text" id="btnClearStruct">Clear</button>
   `;
-  $("#btnPushFront").addEventListener("click", () => {
+      $("#btnPushFront").addEventListener("click", () => {
         const v = readValueInput(); if (v === null) return;
         dequePushFront(v); renderDequeViz();
         setConsoleMessage(`Pushed ${v} to the front.`);
@@ -5598,7 +5598,7 @@ $("#main").scrollTop = 0;
         HeapModel.items = r.items;
         annotateQuiz("heap", r.steps, {});
         setSteps(r.steps);
-        });
+      });
       $("#btnResetHeap").addEventListener("click", () => {
         seedHeap();
         setSteps([mkHeapStep(HeapModel.items, { message: "Heap reset to the default example." })]);
@@ -5638,7 +5638,7 @@ $("#main").scrollTop = 0;
       $("#btnRunFib").addEventListener("click", runFib);
       renderTransportControls();
       runFib();
-      }
+    }
     function runFib() {
       let n = Number($("#fibInput").value);
       if (Number.isNaN(n) || n < 0) n = 5;
@@ -5658,7 +5658,7 @@ $("#main").scrollTop = 0;
     </div>
     <button class="btn-text btn-primary" id="btnRunTraversal">${btnLabel}</button>
   `;
-  $("#startNodeSelect").addEventListener("change", e => { App.graphStart = Number(e.target.value); });
+      $("#startNodeSelect").addEventListener("change", e => { App.graphStart = Number(e.target.value); });
       $("#btnRunTraversal").addEventListener("click", () => runGraphTraversal(topic));
       renderTransportControls();
       runGraphTraversal(topic);
@@ -5698,7 +5698,8 @@ $("#main").scrollTop = 0;
     }
     function closeMobileSidebar() {
       $("#sidebar").classList.remove("open");
-      }
+      $("#scrim").classList.remove("open");
+    }
     function init() {
       buildSidebar();
       buildCatalogue();
