@@ -5678,3 +5678,23 @@ $("#main").scrollTop = 0;
         const chips = SampleGraph.labels.map((l, i) => {
           const d = step.distances[i];
           const shown = d === undefined || d === Infinity ? "\u221E" : d;
+          return `<span class="seq-item">${l}:${shown}</span>`;
+        }).join("");
+        rows.push(`<div class="traverse-output"><span class="label">Distances:</span>${chips}</div>`);
+      }
+      if (step.queue && step.queue.length) rows.push(`<div class="traverse-output"><span class="label">Queue:</span>${step.queue.map(i => `<span class="seq-item">${SampleGraph.labels[i]}</span>`).join("")}</div>`);
+      if (step.callStack && step.callStack.length) rows.push(`<div class="traverse-output"><span class="label">Call stack:</span>${step.callStack.map(i => `<span class="seq-item">${SampleGraph.labels[i]}</span>`).join("")}</div>`);
+      if (!showDistances && step.order && step.order.length) rows.push(`<div class="traverse-output"><span class="label">Visited order:</span>${step.order.map(i => `<span class="seq-item">${SampleGraph.labels[i]}</span>`).join("")}</div>`);
+      if (!rows.length) { panel.style.display = "none"; panel.innerHTML = ""; return; }
+      panel.style.display = "block";
+      panel.innerHTML = rows.join("");
+    }
+    function initMobileSidebar() {
+      $("#sidebarToggle").addEventListener("click", () => {
+        $("#sidebar").classList.toggle("open");
+        $("#scrim").classList.toggle("open");
+      });
+      $("#scrim").addEventListener("click", closeMobileSidebar);
+    }
+    function closeMobileSidebar() {
+      $("#sidebar").classList.remove("open");
