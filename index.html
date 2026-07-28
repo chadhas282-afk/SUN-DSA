@@ -5498,3 +5498,23 @@ $("#main").scrollTop = 0;
       });
       $("#btnPopBack").addEventListener("click", () => {
         if (!DequeModel.items.length) { setConsoleMessage("Deque is empty."); setActiveLine($("#codeBody"), "empty"); return; }
+        const v = dequePopBack(); renderDequeViz();
+        setConsoleMessage(`Popped ${v.value} from the back.`);
+        setActiveLine($("#codeBody"), "pop_back");
+      });
+      $("#btnClearStruct").addEventListener("click", () => { dequeClear(); renderDequeViz(); setConsoleMessage("Deque cleared."); setActiveLine($("#codeBody"), null); });
+      renderDequeViz();
+      setConsoleMessage("Push or pop from either end.");
+    }
+    function renderDequeViz() {
+      const svg = $("#vizSvg");
+      svg.setAttribute("viewBox", "0 0 900 200");
+      svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+      const boxSize = { w: 84, h: 64 };
+      const startX = 90, gapX = 104, y = 110;
+      const items = DequeModel.items.map((it, idx) => ({
+        id: it.id, value: it.value,
+        stateClass: idx === 0 ? "viz-current" : (idx === DequeModel.items.length - 1 ? "viz-compare" : "viz-default"),
+      }));
+      diffRenderBoxes(svg, items, idx => ({ x: startX + idx * gapX, y }), boxSize);
+      renderEdgeLabel(svg, "front", items.length ? { x: startX, y: y - 56 } : null, "FRONT");
