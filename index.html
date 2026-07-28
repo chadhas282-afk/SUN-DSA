@@ -5318,3 +5318,23 @@ $("#main").scrollTop = 0;
       });
       $("#btnSearchList").addEventListener("click", () => {
         const v = readValueInput(); if (v === null) return;
+        const idx = listSearch(v);
+        renderListViz(idx === -1 ? undefined : idx);
+        setConsoleMessage(idx !== -1 ? `Found ${v} at position ${idx}.` : `${v} isn't in the list.`);
+        setActiveLine($("#codeBody"), "search");
+      });
+      $("#btnClearStruct").addEventListener("click", () => { listClear(); renderListViz(); setConsoleMessage("List cleared."); setActiveLine($("#codeBody"), null); });
+      renderListViz();
+      setConsoleMessage("Insert at the head or tail, delete a value, or search for one.");
+    }
+    function renderListViz(highlightIdx) {
+      const svg = $("#vizSvg");
+      svg.setAttribute("viewBox", "0 0 900 220");
+      svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+      const boxSize = { w: 76, h: 58 };
+      const startX = 90, gapX = 118, y = 110;
+      const items = ListModel.items.map((it, idx) => ({
+        id: it.id, value: it.value,
+        stateClass: highlightIdx !== undefined && idx === highlightIdx ? "viz-found" : "viz-default",
+      }));
+      diffRenderBoxes(svg, items, idx => ({ x: startX + idx * gapX, y }), boxSize);
