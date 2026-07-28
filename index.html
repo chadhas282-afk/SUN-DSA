@@ -5358,3 +5358,23 @@ $("#main").scrollTop = 0;
     <button class="btn-text" id="btnClearStruct">Clear</button>
   `;
       $("#btnInsertHead").addEventListener("click", () => {
+        const v = readValueInput(); if (v === null) return;
+        dlistInsertHead(v); renderDListViz();
+        setConsoleMessage(`Inserted ${v} at the head.`);
+        setActiveLine($("#codeBody"), "insert_head");
+      });
+      $("#btnInsertTail").addEventListener("click", () => {
+        const v = readValueInput(); if (v === null) return;
+        dlistInsertTail(v); renderDListViz();
+        setConsoleMessage(`Inserted ${v} at the tail.`);
+        setActiveLine($("#codeBody"), "insert_tail");
+      });
+      $("#btnDeleteVal").addEventListener("click", () => {
+        const v = readValueInput(); if (v === null) return;
+        const ok = dlistDelete(v);
+        renderDListViz();
+        setConsoleMessage(ok ? `Deleted ${v} from the list.` : `${v} isn't in the list.`);
+        setActiveLine($("#codeBody"), "delete");
+      });
+      $("#btnSearchList").addEventListener("click", () => {
+        const v = readValueInput(); if (v === null) return;
