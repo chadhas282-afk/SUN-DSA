@@ -5538,3 +5538,23 @@ $("#main").scrollTop = 0;
     <button class="btn-text" id="btnInorder">Inorder</button>
     <button class="btn-text" id="btnPreorder">Preorder</button>
     <button class="btn-text" id="btnPostorder">Postorder</button>
+    <button class="btn-text" id="btnLevelorder">Level-order</button>
+    <div class="control-divider"></div>
+    <button class="btn-text" id="btnResetTree">Reset Tree</button>
+  `;
+      $("#btnInsert").addEventListener("click", () => {
+        const v = readValueInput(); if (v === null) return;
+        const result = bstInsertSteps(BSTModel.nodes, BSTModel.rootId, v);
+        BSTModel.nodes = result.nodes; BSTModel.rootId = result.rootId;
+        annotateQuiz("bst", result.steps, { value: v });
+        setSteps(result.steps);
+      });
+      $("#btnSearchTree").addEventListener("click", () => {
+        const v = readValueInput(); if (v === null) return;
+        const steps = bstSearchSteps(BSTModel.nodes, BSTModel.rootId, v);
+        annotateQuiz("bst", steps, { value: v });
+        setSteps(steps);
+      });
+      $("#btnInorder").addEventListener("click", () => setSteps(bstTraverseSteps(BSTModel.nodes, BSTModel.rootId, "inorder")));
+      $("#btnPreorder").addEventListener("click", () => setSteps(bstTraverseSteps(BSTModel.nodes, BSTModel.rootId, "preorder")));
+      $("#btnPostorder").addEventListener("click", () => setSteps(bstTraverseSteps(BSTModel.nodes, BSTModel.rootId, "postorder")));
