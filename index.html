@@ -5698,3 +5698,22 @@ $("#main").scrollTop = 0;
     }
     function closeMobileSidebar() {
       $("#sidebar").classList.remove("open");
+      }
+    function init() {
+      buildSidebar();
+      buildCatalogue();
+      initMobileSidebar();
+      initLearnToggle();
+      $("#titlebarHome").addEventListener("click", showCatalogueScreen);
+      $("#backToCatalogue").addEventListener("click", showCatalogueScreen);
+      if ($("#backToWelcome")) {
+        $("#backToWelcome").addEventListener("click", showWelcomeScreen);
+      }
+      document.addEventListener("keydown", e => {
+        if (e.code === "Space" && document.activeElement === document.body && $("#btnPlayPause") && !App.quizActive) {
+          e.preventDefault();
+          togglePlay();
+        }
+      });
+      runBootSequence();
+    }
