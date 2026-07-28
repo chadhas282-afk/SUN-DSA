@@ -5278,3 +5278,23 @@ $("#main").scrollTop = 0;
         stateClass: idx === 0 ? "viz-current" : (idx === QueueModel.items.length - 1 ? "viz-compare" : "viz-default"),
       }));
       diffRenderBoxes(svg, items, idx => ({ x: startX + idx * gapX, y }), boxSize);
+      renderEdgeLabel(svg, "front", items.length ? { x: startX, y: y - 56 } : null, "FRONT");
+      renderEdgeLabel(svg, "rear", items.length > 1 ? { x: startX + (items.length - 1) * gapX, y: y - 56 } : null, "REAR");
+      $("#vizSubLabel").textContent = `${QueueModel.items.length} item${QueueModel.items.length === 1 ? "" : "s"}`;
+    }
+    function initListTopic() {
+      $("#controlsTransport").style.display = "none";
+      $("#controlsTransport").innerHTML = "";
+      seedList();
+      const el = $("#controlsAction");
+      el.style.display = "flex";
+      el.innerHTML = `
+    <div class="field-inline"><label>value</label><input type="number" id="valueInput" style="width:90px" placeholder="42"></div>
+    <button class="btn-text btn-primary" id="btnInsertHead">Insert Head</button>
+    <button class="btn-text btn-primary" id="btnInsertTail">Insert Tail</button>
+    <button class="btn-text" id="btnDeleteVal">Delete</button>
+    <button class="btn-text" id="btnSearchList">Search</button>
+    <div class="control-divider"></div>
+    <button class="btn-text" id="btnClearStruct">Clear</button>
+  `;
+      $("#btnInsertHead").addEventListener("click", () => {
